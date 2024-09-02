@@ -28,8 +28,8 @@ namespace NetTracApp.Services
                 using (var reader = new StreamReader(fileStream))
                 using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                 {
-                    MissingFieldFound = null,  // Ignore missing fields
-                    HeaderValidated = null,    // Ignore header validation
+                    MissingFieldFound = null,  
+                    HeaderValidated = null,    
                     BadDataFound = context =>
                     {
                         _logger.LogWarning($"Bad data found: {context.RawRecord}");
@@ -42,17 +42,17 @@ namespace NetTracApp.Services
             catch (TypeConverterException ex)
             {
                 _logger.LogError($"Data conversion error: {ex.Message}");
-                // Handle specific data conversion issues here if needed
+                
             }
             catch (CsvHelperException ex)
             {
                 _logger.LogError($"CSV parsing error: {ex.Message}");
-                // Handle generic CSV parsing errors
+                
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Unexpected error: {ex.Message}");
-                // Handle unexpected errors
+                
             }
 
             return records;

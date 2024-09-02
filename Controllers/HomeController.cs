@@ -55,7 +55,7 @@ namespace NetTracApp.Controllers
             // Define the path to save the uploaded file (adjust path as needed)
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", file.FileName);
 
-            // Create the directory if it doesn't exist
+           
             Directory.CreateDirectory(Path.GetDirectoryName(path));
 
             // Save the file to the specified path
@@ -73,7 +73,7 @@ namespace NetTracApp.Controllers
                     var line = await reader.ReadLineAsync();
                     var values = line.Split(',');
 
-                    if (values.Length == 10) // Ensure this matches the number of expected columns
+                    if (values.Length == 10) 
                     {
                         var item = new InventoryItem
                         {
@@ -88,16 +88,16 @@ namespace NetTracApp.Controllers
                             CurrentLocation = values[8],
                         };
 
-                        // Convert Status string to InventoryStatus enum
+                        
                         if (Enum.TryParse<InventoryStatus>(values[9], true, out var status))
                         {
                             item.Status = status;
                         }
                         else
                         {
-                            // Handle invalid status value, e.g., set a default or skip this record
+                            
                             ModelState.AddModelError("file", $"Invalid status value: {values[9]}");
-                            continue; // Skip this record or handle as needed
+                            continue; 
                         }
 
                         inventoryItems.Add(item);
