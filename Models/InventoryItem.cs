@@ -8,38 +8,24 @@ namespace NetTracApp.Models
         public int Id { get; set; }
 
         [Required]
-        public string Vendor { get; set; } = string.Empty;
-
-        [Required]
-        public string DeviceType { get; set; } = string.Empty;
-
-        [Required]
-        public string SerialNumber { get; set; } = string.Empty;
-
-        [Required]
-        public string HostName { get; set; } = string.Empty;
-
-        [Required]
-        public string AssetTag { get; set; } = string.Empty;
-
-        [Required]
-        public string PartId { get; set; } = string.Empty;
-
-        public string? FutureLocation { get; set; }
-
-        [Required]
+        public string Vendor { get; set; }
+        public string DeviceType { get; set; }
+        public string SerialNumber { get; set; }
+        public string HostName { get; set; }
+        public string AssetTag { get; set; }
+        public string PartID { get; set; }  
+        public string FutureLocation { get; set; }
         public DateTime DateReceived { get; set; }
-
-        public string? CurrentLocation { get; set; }
-
-        [Required]
-        public InventoryStatus Status { get; set; }
-    }
-
-    public enum InventoryStatus
-    {
-        Received,
-        InRoute,
-        SetToDelete
+        public string CurrentLocation { get; set; }
+        public string Status { get; set; }
+        public bool BackOrdered { get; set; }
+        public string Notes { get; set; }
+        public string ProductDescription { get; set; }
+        public bool Ready { get; set; }
+        public bool LegacyDevice { get; set; }
+        public DateTime Modified { get; set; }
+        public DateTime Created { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }

@@ -36,6 +36,7 @@ namespace NetTracApp.Services
                     }
                 }))
                 {
+                    
                     records = csv.GetRecords<InventoryItem>().ToList();
                 }
             }
@@ -52,7 +53,7 @@ namespace NetTracApp.Services
             catch (Exception ex)
             {
                 _logger.LogError($"Unexpected error: {ex.Message}");
-                
+               
             }
 
             return records;

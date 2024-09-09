@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<NetTracApp.Models.InventoryItem>
 
-@{
-    ViewData["Title"] = "Inventory Items";
-}
+<h2>Inventory List</h2>
 
-<h2>Inventory Items</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<form asp-action="Index">
+    <p>
+        Find by Vendor or Serial Number: <input type="text" name="searchString" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
 
 <table class="table">
     <thead>
@@ -17,10 +16,6 @@
             <th>Device Type</th>
             <th>Serial Number</th>
             <th>Host Name</th>
-            <th>Asset Tag</th>
-            <th>Part ID</th>
-            <th>Future Location</th>
-            <th>Date Received</th>
             <th>Current Location</th>
             <th>Status</th>
             <th></th>
@@ -34,10 +29,6 @@
                 <td>@item.DeviceType</td>
                 <td>@item.SerialNumber</td>
                 <td>@item.HostName</td>
-                <td>@item.AssetTag</td>
-                <td>@item.PartId</td>
-                <td>@item.FutureLocation</td>
-                <td>@item.DateReceived</td>
                 <td>@item.CurrentLocation</td>
                 <td>@item.Status</td>
                 <td>
@@ -48,3 +39,18 @@
         }
     </tbody>
 </table>
+
+<a asp-action="Create" class="btn btn-success">Create New Inventory Item</a>
+
+<hr />
+
+<!-- CSV Upload Form -->
+<h3>Upload CSV File</h3>
+
+<form asp-action="UploadCsv" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="file">Select CSV File:</label>
+        <input type="file" name="file" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
