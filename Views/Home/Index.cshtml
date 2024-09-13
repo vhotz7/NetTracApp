@@ -33,6 +33,17 @@
                 <th>Asset Tag</th>
                 <th>Current Location</th>
                 <th>Status</th>
+                <th>Created</th>
+                <th>Created By</th>
+                <th>Date Received</th>
+                <th>Future Location</th>
+                <th>Legacy Device</th>
+                <th>Modified</th>
+                <th>Modified By</th>
+                <th>Notes</th>
+                <th>Part ID</th>
+                <th>Product Description</th>
+                <th>Ready</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -49,9 +60,25 @@
                         <td>@item.AssetTag</td>
                         <td>@item.CurrentLocation</td>
                         <td>@item.Status</td>
+                        <td>@item.Created</td>
+                        <td>@item.CreatedBy</td>
+                        <td>@item.DateReceived</td>
+                        <td>@item.FutureLocation</td>
+                        <td>@item.LegacyDevice</td>
+                        <td>@item.Modified</td>
+                        <td>@item.ModifiedBy</td>
+                        <td>@item.Notes</td>
+                        <td>@item.PartID</td>
+                        <td>@item.ProductDescription</td>
+                        <td>@item.Ready</td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                            <!-- Edit link with correct controller -->
+                            <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+
+                            <!-- Delete form with correct controller and POST method -->
+                            <form asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 }
@@ -59,7 +86,7 @@
             else
             {
                 <tr>
-                    <td colspan="8" class="text-center">No inventory items found.</td>
+                    <td colspan="19" class="text-center">No inventory items found.</td>
                 </tr>
             }
         </tbody>
