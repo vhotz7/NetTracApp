@@ -4,14 +4,77 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to NetTracApp!</h1>
-    <p>Your one-stop solution for tracking IT inventory.</p>
-</div>
+<style>
+    /* Top border styling */
+    .top-border {
+        position: relative;
+        background-color: #970000; /* Dark red background color */
+        color: #ffff00; /* Yellow text color */
+        height: 60px; /* Adjust height as needed */
+        display: flex;
+        align-items: center;
+        padding-left: 20px; /* Space for the left side text */
+    }
 
-<div class="mb-4">
-    <h2>Inventory Overview</h2>
-    <p>This is a summary of the inventory tracked in the system.</p>
+    /* Styling for the background text "NetTrac" */
+    .background-text {
+        position: absolute;
+        left: 20px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Center the text vertically */
+        font-size: 50px; /* Adjust font size */
+        font-weight: bold; /* Bold text */
+        z-index: 1; /* Ensure it appears above the background */
+        color: #ffff00; /* Yellow text color */
+    }
+
+    /* Styling for the centered text "IT Network Tracker" */
+    .centered-text {
+        margin: 0 auto; /* Center horizontally */
+        font-size: 20px; /* Adjust font size */
+        font-weight: bold; /* Bold text */
+        color: #ffffff; /* White text color */
+        z-index: 2; /* Ensure it appears on top */
+        position: relative;
+    }
+
+    /* Custom style for orange button */
+    .btn-edit {
+        background-color: #ac3e0b; /* Green background for Edit button */
+        color: white;
+        border: none;
+    }
+
+        .btn-edit:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+    .btn-delete {
+        background-color: #970000; /* Red background for Delete button */
+        color: white;
+        border: none;
+    }
+
+       
+
+    /* Ensure footer or buttons do not cut off */
+    .container {
+        padding-bottom: 70px; /* Prevent content from being cut off */
+    }
+
+    /* Style adjustments for form container to ensure it doesn't cut off */
+    .form-horizontal {
+        padding-bottom: 70px; /* Extra padding at the bottom */
+    }
+</style>
+
+<div class="top-border">
+    <!-- Background Text "NetTrac" -->
+    <span class="background-text">NetTrac</span>
+
+    <!-- Centered Text "IT Network Tracker" -->
+    <span class="centered-text">View Inventory</span>
+</div>
 
     <!-- CSV Upload Form -->
     <form asp-action="UploadFile" method="post" enctype="multipart/form-data" class="mb-4">
@@ -72,12 +135,12 @@
                         <td>@item.ProductDescription</td>
                         <td>@item.Ready</td>
                         <td>
-                            <!-- Edit link with correct controller -->
-                            <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <!-- Edit button with custom class -->
+                        <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
 
-                            <!-- Delete form with correct controller and POST method -->
-                            <form asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        <!-- Delete form with custom class -->
+                        <form asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-delete btn-sm">Delete</button>
                             </form>
                         </td>
                     </tr>
