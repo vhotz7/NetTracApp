@@ -26,10 +26,22 @@ namespace NetTracApp.Controllers
             _csvService = csvService;
         }
 
-        public IActionResult Index()
+        // Updated Index Action to handle search functionality
+        public IActionResult Index(string searchString)
         {
-            var inventoryItems = _context.InventoryItems.ToList();
-            return View(inventoryItems);
+            var inventoryItems = from item in _context.InventoryItems
+                                 select item;
+
+            // If there is a search string, filter the inventory items
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                string lowerCaseSearchString = searchString.ToLower();
+
+                inventoryItems = inventoryItems.Where(i => i.Vendor.ToLower().Contains(lowerCaseSearchString)
+                                                        || i.SerialNumber.ToLower().Contains(lowerCaseSearchString));
+            }
+
+            return View(inventoryItems.ToList());
         }
 
         [HttpPost]
@@ -47,20 +59,40 @@ namespace NetTracApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            var inventoryItems = new List<InventoryItem>();
-            using (var stream = file.OpenReadStream())
+            try
             {
-                inventoryItems = _csvService.ReadCsvFile(stream).ToList();
+                var inventoryItems = new List<InventoryItem>();
+                using (var stream = file.OpenReadStream())
+                {
+                    inventoryItems = _csvService.ReadCsvFile(stream).ToList();
+                }
+
+                // Filter out duplicates
+                var newItems = new List<InventoryItem>();
+                foreach (var item in inventoryItems)
+                {
+                    if (!_context.InventoryItems.Any(e => e.Id == item.Id))
+                    {
+                        newItems.Add(item); // Add only new items that do not exist in the database
+                    }
+                }
+
+                if (newItems.Any())
+                {
+                    _context.InventoryItems.AddRange(newItems);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = $"{newItems.Count} new records added successfully.";
+                }
+                else
+                {
+                    TempData["InfoMessage"] = "No new records to add.";
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("file", $"An error occurred while processing the file: {ex.Message}");
             }
 
-            if (inventoryItems.Any())
-            {
-                _context.InventoryItems.AddRange(inventoryItems);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            ModelState.AddModelError("file", "No valid records found in the CSV file.");
             return RedirectToAction("Index");
         }
 

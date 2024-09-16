@@ -1,56 +1,158 @@
 ﻿@model IEnumerable<NetTracApp.Models.InventoryItem>
 
-<h2>Inventory List</h2>
+@{
+    ViewData["Title"] = "Home Page";
+}
 
-<form asp-action="Index">
-    <p>
-        Find by Vendor or Serial Number: <input type="text" name="searchString" />
-        <input type="submit" value="Search" />
-    </p>
-</form>
+<style>
+    /* Top border styling */
+    .top-border {
+        position: relative;
+        background-color: #970000; /* Dark red background color */
+        color: #ffff00; /* Yellow text color */
+        height: 60px; /* Adjust height as needed */
+        display: flex;
+        align-items: center;
+        padding-left: 20px; /* Space for the left side text */
+    }
 
-<table class="table">
-    <thead>
+    /* Styling for the background text "NetTrac" */
+    .background-text {
+        position: absolute;
+        left: 20px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Center the text vertically */
+        font-size: 50px; /* Adjust font size */
+        font-weight: bold; /* Bold text */
+        z-index: 1; /* Ensure it appears above the background */
+        color: #ffff00; /* Yellow text color */
+    }
+
+    /* Styling for the centered text "IT Network Tracker" */
+    .centered-text {
+        margin: 0 auto; /* Center horizontally */
+        font-size: 20px; /* Adjust font size */
+        font-weight: bold; /* Bold text */
+        color: #ffffff; /* White text color */
+        z-index: 2; /* Ensure it appears on top */
+        position: relative;
+    }
+
+    /* Custom style for buttons */
+    .btn-edit {
+        background-color: #ac3e0b; /* Orange background for Edit button */
+        color: white;
+        border: none;
+    }
+
+        .btn-edit:hover {
+            background-color: #ffff00; /* Yellow on Hover */
+        }
+
+    .btn-delete {
+        background-color: #970000; /* Red background for Delete button */
+        color: white;
+        border: none;
+    }
+
+    /* Ensure footer or buttons do not cut off */
+    .container {
+        padding-bottom: 70px; /* Prevent content from being cut off */
+    }
+
+    /* Style adjustments for form container to ensure it doesn't cut off */
+    .form-horizontal {
+        padding-bottom: 70px; /* Extra padding at the bottom */
+    }
+</style>
+
+<div class="top-border">
+    <!-- Background Text "NetTrac" -->
+    <span class="background-text">NetTrac</span>
+
+    <!-- Centered Text "IT Network Tracker" -->
+    <span class="centered-text">View Inventory</span>
+</div>
+
+<!-- Search Form -->
+<!-- Search Form -->
+<div class="search-form mb-4">
+    <form asp-action="Index" method="get">
+        <div class="form-group">
+            
+            <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" />
+        </div>
+        <!-- Button underneath the input field -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+
+<!-- CSV Upload Form -->
+<div class="mb-4">
+    <form asp-action="UploadFile" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Upload CSV File:</label>
+            <input type="file" name="file" class="form-control-file" />
+        </div>
+        <!-- Button underneath the input field -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+    </form>
+</div>
+
+<a asp-controller="InventoryItems" asp-action="Create" class="btn btn-custom-orange">Create New Inventory Item</a> <!-- Apply orange style -->
+
+<!-- Inventory Table -->
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
         <tr>
             <th>Vendor</th>
             <th>Device Type</th>
             <th>Serial Number</th>
             <th>Host Name</th>
+            <th>Asset Tag</th>
             <th>Current Location</th>
             <th>Status</th>
-            <th></th>
+            <th>Date Received</th>
+            <th>Future Location</th>
+            <th>Part ID</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Vendor</td>
+                    <td>@item.DeviceType</td>
+                    <td>@item.SerialNumber</td>
+                    <td>@item.HostName</td>
+                    <td>@item.AssetTag</td>
+                    <td>@item.CurrentLocation</td>
+                    <td>@item.Status</td>
+                    <td>@item.DateReceived</td>
+                    <td>@item.FutureLocation</td>
+                    <td>@item.PartID</td>
+                    <td>
+                        <!-- Edit button with custom class -->
+                        <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
+
+                        <!-- Delete link to redirect to confirmation page -->
+                        <a asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
         {
             <tr>
-                <td>@item.Vendor</td>
-                <td>@item.DeviceType</td>
-                <td>@item.SerialNumber</td>
-                <td>@item.HostName</td>
-                <td>@item.CurrentLocation</td>
-                <td>@item.Status</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <td colspan="19" class="text-center">No inventory items found.</td>
             </tr>
         }
     </tbody>
 </table>
-
-<a asp-action="Create" class="btn btn-success">Create New Inventory Item</a>
-
-<hr />
-
-<!-- CSV Upload Form -->
-<h3>Upload CSV File</h3>
-
-<form asp-action="UploadCsv" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="file">Select CSV File:</label>
-        <input type="file" name="file" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Upload</button>
-</form>

@@ -4,7 +4,69 @@
     ViewData["Title"] = "Edit Inventory Item";
 }
 
-<h2>Edit Inventory Item</h2>
+<style>
+    /* Top border styling */
+    .top-border {
+        position: relative;
+        background-color: #970000; /* Dark red background color */
+        color: #ffff00; /* Yellow text color */
+        height: 60px; /* Adjust height as needed */
+        display: flex;
+        align-items: center;
+        padding-left: 20px; /* Space for the left side text */
+    }
+
+    /* Styling for the background text "NetTrac" */
+    .background-text {
+        position: absolute;
+        left: 20px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Center the text vertically */
+        font-size: 50px; /* Adjust font size */
+        font-weight: bold; /* Bold text */
+        z-index: 1; /* Ensure it appears above the background */
+        color: #ffff00; /* Yellow text color */
+    }
+
+    /* Styling for the centered text "IT Network Tracker" */
+    .centered-text {
+        margin: 0 auto; /* Center horizontally */
+        font-size: 20px; /* Adjust font size */
+        font-weight: bold; /* Bold text */
+        color: #ffffff; /* White text color */
+        z-index: 2; /* Ensure it appears on top */
+        position: relative;
+    }
+
+    /* Custom style for orange button */
+    .btn-custom-orange {
+        background-color: #ac3e0b; /* Orange color */
+        color: white;
+        border: none;
+    }
+
+        .btn-custom-orange:hover {
+            background-color: #8a2e0a; /* Darker orange on hover */
+        }
+
+    /* Ensure footer or buttons do not cut off */
+    .container {
+        padding-bottom: 70px; /* Prevent content from being cut off */
+    }
+
+    /* Style adjustments for form container to ensure it doesn't cut off */
+    .form-horizontal {
+        padding-bottom: 70px; /* Extra padding at the bottom */
+    }
+</style>
+
+<div class="top-border">
+    <!-- Background Text "NetTrac" -->
+    <span class="background-text">NetTrac</span>
+
+    <!-- Centered Text "IT Network Tracker" -->
+    <span class="centered-text">Edit Inventory</span>
+</div>
 
 <form asp-action="Edit" method="post">
     <div class="form-horizontal">

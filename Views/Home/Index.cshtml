@@ -38,15 +38,15 @@
         position: relative;
     }
 
-    /* Custom style for orange button */
+    /* Custom style for buttons */
     .btn-edit {
-        background-color: #ac3e0b; /* Green background for Edit button */
+        background-color: #ac3e0b; /* Orange background for Edit button */
         color: white;
         border: none;
     }
 
         .btn-edit:hover {
-            background-color: #218838; /* Darker green on hover */
+            background-color: #ffff00; /* Yellow on Hover */
         }
 
     .btn-delete {
@@ -54,8 +54,6 @@
         color: white;
         border: none;
     }
-
-       
 
     /* Ensure footer or buttons do not cut off */
     .container {
@@ -65,7 +63,11 @@
     /* Style adjustments for form container to ensure it doesn't cut off */
     .form-horizontal {
         padding-bottom: 70px; /* Extra padding at the bottom */
+
+    
+
     }
+    
 </style>
 
 <div class="top-border">
@@ -76,77 +78,77 @@
     <span class="centered-text">View Inventory</span>
 </div>
 
-    <!-- CSV Upload Form -->
-    <form asp-action="UploadFile" method="post" enctype="multipart/form-data" class="mb-4">
+<!-- Search Form -->
+<div class="search-form">
+    <form asp-action="Index" method="get">
         <div class="form-group">
-            <label for="file">Upload CSV File:</label>
-            <input type="file" name="file" class="form-control" />
+           
+            <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number:" />
         </div>
-        <button type="submit" class="btn btn-primary">Upload</button>
+        <button type="submit" class="btn btn-primary">Search</button>
     </form>
+</div>
 
-    <!-- Inventory Table -->
-    <table class="table table-striped table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>Vendor</th>
-                <th>Device Type</th>
-                <th>Serial Number</th>
-                <th>Host Name</th>
-                <th>Asset Tag</th>
-                <th>Current Location</th>
-                <th>Status</th>
-               
-                <th>Date Received</th>
-                <th>Future Location</th>
-                
-                
-                
-                <th>Part ID</th>
-                
-                
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model != null && Model.Any())
+<!-- CSV Upload Form -->
+<form asp-action="UploadFile" method="post" enctype="multipart/form-data" class="mb-4">
+    <div class="form-group">
+        <label for="file">Upload CSV File:</label>
+        <input type="file" name="file" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<a asp-controller="InventoryItems" asp-action="Create" class="btn btn-custom-orange">Create New Inventory Item</a>
+
+
+<!-- Inventory Table -->
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Vendor</th>
+            <th>Device Type</th>
+            <th>Serial Number</th>
+            <th>Host Name</th>
+            <th>Asset Tag</th>
+            <th>Current Location</th>
+            <th>Status</th>
+            <th>Date Received</th>
+            <th>Future Location</th>
+            <th>Part ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
             {
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Vendor</td>
-                        <td>@item.DeviceType</td>
-                        <td>@item.SerialNumber</td>
-                        <td>@item.HostName</td>
-                        <td>@item.AssetTag</td>
-                        <td>@item.CurrentLocation</td>
-                        <td>@item.Status</td>
-                        
-                        <td>@item.DateReceived</td>
-                        <td>@item.FutureLocation</td>
-                       
-                       
-                        
-                        <td>@item.PartID</td>
-                       
-                        <td>
+                <tr>
+                    <td>@item.Vendor</td>
+                    <td>@item.DeviceType</td>
+                    <td>@item.SerialNumber</td>
+                    <td>@item.HostName</td>
+                    <td>@item.AssetTag</td>
+                    <td>@item.CurrentLocation</td>
+                    <td>@item.Status</td>
+                    <td>@item.DateReceived</td>
+                    <td>@item.FutureLocation</td>
+                    <td>@item.PartID</td>
+                    <td>
                         <!-- Edit button with custom class -->
                         <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
 
-                        <!-- Delete form with custom class -->
-                        <form asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-delete btn-sm">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="19" class="text-center">No inventory items found.</td>
+                        <!-- Delete link to redirect to confirmation page -->
+                        <a asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete btn-sm">Delete</a>
+                    </td>
                 </tr>
             }
-        </tbody>
-    </table>
-</div>
+        }
+        else
+        {
+            <tr>
+                <td colspan="19" class="text-center">No inventory items found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
