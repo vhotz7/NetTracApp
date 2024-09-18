@@ -16,112 +16,117 @@ namespace NetTracApp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        // constructor to inject the database context
         public InventoryItemsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: InventoryItems
+        // action to display a list of inventory items with search functionality
         public async Task<IActionResult> Index(string searchString)
         {
+            // get all inventory items
             var items = from i in _context.InventoryItems select i;
 
+            // filter inventory items based on the search string
             if (!string.IsNullOrEmpty(searchString))
             {
                 items = items.Where(s => s.Vendor.Contains(searchString) || s.SerialNumber.Contains(searchString));
             }
 
+            // return the filtered list to the view
             return View(await items.ToListAsync());
         }
 
-        // GET: InventoryItems/Create
+        // action to display the create form
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: InventoryItems/Create
+        // action to handle form submission for creating a new inventory item
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice,CreatedBy,ModifiedBy")] InventoryItem inventoryItem)
         {
             if (ModelState.IsValid)
             {
+                // add the new inventory item to the database
                 _context.Add(inventoryItem);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync(); // save changes
+                return RedirectToAction(nameof(Index)); // redirect to index
             }
             return View(inventoryItem);
         }
 
-        // GET: InventoryItems/Edit/5
+        // action to display the edit form for a specific inventory item
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return NotFound(); // return not found if id is null
             }
 
             var inventoryItem = await _context.InventoryItems.FindAsync(id);
             if (inventoryItem == null)
             {
-                return NotFound();
+                return NotFound(); // return not found if item doesn't exist
             }
-            return View(inventoryItem);
+            return View(inventoryItem); // return the edit view with the item
         }
 
-        // POST: InventoryItems/Edit/5
+        // action to handle form submission for editing an existing inventory item
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice,CreatedBy,ModifiedBy")] InventoryItem inventoryItem)
         {
             if (id != inventoryItem.Id)
             {
-                return NotFound();
+                return NotFound(); // return not found if the id does not match
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(inventoryItem);
-                    await _context.SaveChangesAsync();
+                    _context.Update(inventoryItem); // update the inventory item
+                    await _context.SaveChangesAsync(); // save changes
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!InventoryItemExists(inventoryItem.Id))
                     {
-                        return NotFound();
+                        return NotFound(); // handle concurrency exception if item doesn't exist
                     }
                     else
                     {
-                        throw;
+                        throw; // rethrow the exception if another issue occurs
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); // redirect to index
             }
-            return View(inventoryItem);
+            return View(inventoryItem); // return the view with the item
         }
 
-        // GET: InventoryItems/Delete/5
+        // action to display the delete confirmation page
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return NotFound(); // return not found if id is null
             }
 
             var inventoryItem = await _context.InventoryItems
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (inventoryItem == null)
             {
-                return NotFound();
+                return NotFound(); // return not found if item doesn't exist
             }
 
-            return View(inventoryItem);
+            return View(inventoryItem); // return the delete confirmation view
         }
 
-        // POST: InventoryItems/Delete/5
+        // action to handle the deletion of an inventory item
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -129,22 +134,24 @@ namespace NetTracApp.Controllers
             var inventoryItem = await _context.InventoryItems.FindAsync(id);
             if (inventoryItem != null)
             {
-                _context.InventoryItems.Remove(inventoryItem);
-                await _context.SaveChangesAsync();
+                _context.InventoryItems.Remove(inventoryItem); // remove the item from the database
+                await _context.SaveChangesAsync(); // save changes
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index)); // redirect to index
         }
 
-        // Bulk Upload from CSV
+        // action to handle bulk upload of inventory items from a CSV file
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
+            // check if the file is null or empty
             if (file == null || file.Length == 0)
             {
                 ModelState.AddModelError("file", "Please select a valid CSV file.");
                 return RedirectToAction(nameof(Index));
             }
 
+            // check if the file has a .csv extension
             if (!Path.GetExtension(file.FileName).Equals(".csv", StringComparison.OrdinalIgnoreCase))
             {
                 ModelState.AddModelError("file", "Only CSV files are allowed.");
@@ -156,18 +163,20 @@ namespace NetTracApp.Controllers
                 using (var stream = new StreamReader(file.OpenReadStream()))
                 using (var csv = new CsvReader(stream, CultureInfo.InvariantCulture))
                 {
+                    // read the CSV file and convert it to a list of inventory items
                     var records = csv.GetRecords<InventoryItem>().ToList();
                     var newRecords = new List<InventoryItem>();
 
+                    // filter out duplicate records
                     foreach (var record in records)
                     {
-                        // Check if the record already exists in the database
                         if (!_context.InventoryItems.Any(e => e.Id == record.Id))
                         {
-                            newRecords.Add(record); // Add only the new records
+                            newRecords.Add(record); // add only the new records
                         }
                     }
 
+                    // add new records to the database
                     if (newRecords.Any())
                     {
                         _context.InventoryItems.AddRange(newRecords);
@@ -182,13 +191,14 @@ namespace NetTracApp.Controllers
             }
             catch (Exception ex)
             {
+                // handle errors during file processing
                 ModelState.AddModelError("file", $"An error occurred while processing the file: {ex.Message}");
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index)); // redirect to index
         }
 
-        // Helper method to check if an inventory item exists
+        // helper method to check if an inventory item exists
         private bool InventoryItemExists(int id)
         {
             return _context.InventoryItems.Any(e => e.Id == id);

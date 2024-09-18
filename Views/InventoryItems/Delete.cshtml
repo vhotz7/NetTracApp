@@ -5,99 +5,209 @@
 }
 
 <style>
-    /* Top border styling */
+    /* top border styling */
     .top-border {
         position: relative;
-        background-color: #970000; /* Dark red background color */
-        color: #ffff00; /* Yellow text color */
-        height: 60px; /* Adjust height as needed */
+        background-color: #970000; /* dark red background color */
+        color: #ffff00; /* yellow text color */
+        height: 60px; /* height of the top banner */
         display: flex;
         align-items: center;
-        padding-left: 20px; /* Space for the left side text */
+        padding-left: 20px; /* space for the left side text */
     }
 
-    /* Styling for the background text "NetTrac" */
+    /* styling for the background text "NetTrac" */
     .background-text {
         position: absolute;
-        left: 20px; /* Position text near the left */
-        top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Center the text vertically */
-        font-size: 50px; /* Adjust font size */
-        font-weight: bold; /* Bold text */
-        z-index: 1; /* Ensure it appears above the background */
-        color: #ffff00; /* Yellow text color */
+        left: 20px; /* position text near the left */
+        top: 50%; /* center vertically */
+        transform: translateY(-50%); /* adjust text position */
+        font-size: 50px; /* size of the background text */
+        font-weight: bold; /* make text bold */
+        z-index: 1; /* ensure text appears above the background */
+        color: #ffff00; /* yellow text color */
     }
 
-    /* Styling for the centered text "IT Network Tracker" */
+    /* styling for the centered text "IT Network Tracker" */
     .centered-text {
-        margin: 0 auto; /* Center horizontally */
-        font-size: 20px; /* Adjust font size */
-        font-weight: bold; /* Bold text */
-        color: #ffffff; /* White text color */
-        z-index: 2; /* Ensure it appears on top */
+        margin: 0 auto; /* center horizontally */
+        font-size: 20px; /* font size */
+        font-weight: bold; /* bold text */
+        color: #ffffff; /* white text color */
+        z-index: 2; /* ensure it appears above other elements */
         position: relative;
     }
 
-    /* Custom style for orange button */
+    /* custom style for orange button */
     .btn-custom-orange {
-        background-color: #ac3e0b; /* Orange color */
+        background-color: #ac3e0b; /* orange color */
         color: white;
         border: none;
     }
 
         .btn-custom-orange:hover {
-            background-color: #8a2e0a; /* Darker orange on hover */
+            background-color: #8a2e0a; /* darker orange on hover */
         }
 
-    /* Ensure footer or buttons do not cut off */
+    /* prevent footer or buttons from being cut off */
     .container {
-        padding-bottom: 70px; /* Prevent content from being cut off */
+        padding-bottom: 70px; /* space at the bottom to prevent cutoff */
     }
 
-    /* Style adjustments for form container to ensure it doesn't cut off */
+    /* style adjustments for form container to ensure it doesn't cut off */
     .form-horizontal {
-        padding-bottom: 70px; /* Extra padding at the bottom */
+        padding-bottom: 70px; /* extra padding at the bottom */
     }
+
+    /* style for the delete confirmation text */
+    .delete-warning {
+        color: #b30000; /* red color for warning text */
+        font-weight: bold; /* bold font for emphasis */
+        font-size: 24px; /* larger font size for emphasis */
+        margin-bottom: 15px; /* space below the warning text */
+        text-align: center; /* center the text */
+    }
+
+    /* custom style for the delete button */
+    .btn-delete {
+        background-color: #970000; /* default red color for Delete button */
+        color: white;
+        border: none;
+        padding: 5px 15px; /* adjust padding for consistency */
+        font-weight: bold;
+    }
+
+        .btn-delete:hover,
+        .btn-delete:focus {
+            background-color: #b30000; /* lighter red color on hover */
+            color: white; /* keep text white on hover */
+            border: none;
+        }
+
+    /* align the delete and cancel buttons next to each other and center them */
+    .button-container {
+        display: flex;
+        justify-content: center; /* center the buttons horizontally */
+        gap: 10px; /* add space between the buttons */
+        margin-top: 15px; /* space above the button container */
+    }
+
+    /* make the table smaller */
+    .table-bordered {
+        width: auto; /* make the table width automatic */
+        max-width: 600px; /* limit the maximum width */
+        margin: 0 auto; /* center the table */
+        font-size: 14px; /* smaller font size for the table */
+    }
+
+        .table-bordered th,
+        .table-bordered td {
+            padding: 5px 10px; /* reduce padding for smaller table size */
+        }
 </style>
 
 <div class="top-border">
-    <!-- Background Text "NetTrac" -->
+    <!-- background text "NetTrac" -->
     <span class="background-text">NetTrac</span>
 
-    <!-- Centered Text "IT Network Tracker" -->
-    <span class="centered-text">Delete</span>
+    <!-- centered text "IT Network Tracker" -->
+    <span class="centered-text">View Inventory</span>
 </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Inventory Item</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">Vendor</dt>
-        <dd class="col-sm-10">@Model.Vendor</dd>
-        <dt class="col-sm-2">Device Type</dt>
-        <dd class="col-sm-10">@Model.DeviceType</dd>
-        <dt class="col-sm-2">Serial Number</dt>
-        <dd class="col-sm-10">@Model.SerialNumber</dd>
-        <dt class="col-sm-2">Host Name</dt>
-        <dd class="col-sm-10">@Model.HostName</dd>
-        <dt class="col-sm-2">Asset Tag</dt>
-        <dd class="col-sm-10">@Model.AssetTag</dd>
-        <dt class="col-sm-2">Part ID</dt>
-        <dd class="col-sm-10">@Model.PartID</dd>
-        <dt class="col-sm-2">Future Location</dt>
-        <dd class="col-sm-10">@Model.FutureLocation</dd>
-        <dt class="col-sm-2">Date Received</dt>
-        <dd class="col-sm-10">@Model.DateReceived</dd>
-        <dt class="col-sm-2">Current Location</dt>
-        <dd class="col-sm-10">@Model.CurrentLocation</dd>
-        <dt class="col-sm-2">Status</dt>
-        <dd class="col-sm-10">@Model.Status</dd>
-    </dl>
+<!-- delete confirmation message centered on the page -->
+<div class="delete-warning">
+    Are you sure you want to delete this Inventory Item?
+</div>
 
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-    </form>
+<div>
+    <!-- table for displaying all item details -->
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Vendor</th>
+                <td>@Model.Vendor</td>
+            </tr>
+            <tr>
+                <th>Device Type</th>
+                <td>@Model.DeviceType</td>
+            </tr>
+            <tr>
+                <th>Serial Number</th>
+                <td>@Model.SerialNumber</td>
+            </tr>
+            <tr>
+                <th>Host Name</th>
+                <td>@Model.HostName</td>
+            </tr>
+            <tr>
+                <th>Asset Tag</th>
+                <td>@Model.AssetTag</td>
+            </tr>
+            <tr>
+                <th>Part ID</th>
+                <td>@Model.PartID</td>
+            </tr>
+            <tr>
+                <th>Future Location</th>
+                <td>@Model.FutureLocation</td>
+            </tr>
+            <tr>
+                <th>Date Received</th>
+                <td>@Model.DateReceived</td>
+            </tr>
+            <tr>
+                <th>Current Location</th>
+                <td>@Model.CurrentLocation</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>@Model.Status</td>
+            </tr>
+            <tr>
+                <th>Back Ordered</th>
+                <td>@Model.BackOrdered</td>
+            </tr>
+            <tr>
+                <th>Notes</th>
+                <td>@Model.Notes</td>
+            </tr>
+            <tr>
+                <th>Product Description</th>
+                <td>@Model.ProductDescription</td>
+            </tr>
+            <tr>
+                <th>Ready</th>
+                <td>@Model.Ready</td>
+            </tr>
+            <tr>
+                <th>Legacy Device</th>
+                <td>@Model.LegacyDevice</td>
+            </tr>
+            <tr>
+                <th>Modified</th>
+                <td>@Model.Modified</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>@Model.Created</td>
+            </tr>
+            <tr>
+                <th>Created By</th>
+                <td>@Model.CreatedBy</td>
+            </tr>
+            <tr>
+                <th>Modified By</th>
+                <td>@Model.ModifiedBy</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- centered buttons for delete confirmation and cancel -->
+    <div class="button-container">
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-delete">Delete</button>
+        </form>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
 </div>

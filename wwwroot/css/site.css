@@ -1,22 +1,57 @@
+/* Base font size for different screen sizes */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+/* Focus styles for various elements */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Body margin */
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+/* Custom styles for primary and secondary buttons */
+.btn-primary,
+.btn-secondary {
+    background-color: #ac3e0b; /* Set the button background color */
+    border-color: #ac3e0b; /* Match the border color to the background */
+    color: #fff; /* Ensure text color is white for contrast */
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active,
+    .btn-secondary:hover,
+    .btn-secondary:focus,
+    .btn-secondary:active {
+        background-color: #d9470c; /* Slightly lighter or darker shade for hover and active states */
+        border-color: #d9470c; /* Match border color for hover and active states */
+    }
+
+/* Style for table header row */
+.table thead tr {
+    background-color: #666666; /* Set background color for the top row */
+}
+
+/* Style for table header text */
+.table thead th {
+    color: #ffffff; /* Ensure text in headers is white */
+    font-weight: bold; /* Make the text bold */
+    padding: 10px; /* Add padding for spacing */
+    text-align: center; /* Center-align text in headers */
 }

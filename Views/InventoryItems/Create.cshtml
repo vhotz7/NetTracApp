@@ -5,118 +5,128 @@
 }
 
 <style>
-    /* Top border styling */
+    /* top border styling */
     .top-border {
         position: relative;
-        background-color: #970000; /* Dark red background color */
-        color: #ffff00; /* Yellow text color */
-        height: 60px; /* Adjust height as needed */
+        background-color: #970000; /* dark red background color */
+        color: #ffff00; /* yellow text color */
+        height: 60px; /* height of the top banner */
         display: flex;
         align-items: center;
-        padding-left: 20px; /* Space for the left side text */
+        padding-left: 20px; /* space for the left side text */
     }
 
-    /* Styling for the background text "NetTrac" */
+    /* styling for the background text "NetTrac" */
     .background-text {
         position: absolute;
-        left: 20px; /* Position text near the left */
-        top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Center the text vertically */
-        font-size: 50px; /* Adjust font size */
-        font-weight: bold; /* Bold text */
-        z-index: 1; /* Ensure it appears above the background */
-        color: #ffff00; /* Yellow text color */
+        left: 20px; /* position text near the left */
+        top: 50%; /* center vertically */
+        transform: translateY(-50%); /* adjust text position */
+        font-size: 50px; /* size of the background text */
+        font-weight: bold; /* make text bold */
+        z-index: 1; /* ensure text appears above the background */
+        color: #ffff00; /* yellow text color */
     }
 
-    /* Styling for the centered text "IT Network Tracker" */
+    /* styling for the centered text "IT Network Tracker" */
     .centered-text {
-        margin: 0 auto; /* Center horizontally */
-        font-size: 20px; /* Adjust font size */
-        font-weight: bold; /* Bold text */
-        color: #ffffff; /* White text color */
-        z-index: 2; /* Ensure it appears on top */
+        margin: 0 auto; /* center horizontally */
+        font-size: 20px; /* font size */
+        font-weight: bold; /* bold text */
+        color: #ffffff; /* white text color */
+        z-index: 2; /* ensure it appears above other elements */
         position: relative;
     }
 
-    /* Custom style for orange button */
+    /* custom style for orange button */
     .btn-custom-orange {
-        background-color: #ac3e0b; /* Orange color */
+        background-color: #ac3e0b; /* orange color */
         color: white;
         border: none;
     }
 
         .btn-custom-orange:hover {
-            background-color: #8a2e0a; /* Darker orange on hover */
+            background-color: #8a2e0a; /* darker orange on hover */
         }
 
-    /* Ensure footer or buttons do not cut off */
+    /* prevent footer or buttons from being cut off */
     .container {
-        padding-bottom: 70px; /* Prevent content from being cut off */
+        padding-bottom: 70px; /* space at the bottom to prevent cutoff */
     }
 
-    /* Style adjustments for form container to ensure it doesn't cut off */
+    /* style adjustments for form container to ensure it doesn't cut off */
     .form-horizontal {
-        padding-bottom: 70px; /* Extra padding at the bottom */
+        padding-bottom: 70px; /* extra padding at the bottom */
     }
 </style>
 
 <div class="top-border">
-    <!-- Background Text "NetTrac" -->
+    <!-- background text "NetTrac" -->
     <span class="background-text">NetTrac</span>
 
-    <!-- Centered Text "IT Network Tracker" -->
-    <span class="centered-text">Create Inventory</span>
+    <!-- centered text "IT Network Tracker" -->
+    <span class="centered-text">Create New Inventory Item</span>
 </div>
 
+<!-- form to create a new inventory item -->
 <form asp-action="Create">
     <div class="form-horizontal">
         <hr />
+        <!-- input for vendor -->
         <div class="form-group">
             <label asp-for="Vendor" class="control-label"></label>
             <input asp-for="Vendor" class="form-control" />
             <span asp-validation-for="Vendor" class="text-danger"></span>
         </div>
+        <!-- input for device type -->
         <div class="form-group">
             <label asp-for="DeviceType" class="control-label"></label>
             <input asp-for="DeviceType" class="form-control" />
             <span asp-validation-for="DeviceType" class="text-danger"></span>
         </div>
+        <!-- input for serial number -->
         <div class="form-group">
             <label asp-for="SerialNumber" class="control-label"></label>
             <input asp-for="SerialNumber" class="form-control" />
             <span asp-validation-for="SerialNumber" class="text-danger"></span>
         </div>
+        <!-- input for host name -->
         <div class="form-group">
             <label asp-for="HostName" class="control-label"></label>
             <input asp-for="HostName" class="form-control" />
             <span asp-validation-for="HostName" class="text-danger"></span>
         </div>
+        <!-- input for asset tag -->
         <div class="form-group">
             <label asp-for="AssetTag" class="control-label"></label>
             <input asp-for="AssetTag" class="form-control" />
             <span asp-validation-for="AssetTag" class="text-danger"></span>
         </div>
-        <!-- Corrected PartID property name -->
+        <!-- input for part id -->
         <div class="form-group">
             <label asp-for="PartID" class="control-label"></label>
             <input asp-for="PartID" class="form-control" />
             <span asp-validation-for="PartID" class="text-danger"></span>
         </div>
+        <!-- input for future location -->
         <div class="form-group">
             <label asp-for="FutureLocation" class="control-label"></label>
             <input asp-for="FutureLocation" class="form-control" />
             <span asp-validation-for="FutureLocation" class="text-danger"></span>
         </div>
+        <!-- input for date received -->
         <div class="form-group">
             <label asp-for="DateReceived" class="control-label"></label>
             <input asp-for="DateReceived" class="form-control" />
             <span asp-validation-for="DateReceived" class="text-danger"></span>
         </div>
+        <!-- input for current location -->
         <div class="form-group">
             <label asp-for="CurrentLocation" class="control-label"></label>
             <input asp-for="CurrentLocation" class="form-control" />
             <span asp-validation-for="CurrentLocation" class="text-danger"></span>
         </div>
+        <!-- dropdown for status -->
         <div class="form-group">
             <label asp-for="Status" class="control-label"></label>
             <select asp-for="Status" class="form-control">
@@ -126,6 +136,7 @@
             </select>
             <span asp-validation-for="Status" class="text-danger"></span>
         </div>
+        <!-- submit button for creating the item -->
         <div class="form-group">
             <input type="submit" value="Create" class="btn btn-primary" />
         </div>

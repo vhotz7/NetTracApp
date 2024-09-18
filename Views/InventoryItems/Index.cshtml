@@ -1,114 +1,196 @@
 ﻿@model IEnumerable<NetTracApp.Models.InventoryItem>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "InventoryItem";
 }
 
 <style>
-    /* Top border styling */
+    /* top border styling */
     .top-border {
         position: relative;
-        background-color: #970000; /* Dark red background color */
-        color: #ffff00; /* Yellow text color */
-        height: 60px; /* Adjust height as needed */
+        background-color: #970000; /* dark red background color */
+        color: #ffff00; /* yellow text color */
+        height: 60px; /* height of the top banner */
         display: flex;
         align-items: center;
-        padding-left: 20px; /* Space for the left side text */
+        padding-left: 20px; /* space for the left side text */
     }
 
-    /* Styling for the background text "NetTrac" */
+    /* styling for the background text "NetTrac" */
     .background-text {
         position: absolute;
-        left: 20px; /* Position text near the left */
-        top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Center the text vertically */
-        font-size: 50px; /* Adjust font size */
-        font-weight: bold; /* Bold text */
-        z-index: 1; /* Ensure it appears above the background */
-        color: #ffff00; /* Yellow text color */
+        left: 20px; /* position text near the left */
+        top: 50%; /* center vertically */
+        transform: translateY(-50%); /* adjust text position */
+        font-size: 50px; /* size of the background text */
+        font-weight: bold; /* make text bold */
+        z-index: 1; /* ensure text appears above the background */
+        color: #ffff00; /* yellow text color */
     }
 
-    /* Styling for the centered text "IT Network Tracker" */
+    /* styling for the centered text "IT Network Tracker" */
     .centered-text {
-        margin: 0 auto; /* Center horizontally */
-        font-size: 20px; /* Adjust font size */
-        font-weight: bold; /* Bold text */
-        color: #ffffff; /* White text color */
-        z-index: 2; /* Ensure it appears on top */
+        margin: 0 auto; /* center horizontally */
+        font-size: 20px; /* font size */
+        font-weight: bold; /* bold text */
+        color: #ffffff; /* white text color */
+        z-index: 2; /* ensure it appears above other elements */
         position: relative;
     }
 
-    /* Custom style for buttons */
+    /* custom style for the edit button */
     .btn-edit {
-        background-color: #ac3e0b; /* Orange background for Edit button */
+        background-color: #ac3e0b; /* default orange color for edit button */
         color: white;
         border: none;
     }
 
-        .btn-edit:hover {
-            background-color: #ffff00; /* Yellow on Hover */
+        .btn-edit:hover,
+        .btn-edit:focus {
+            background-color: #e05c1a; /* lighter orange color on hover */
+            color: white; /* keep text white on hover */
+            border: none;
         }
 
+    /* custom style for the delete button */
     .btn-delete {
-        background-color: #970000; /* Red background for Delete button */
+        background-color: #970000; /* default red color for delete button */
         color: white;
         border: none;
     }
 
-    /* Ensure footer or buttons do not cut off */
-    .container {
-        padding-bottom: 70px; /* Prevent content from being cut off */
+        .btn-delete:hover,
+        .btn-delete:focus {
+            background-color: #b30000; /* lighter red color on hover */
+            color: white; /* keep text white on hover */
+            border: none;
+        }
+
+    /* custom style for the "create new inventory item" button */
+    .btn-custom-orange {
+        background-color: #ac3e0b; /* orange background color */
+        color: white; /* white text color */
+        border: none;
+        padding: 5px 10px; /* adjust padding to match other buttons */
+        display: inline-block; /* keep the button inline */
+        margin: 20px auto; /* center horizontally with margin */
+        text-align: center; /* center text */
+        font-weight: bold; /* make the text bold */
+        font-size: 14px; /* adjust font size to match other buttons */
     }
 
-    /* Style adjustments for form container to ensure it doesn't cut off */
+        .btn-custom-orange:hover {
+            background-color: #e05c1a; /* lighter orange color on hover */
+            color: white;
+        }
+
+    /* toggle switch styling */
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .toggle-button {
+        width: 60px;
+        height: 30px;
+        background-color: #ddd; /* default color when off */
+        border: none;
+        border-radius: 15px;
+        position: relative;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-right: 10px; /* space between button and text */
+    }
+
+        .toggle-button.active {
+            background-color: #ac3e0b; /* orange color when active */
+        }
+
+        .toggle-button::before {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-button.active::before {
+            transform: translateX(30px); /* move toggle circle when active */
+        }
+
+    /* prevent footer or buttons from being cut off */
+    .container {
+        padding-bottom: 70px; /* space at the bottom to prevent cutoff */
+    }
+
+    /* style adjustments for form container to ensure it doesn't cut off */
     .form-horizontal {
-        padding-bottom: 70px; /* Extra padding at the bottom */
+        padding-bottom: 70px; /* extra padding at the bottom */
+    }
+
+    /* hide additional columns by default */
+    .extra-column {
+        display: none;
     }
 </style>
 
 <div class="top-border">
-    <!-- Background Text "NetTrac" -->
+    <!-- background text "NetTrac" -->
     <span class="background-text">NetTrac</span>
 
-    <!-- Centered Text "IT Network Tracker" -->
+    <!-- centered text "IT Network Tracker" -->
     <span class="centered-text">View Inventory</span>
 </div>
 
-<!-- Search Form -->
-<!-- Search Form -->
+<!-- toggle button to expand or collapse table data -->
+<div class="toggle-container">
+    <button id="toggleExpand" class="toggle-button" onclick="toggleColumns()"></button>
+    <span>View All Data</span>
+</div>
+
+<!-- search form to find inventory items -->
 <div class="search-form mb-4">
     <form asp-action="Index" method="get">
         <div class="form-group">
-            
             <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" />
         </div>
-        <!-- Button underneath the input field -->
+        <!-- button to submit search -->
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>
 </div>
 
-<!-- CSV Upload Form -->
+<!-- form to upload a CSV file -->
 <div class="mb-4">
     <form asp-action="UploadFile" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="file">Upload CSV File:</label>
             <input type="file" name="file" class="form-control-file" />
         </div>
-        <!-- Button underneath the input field -->
+        <!-- button to upload file -->
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Upload</button>
         </div>
     </form>
 </div>
 
-<a asp-controller="InventoryItems" asp-action="Create" class="btn btn-custom-orange">Create New Inventory Item</a> <!-- Apply orange style -->
+<!-- centered button to create a new inventory item -->
+<div class="text-center mb-4">
+    <a asp-controller="InventoryItems" asp-action="Create" class="btn btn-custom-orange">Create New Inventory Item</a>
+</div>
 
-<!-- Inventory Table -->
+<!-- inventory table displaying current data -->
 <table class="table table-striped table-bordered">
     <thead class="thead-dark">
         <tr>
+            <!-- default columns -->
             <th>Vendor</th>
             <th>Device Type</th>
             <th>Serial Number</th>
@@ -119,6 +201,16 @@
             <th>Date Received</th>
             <th>Future Location</th>
             <th>Part ID</th>
+            <!-- extra columns hidden by default -->
+            <th class="extra-column">Back Ordered</th>
+            <th class="extra-column">Notes</th>
+            <th class="extra-column">Product Description</th>
+            <th class="extra-column">Ready</th>
+            <th class="extra-column">Legacy Device</th>
+            <th class="extra-column">Modified</th>
+            <th class="extra-column">Created</th>
+            <th class="extra-column">Created By</th>
+            <th class="extra-column">Modified By</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -128,6 +220,7 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <!-- display default columns -->
                     <td>@item.Vendor</td>
                     <td>@item.DeviceType</td>
                     <td>@item.SerialNumber</td>
@@ -138,11 +231,21 @@
                     <td>@item.DateReceived</td>
                     <td>@item.FutureLocation</td>
                     <td>@item.PartID</td>
+                    <!-- display extra columns when expanded -->
+                    <td class="extra-column">@item.BackOrdered</td>
+                    <td class="extra-column">@item.Notes</td>
+                    <td class="extra-column">@item.ProductDescription</td>
+                    <td class="extra-column">@item.Ready</td>
+                    <td class="extra-column">@item.LegacyDevice</td>
+                    <td class="extra-column">@item.Modified</td>
+                    <td class="extra-column">@item.Created</td>
+                    <td class="extra-column">@item.CreatedBy</td>
+                    <td class="extra-column">@item.ModifiedBy</td>
                     <td>
-                        <!-- Edit button with custom class -->
+                        <!-- edit button -->
                         <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
 
-                        <!-- Delete link to redirect to confirmation page -->
+                        <!-- delete button -->
                         <a asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete btn-sm">Delete</a>
                     </td>
                 </tr>
@@ -150,9 +253,24 @@
         }
         else
         {
+            <!-- display if no inventory items are found -->
             <tr>
                 <td colspan="19" class="text-center">No inventory items found.</td>
             </tr>
         }
     </tbody>
 </table>
+
+<script>
+    // function to toggle visibility of extra columns
+    function toggleColumns() {
+        var toggleButton = document.getElementById("toggleExpand");
+        var extraColumns = document.querySelectorAll(".extra-column");
+        var isActive = toggleButton.classList.toggle("active");
+
+        // show or hide extra columns based on toggle button state
+        extraColumns.forEach(function (column) {
+            column.style.display = isActive ? "table-cell" : "none";
+        });
+    }
+</script>
