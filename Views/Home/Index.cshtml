@@ -29,6 +29,18 @@
         color: #ffff00; /* Yellow text color */
     }
 
+    #circle {
+        background: black;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 10px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Adjust text position */
+    }
+
+
     /* Styling for the centered text "IT Network Tracker" */
     .centered-text {
         margin: 0 auto; /* Center horizontally */
@@ -143,6 +155,8 @@
 <div class="top-border">
     <!-- Background Text "NetTrac" -->
     <span class="background-text">NetTrac</span>
+
+    <span id="circle"></span>
 
     <!-- Centered Text "IT Network Tracker" -->
     <span class="centered-text">IT Network Tracker</span>
