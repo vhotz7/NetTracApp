@@ -5,11 +5,12 @@
 }
 
 <style>
-    /* Top border styling */
+    /* top border styling */
     .top-border {
         position: relative;
         background-color: #970000; /* Dark red background color */
         color: #ffff00; /* Yellow text color */
+        height: 70px; /* Height of the top banner */
         height: 70px; /* Height of the top banner */
         display: flex;
         align-items: center;
@@ -86,52 +87,53 @@
         position: relative;
     }
 
-    /* Custom style for buttons */
+    /* custom style for the edit button */
     .btn-edit {
-        background-color: #ac3e0b; /* Orange color for Edit button */
+        background-color: #ac3e0b; /* default orange color for edit button */
         color: white;
         border: none;
     }
 
         .btn-edit:hover,
         .btn-edit:focus {
-            background-color: #e05c1a; /* Lighter orange color on hover */
-            color: white; /* Keep text white on hover */
+            background-color: #e05c1a; /* lighter orange color on hover */
+            color: white; /* keep text white on hover */
             border: none;
         }
 
+    /* custom style for the delete button */
     .btn-delete {
-        background-color: #970000; /* Red color for Delete button */
+        background-color: #970000; /* default red color for delete button */
         color: white;
         border: none;
     }
 
         .btn-delete:hover,
         .btn-delete:focus {
-            background-color: #b30000; /* Lighter red color on hover */
-            color: white; /* Keep text white on hover */
+            background-color: #b30000; /* lighter red color on hover */
+            color: white; /* keep text white on hover */
             border: none;
         }
 
-    /* Custom style for the "Create New Inventory Item" button */
+    /* custom style for the "create new inventory item" button */
     .btn-custom-orange {
-        background-color: #ac3e0b; /* Orange color for button */
-        color: white; /* White text color */
+        background-color: #ac3e0b; /* orange background color */
+        color: white; /* white text color */
         border: none;
-        padding: 5px 10px; /* Adjust padding to match other buttons */
-        display: inline-block; /* Keep the button inline */
-        margin: 20px auto; /* Center horizontally with margin */
-        text-align: center; /* Center text */
-        font-weight: bold; /* Make the text bold */
-        font-size: 14px; /* Font size */
+        padding: 5px 10px; /* adjust padding to match other buttons */
+        display: inline-block; /* keep the button inline */
+        margin: 20px auto; /* center horizontally with margin */
+        text-align: center; /* center text */
+        font-weight: bold; /* make the text bold */
+        font-size: 14px; /* adjust font size to match other buttons */
     }
 
         .btn-custom-orange:hover {
-            background-color: #e05c1a; /* Lighter orange color on hover */
+            background-color: #e05c1a; /* lighter orange color on hover */
             color: white;
         }
 
-    /* Toggle switch styling */
+    /* toggle switch styling */
     .toggle-container {
         display: flex;
         align-items: center;
@@ -142,17 +144,17 @@
     .toggle-button {
         width: 60px;
         height: 30px;
-        background-color: #ddd; /* Color when toggle is off */
+        background-color: #ddd; /* default color when off */
         border: none;
         border-radius: 15px;
         position: relative;
         cursor: pointer;
         transition: background-color 0.3s;
-        margin-right: 10px; /* Space between button and text */
+        margin-right: 10px; /* space between button and text */
     }
 
         .toggle-button.active {
-            background-color: #ac3e0b; /* Orange color when toggle is on */
+            background-color: #ac3e0b; /* orange color when active */
         }
 
         .toggle-button::before {
@@ -168,27 +170,27 @@
         }
 
         .toggle-button.active::before {
-            transform: translateX(30px); /* Move circle when toggle is on */
+            transform: translateX(30px); /* move toggle circle when active */
         }
 
-    /* Ensure footer or buttons do not cut off */
+    /* prevent footer or buttons from being cut off */
     .container {
-        padding-bottom: 70px; /* Space at the bottom to prevent cutoff */
+        padding-bottom: 70px; /* space at the bottom to prevent cutoff */
     }
 
-    /* Style adjustments for form container to ensure it doesn't cut off */
+    /* style adjustments for form container to ensure it doesn't cut off */
     .form-horizontal {
-        padding-bottom: 70px; /* Extra padding at the bottom */
+        padding-bottom: 70px; /* extra padding at the bottom */
     }
 
-    /* Hide additional columns by default */
+    /* hide additional columns by default */
     .extra-column {
         display: none;
     }
 </style>
 
 <div class="top-border">
-    <!-- Background Text "NetTrac" -->
+    <!-- background text "NetTrac" -->
     <span class="background-text">NetTrac</span>
 
     <span id="circle"></span>
@@ -226,13 +228,15 @@
 <!-- CSV Upload Form -->
 <div class="mb-4">
     <form asp-action="UploadFile" method="post" enctype="multipart/form-data">
+        <!-- File input field allowing multiple file uploads -->
         <div class="form-group">
-            <label for="file">Upload CSV File:</label>
-            <input type="file" name="file" class="form-control-file" />
+            <label for="file">Upload CSV File(s):</label>
+            <input type="file" name="files" class="form-control-file" multiple />
         </div>
-        <!-- Button to upload file -->
+
+        <!-- Button to upload files -->
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Upload</button>
+            <button type="submit" class="btn btn-custom-orange">Upload</button>
         </div>
     </form>
 </div>
