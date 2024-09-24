@@ -19,7 +19,34 @@ body, p, span, label, input, button {
     border-radius: 8px; /* Optional: Add rounded corners */
 }
 
+/* Search border styling */
+.search-border {
+    position: relative;
+    background-color: black;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-top: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: space-evenly;
+}
 
+ /* Search bar length setting */
+.search-length {
+    width: 950px;
+}
+
+/* Styling for search text "Search Inventory" */
+.search-text {
+    color: orange;
+    line-height: 15px;
+    font-size: medium;
+    margin-bottom: 20px;
+    align-content: center;
+}
 
 /* Top border styling */
 .top-border {
@@ -39,7 +66,6 @@ body, p, span, label, input, button {
     top: 50%; /* Center vertically */
     transform: translateY(-50%); /* Adjust text position */
     font-size: 50px; /* Size of the background text */
-    font-weight: bold; /* Make text bold */
     z-index: 1; /* Ensure text appears above the background */
     color: #ffff00; /* Yellow text color */
 }
@@ -48,7 +74,6 @@ body, p, span, label, input, button {
 .centered-text {
     margin: 0 auto; /* Center horizontally */
     font-size: 20px; /* Font size */
-    font-weight: bold; /* Bold text */
     color: #ffffff; /* White text color */
     z-index: 2; /* Ensure it appears above other elements */
     position: relative;
