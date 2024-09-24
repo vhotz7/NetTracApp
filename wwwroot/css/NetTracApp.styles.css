@@ -19,7 +19,34 @@ body, p, span, label, input, button {
     border-radius: 8px; /* Optional: Add rounded corners */
 }
 
+/* Search border styling */
+.search-border {
+    position: relative;
+    background-color: black;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-top: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: space-evenly;
+}
 
+ /* Search bar length setting */
+.search-length {
+    width: 950px;
+}
+
+/* Styling for search text "Search Inventory" */
+.search-text {
+    color: orange;
+    line-height: 15px;
+    font-size: medium;
+    margin-bottom: 20px;
+    align-content: center;
+}
 
 /* Top border styling */
 .top-border {
