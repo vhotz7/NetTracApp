@@ -1,0 +1,155 @@
+﻿body {
+    background-image: url('/images/design2.PNG'); /* Path to your image */
+    background-size: cover; /* Ensure the image covers the entire background */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-attachment: fixed; /* Make the image fixed when scrolling */
+    background-position: center; /* Center the image */
+    color: #fff; /* Optional: Set the text color to contrast with the background */
+}
+
+body, p, span, label, input, button {
+    color: black; /* Set text color to black */
+}
+
+.container, table {
+    position: relative; /* Ensures content stays above the background */
+    background-color: rgba(255, 255, 255, 0.9); /* Optional: Add semi-transparent background */
+    z-index: 2; /* Place content above the background image */
+    padding: 0; /* Add padding to the container */
+    border-radius: 8px; /* Optional: Add rounded corners */
+}
+
+
+
+/* Top border styling */
+.top-border {
+    position: relative;
+    background-color: #970000; /* Dark red background color */
+    color: #ffff00; /* Yellow text color */
+    height: 60px; /* Height of the top banner */
+    display: flex;
+    align-items: center;
+    padding-left: 20px; /* Space for the left side text */
+}
+
+/* Styling for the background text "NetTrac" */
+.background-text {
+    position: absolute;
+    left: 20px; /* Position text near the left */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust text position */
+    font-size: 50px; /* Size of the background text */
+    font-weight: bold; /* Make text bold */
+    z-index: 1; /* Ensure text appears above the background */
+    color: #ffff00; /* Yellow text color */
+}
+
+/* Styling for the centered text "IT Network Tracker" */
+.centered-text {
+    margin: 0 auto; /* Center horizontally */
+    font-size: 20px; /* Font size */
+    font-weight: bold; /* Bold text */
+    color: #ffffff; /* White text color */
+    z-index: 2; /* Ensure it appears above other elements */
+    position: relative;
+}
+
+/* Custom style for buttons */
+.btn-edit {
+    background-color: #ac3e0b; /* Orange color for Edit button */
+    color: white;
+    border: none;
+}
+
+    .btn-edit:hover,
+    .btn-edit:focus {
+        background-color: #e05c1a; /* Lighter orange color on hover */
+        color: white; /* Keep text white on hover */
+        border: none;
+    }
+
+.btn-delete {
+    background-color: #970000; /* Red color for Delete button */
+    color: white;
+    border: none;
+}
+
+    .btn-delete:hover,
+    .btn-delete:focus {
+        background-color: #b30000; /* Lighter red color on hover */
+        color: white; /* Keep text white on hover */
+        border: none;
+    }
+
+/* Custom style for the "Create New Inventory Item" button */
+.btn-custom-orange {
+    background-color: #ac3e0b; /* Orange color for button */
+    color: white; /* White text color */
+    border: none;
+    padding: 5px 10px; /* Adjust padding to match other buttons */
+    display: inline-block; /* Keep the button inline */
+    margin: 20px auto; /* Center horizontally with margin */
+    text-align: center; /* Center text */
+    font-weight: bold; /* Make the text bold */
+    font-size: 14px; /* Font size */
+}
+
+    .btn-custom-orange:hover {
+        background-color: #e05c1a; /* Lighter orange color on hover */
+        color: white;
+    }
+
+/* Toggle switch styling */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.toggle-button {
+    width: 60px;
+    height: 30px;
+    background-color: #ddd; /* Color when toggle is off */
+    border: none;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px; /* Space between button and text */
+}
+
+    .toggle-button.active {
+        background-color: #ac3e0b; /* Orange color when toggle is on */
+    }
+
+    .toggle-button::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 24px;
+        height: 24px;
+        background-color: white;
+        border-radius: 50%;
+        transition: transform 0.3s;
+    }
+
+    .toggle-button.active::before {
+        transform: translateX(30px); /* Move circle when toggle is on */
+    }
+
+/* Ensure footer or buttons do not cut off */
+.container {
+    padding-bottom: 70px; /* Space at the bottom to prevent cutoff */
+}
+
+/* Style adjustments for form container to ensure it doesn't cut off */
+.form-horizontal {
+    padding-bottom: 70px; /* Extra padding at the bottom */
+}
+
+/* Hide additional columns by default */
+.extra-column {
+    display: none;
+}

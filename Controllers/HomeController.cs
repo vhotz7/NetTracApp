@@ -50,62 +50,73 @@ namespace NetTracApp.Controllers
 
         // action to handle CSV file upload
         [HttpPost]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        public async Task<IActionResult> UploadFile(List<IFormFile> files)
         {
-            // check if the file is null or empty
-            if (file == null || file.Length == 0)
+            // Check if no files were uploaded
+            if (files == null || files.Count == 0)
             {
-                ModelState.AddModelError("file", "Please select a valid CSV file.");
+                ModelState.AddModelError("files", "Please select one or more CSV files.");
                 return RedirectToAction("Index");
             }
 
-            // check if the file has a .csv extension
-            if (!Path.GetExtension(file.FileName).Equals(".csv", StringComparison.OrdinalIgnoreCase))
-            {
-                ModelState.AddModelError("file", "Only CSV files are allowed.");
-                return RedirectToAction("Index");
-            }
+            var totalNewRecords = 0;
 
-            try
+            foreach (var file in files)
             {
-                var inventoryItems = new List<InventoryItem>();
-                using (var stream = file.OpenReadStream())
+                // Check if the file has a .csv extension
+                if (!Path.GetExtension(file.FileName).Equals(".csv", StringComparison.OrdinalIgnoreCase))
                 {
-                    // read the CSV file and convert it to a list of inventory items
-                    inventoryItems = _csvService.ReadCsvFile(stream).ToList();
+                    ModelState.AddModelError("files", "Only CSV files are allowed.");
+                    continue;
                 }
 
-                // filter out duplicate records
-                var newItems = new List<InventoryItem>();
-                foreach (var item in inventoryItems)
+                try
                 {
-                    if (!_context.InventoryItems.Any(e => e.Id == item.Id))
+                    var inventoryItems = new List<InventoryItem>();
+                    using (var stream = file.OpenReadStream())
                     {
-                        newItems.Add(item); // add only new items that do not exist in the database
+                        // Read the CSV file and convert it to a list of inventory items
+                        inventoryItems = _csvService.ReadCsvFile(stream).ToList();
+                    }
+
+                    // Filter out duplicate records
+                    var newItems = new List<InventoryItem>();
+                    foreach (var item in inventoryItems)
+                    {
+                        if (!_context.InventoryItems.Any(e => e.Id == item.Id))
+                        {
+                            newItems.Add(item); // Add only new items that do not exist in the database
+                        }
+                    }
+
+                    // If new records are found, add them to the database
+                    if (newItems.Any())
+                    {
+                        _context.InventoryItems.AddRange(newItems);
+                        await _context.SaveChangesAsync(); // Save changes to the database
+                        totalNewRecords += newItems.Count;
                     }
                 }
-
-                // if new records are found, add them to the database
-                if (newItems.Any())
+                catch (Exception ex)
                 {
-                    _context.InventoryItems.AddRange(newItems);
-                    await _context.SaveChangesAsync(); // save changes to the database
-                    TempData["SuccessMessage"] = $"{newItems.Count} new records added successfully.";
-                }
-                else
-                {
-                    TempData["InfoMessage"] = "No new records to add.";
+                    // Handle errors during file processing
+                    ModelState.AddModelError("files", $"An error occurred while processing file '{file.FileName}': {ex.Message}");
                 }
             }
-            catch (Exception ex)
+
+            if (totalNewRecords > 0)
             {
-                // handle errors during file processing
-                ModelState.AddModelError("file", $"An error occurred while processing the file: {ex.Message}");
+                TempData["SuccessMessage"] = $"{totalNewRecords} new records added successfully.";
+            }
+            else
+            {
+                TempData["InfoMessage"] = "No new records to add from any of the files.";
             }
 
-            // redirect back to the main page
+            // Redirect back to the main page
             return RedirectToAction("Index");
         }
+
 
         // action to display the privacy page
         public IActionResult Privacy()
