@@ -54,6 +54,17 @@
     .form-horizontal {
         padding-bottom: 70px; /* Extra padding at the bottom */
     }
+
+    /* Spacing between form groups */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    /* Modify label styling */
+    .custom-label {
+        font-weight: bold;
+        margin-right: 5px;
+    }
 </style>
 
 <div class="top-border">
@@ -71,70 +82,70 @@
 
         <!-- Vendor -->
         <div class="form-group">
-            <label asp-for="Vendor" class="control-label"></label>
+            <label asp-for="Vendor" class="control-label custom-label">Vendor:</label>
             <input asp-for="Vendor" class="form-control" />
             <span asp-validation-for="Vendor" class="text-danger"></span>
         </div>
 
         <!-- DeviceType -->
         <div class="form-group">
-            <label asp-for="DeviceType" class="control-label"></label>
+            <label asp-for="DeviceType" class="control-label custom-label">Device Type:</label>
             <input asp-for="DeviceType" class="form-control" />
             <span asp-validation-for="DeviceType" class="text-danger"></span>
         </div>
 
         <!-- SerialNumber -->
         <div class="form-group">
-            <label asp-for="SerialNumber" class="control-label"></label>
+            <label asp-for="SerialNumber" class="control-label custom-label">Serial Number:</label>
             <input asp-for="SerialNumber" class="form-control" />
             <span asp-validation-for="SerialNumber" class="text-danger"></span>
         </div>
 
         <!-- HostName -->
         <div class="form-group">
-            <label asp-for="HostName" class="control-label"></label>
+            <label asp-for="HostName" class="control-label custom-label">Host Name:</label>
             <input asp-for="HostName" class="form-control" />
             <span asp-validation-for="HostName" class="text-danger"></span>
         </div>
 
         <!-- AssetTag -->
         <div class="form-group">
-            <label asp-for="AssetTag" class="control-label"></label>
+            <label asp-for="AssetTag" class="control-label custom-label">Asset Tag:</label>
             <input asp-for="AssetTag" class="form-control" />
             <span asp-validation-for="AssetTag" class="text-danger"></span>
         </div>
 
         <!-- PartID -->
         <div class="form-group">
-            <label asp-for="PartID" class="control-label"></label>
+            <label asp-for="PartID" class="control-label custom-label">Part ID:</label>
             <input asp-for="PartID" class="form-control" />
             <span asp-validation-for="PartID" class="text-danger"></span>
         </div>
 
         <!-- FutureLocation -->
         <div class="form-group">
-            <label asp-for="FutureLocation" class="control-label"></label>
+            <label asp-for="FutureLocation" class="control-label custom-label">Future Location:</label>
             <input asp-for="FutureLocation" class="form-control" />
             <span asp-validation-for="FutureLocation" class="text-danger"></span>
         </div>
 
         <!-- DateReceived -->
         <div class="form-group">
-            <label asp-for="DateReceived" class="control-label"></label>
+            <label asp-for="DateReceived" class="control-label custom-label">Date Received:</label>
             <input asp-for="DateReceived" class="form-control" type="date" />
             <span asp-validation-for="DateReceived" class="text-danger"></span>
         </div>
 
         <!-- CurrentLocation -->
         <div class="form-group">
-            <label asp-for="CurrentLocation" class="control-label"></label>
+            <label asp-for="CurrentLocation" class="control-label custom-label">Current Location:</label>
             <input asp-for="CurrentLocation" class="form-control" />
             <span asp-validation-for="CurrentLocation" class="text-danger"></span>
         </div>
 
         <!-- Status -->
         <div class="form-group">
-            <label asp-for="Status" class="control-label"></label>
+            <label asp-for="Status" class="control-label custom-label">Status:</label>
             <select asp-for="Status" class="form-control">
                 <option value="Received">Received</option>
                 <option value="In Route">In Route</option>
@@ -145,29 +156,28 @@
 
         <!-- BackOrdered -->
         <div class="form-group">
-            <label asp-for="BackOrdered" class="control-label"></label>
+            <label asp-for="BackOrdered" class="control-label custom-label">Back Ordered:</label>
             <input asp-for="BackOrdered" class="form-control" />
             <span asp-validation-for="BackOrdered" class="text-danger"></span>
         </div>
 
         <!-- Notes -->
         <div class="form-group">
-            <label asp-for="Notes" class="control-label"></label>
+            <label asp-for="Notes" class="control-label custom-label">Notes:</label>
             <textarea asp-for="Notes" class="form-control"></textarea>
             <span asp-validation-for="Notes" class="text-danger"></span>
         </div>
 
         <!-- ProductDescription -->
         <div class="form-group">
-            <label asp-for="ProductDescription" class="control-label"></label>
+            <label asp-for="ProductDescription" class="control-label custom-label">Product Description:</label>
             <input asp-for="ProductDescription" class="form-control" />
             <span asp-validation-for="ProductDescription" class="text-danger"></span>
         </div>
 
-        <!-- Ready -->
         <!-- Ready (Dropdown for Yes/No) -->
         <div class="form-group">
-            <label asp-for="Ready" class="control-label"></label>
+            <label asp-for="Ready" class="control-label custom-label">Ready:</label>
             <select asp-for="Ready" class="form-control">
                 <option value="true">Yes</option>
                 <option value="false">No</option>
@@ -175,24 +185,24 @@
             <span asp-validation-for="Ready" class="text-danger"></span>
         </div>
 
-        <!-- LegacyDevice -->
-          <div class="form-group">
-         <label asp-for="LegacyDevice" class="control-label"></label>
-         <input asp-for="LegacyDevice" class="form-check-input" type="checkbox" />
-          <span asp-validation-for="LegacyDevice" class="text-danger"></span>
-         </div>
+        <!-- LegacyDevice (Checkbox) -->
+        <div class="form-group">
+            <label asp-for="LegacyDevice" class="control-label custom-label">Legacy Device:</label>
+            <input asp-for="LegacyDevice" class="form-check-input" type="checkbox" />
+            <span asp-validation-for="LegacyDevice" class="text-danger"></span>
+        </div>
 
         <!-- CreatedBy -->
         <div class="form-group">
-            <label asp-for="CreatedBy" class="control-label"></label>
-            <input asp-for="CreatedBy" class="form-control" />
+            <label asp-for="CreatedBy" class="control-label custom-label">Created By:</label>
+            <input asp-for="CreatedBy" class="form-control" readonly />
             <span asp-validation-for="CreatedBy" class="text-danger"></span>
         </div>
 
         <!-- ModifiedBy -->
         <div class="form-group">
-            <label asp-for="ModifiedBy" class="control-label"></label>
-            <input asp-for="ModifiedBy" class="form-control" />
+            <label asp-for="ModifiedBy" class="control-label custom-label">Modified By:</label>
+            <input asp-for="ModifiedBy" class="form-control" readonly />
             <span asp-validation-for="ModifiedBy" class="text-danger"></span>
         </div>
 

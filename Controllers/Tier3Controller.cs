@@ -4,9 +4,9 @@ namespace NetTracApp.Controllers
 {
     public class Tier3Controller : Controller
     {
-        public IActionResult Index()
+        public IActionResult Tier3Dashboard()
         {
-            return View();
+            return View(); 
         }
     }
 }
