@@ -20,9 +20,15 @@ html {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-/* Body margin */
+/* Body margin and background color */
 body {
     margin-bottom: 60px;
+    background-color: lightgray;
+}
+
+/* Background white color for the tables */
+table {
+    background-color: white;
 }
 
 /* Custom styles for primary and secondary buttons */

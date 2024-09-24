@@ -17,6 +17,32 @@
         border-radius: 10px; /* Rounded corners */
     }
 
+    /* Search border styling */
+    .search-border {
+        position: relative;
+        background-color: black;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        padding-top: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+   /* Styling for search text "Search Inventory" */
+    .search-text {
+        position: left;
+        color: orange;
+    }
+
+    /* Styling for toggle text "Data View" */
+    .toggle-text {
+        position: right;
+        color: white;
+        font-weight: bold;
+    }
+
     /* Styling for the background text "NetTrac" */
     .background-text {
         position: absolute;
@@ -29,15 +55,6 @@
         color: #ffff00; /* Yellow text color */
     }
 
-    body {
-        background-color: lightgray;
-    }
-
-    table {
-        background-color: white;
-    }
-
-
     #circle {
         background: black;
         border-radius: 50%;
@@ -48,7 +65,6 @@
         top: 50%; /* Center vertically */
         transform: translateY(-50%); /* Adjust text position */
     }
-
 
     /* Styling for the centered text "IT Network Tracker" */
     .centered-text {
@@ -171,23 +187,28 @@
     <span class="centered-text">IT Network Tracker</span>
 </div>
 
-<!-- Toggle button to expand or collapse table data -->
-<div class="toggle-container">
-    <button id="toggleExpand" class="toggle-button" onclick="toggleColumns()"></button>
-    <span>View All Data</span>
-</div>
+<div class="search-border">
 
-<!-- Search Form -->
-<div class="search-form mb-4">
-    <form asp-action="Index" method="get">
-        <div class="form-group">
-            <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" />
-        </div>
-        <!-- Button to perform search -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-    </form>
+    <div class="search-text">
+    <span>Search<br> Inventory</span>
+    </div>
+
+        <!-- Search Form -->
+    <div class="search-form mb-4">
+        <form asp-action="Index" method="get">
+            <div class="form-group">
+                <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" />
+            </div>
+        </form>
+
+    </div>
+        <!-- Toggle button to expand or collapse table data -->
+    <div class="toggle-container">
+        <button id="toggleExpand" class="toggle-button" onclick="toggleColumns()"></button>
+        <span class= "toggle-text">
+            <span>Data View</span>
+            </span>
+    </div>
 </div>
 
 <!-- CSV Upload Form -->
