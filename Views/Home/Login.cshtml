@@ -2,19 +2,35 @@
     ViewData["Title"] = "Login Page";
 }
 
-<h2>Login</h2>
+<div class="top-border">
+    <!-- background text "NetTrac" -->
+    <span class="background-text">NetTrac</span>
 
-<form method="post" action="/Login/Login">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <input type="submit" value="Login">
+    <!-- Circle -->
+    <span id="circle"></span>
+
+    <!-- Centered Text "IT Network Tracker" -->
+    <span class="centered-text">Login</span>
+</div>
+
+<form method="post" action="/Login/Login" class="login-form">
+    <div class="form-group">
+        <label for="username">Username: </label>
+        <input type="text" id="username" name="username" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password" required>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Login">
+    </div>
 </form>
 
 @if (ViewBag.Message != null)
 {
     <p style="color:red;">@ViewBag.Message</p>
 }
+

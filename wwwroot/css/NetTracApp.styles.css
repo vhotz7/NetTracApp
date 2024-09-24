@@ -153,3 +153,34 @@ body, p, span, label, input, button {
 .extra-column {
     display: none;
 }
+
+
+.login-form {
+    width: 300px; /* Adjust the width to suit your needs */
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+label {
+    width: 100px; /* Adjust the width of the label */
+    text-align: right;
+    margin-right: 10px;
+}
+
+input[type="text"], input[type="password"] {
+    flex-grow: 1;
+    padding: 5px;
+}
+
+input[type="submit"] {
+    margin-left: 110px; /* Adjust this to align the submit button */
+    padding: 5px 10px;
+}
+
+
+
