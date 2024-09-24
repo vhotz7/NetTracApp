@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NetTracApp.Models.InventoryItem>
+@model IEnumerable<NetTracApp.Models.InventoryItem>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -8,33 +8,80 @@
     /* top border styling */
     .top-border {
         position: relative;
-        background-color: #970000; /* dark red background color */
-        color: #ffff00; /* yellow text color */
-        height: 60px; /* height of the top banner */
+        background-color: #970000; /* Dark red background color */
+        color: #ffff00; /* Yellow text color */
+        height: 70px; /* Height of the top banner */
         display: flex;
         align-items: center;
-        padding-left: 20px; /* space for the left side text */
+        padding-left: 20px; /* Space for the left side text */
+        border-radius: 10px; /* Rounded corners */
     }
 
-    /* styling for the background text "NetTrac" */
+    /* Search border styling */
+    .search-border {
+        position: relative;
+        background-color: black;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        padding-top: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: space-evenly;
+    }
+
+    /* Search bar length setting */
+    .search-length {
+        width: 950px;
+    }
+
+   /* Styling for search text "Search Inventory" */
+    .search-text {
+        color: orange;
+        line-height: 15px;
+        font-size: medium;
+        margin-bottom: 20px;
+        align-content: center;
+    }
+
+    /* Styling for toggle text "Data View" */
+    .toggle-text {
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Styling for the background text "NetTrac" */
     .background-text {
         position: absolute;
-        left: 20px; /* position text near the left */
-        top: 50%; /* center vertically */
-        transform: translateY(-50%); /* adjust text position */
-        font-size: 50px; /* size of the background text */
-        font-weight: bold; /* make text bold */
-        z-index: 1; /* ensure text appears above the background */
-        color: #ffff00; /* yellow text color */
+        left: 20px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Adjust text position */
+        font-size: 50px; /* Size of the background text */
+        font-family: Impact; /* Impact font matching screenshots */
+        z-index: 1; /* Ensure text appears above the background */
+        color: #ffff00; /* Yellow text color */
     }
 
-    /* styling for the centered text "IT Network Tracker" */
+    #circle {
+        background: black;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 10px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Adjust text position */
+    }
+
+    /* Styling for the centered text "IT Network Tracker" */
     .centered-text {
-        margin: 0 auto; /* center horizontally */
-        font-size: 20px; /* font size */
-        font-weight: bold; /* bold text */
-        color: #ffffff; /* white text color */
-        z-index: 2; /* ensure it appears above other elements */
+        margin: 0 auto; /* Center horizontally */
+        font-size: 30px; /* Font size */
+        font-family: Impact; /* Font family*/
+        color: #ffffff; /* White text color */
+        z-index: 2; /* Ensure it appears above other elements */
         position: relative;
     }
 
@@ -144,29 +191,36 @@
     <!-- background text "NetTrac" -->
     <span class="background-text">NetTrac</span>
 
-    <!-- centered text "IT Network Tracker" -->
-    <span class="centered-text">View Inventory</span>
+    <span id="circle"></span>
+
+    <!-- Centered Text "IT Network Tracker" -->
+    <span class="centered-text">IT Network Tracker</span>
 </div>
 
-<!-- toggle button to expand or collapse table data -->
-<div class="toggle-container">
-    <button id="toggleExpand" class="toggle-button" onclick="toggleColumns()"></button>
-    <span>View All Data</span>
-</div>
+<div class="search-border">
 
+    <div class="search-text">
+    <span>Search<br> Inventory</span>
+    </div>
 
+    <div class="search-length">
+            <!-- Search Form -->
+        <div class="search-form mb-4">
+            <form asp-action="Index" method="get">
+                <div class="form-group">
+                    <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" />
+                </div>
+            </form>
+    </div>
 
-<!-- Search Form -->
-<div class="search-form mb-4">
-    <form asp-action="Index" method="get">
-        <div class="form-group">
-            <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" />
-        </div>
-        <!-- Button to perform search -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-    </form>
+    </div>
+        <!-- Toggle button to expand or collapse table data -->
+    <div class="toggle-container">
+        <span class= "toggle-text">
+            <span>Data View</span>
+        </span>
+        <button id="toggleExpand" class="toggle-button" onclick="toggleColumns()"></button>
+    </div>
 </div>
 
 <!-- CSV Upload Form -->
