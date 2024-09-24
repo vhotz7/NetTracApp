@@ -10,7 +10,7 @@
         position: relative;
         background-color: #970000; /* Dark red background color */
         color: #ffff00; /* Yellow text color */
-        height: 60px; /* Height of the top banner */
+        height: 70px; /* Height of the top banner */
         display: flex;
         align-items: center;
         padding-left: 20px; /* Space for the left side text */
@@ -21,26 +21,36 @@
     .search-border {
         position: relative;
         background-color: black;
-        height: 40px;
+        height: 50px;
         display: flex;
         align-items: center;
         padding-left: 20px;
         padding-top: 20px;
         border-radius: 5px;
         margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: space-evenly;
+    }
+
+    /* Search bar length setting */
+    .search-length {
+        width: 950px;
     }
 
    /* Styling for search text "Search Inventory" */
     .search-text {
-        position: left;
         color: orange;
+        line-height: 15px;
+        font-size: medium;
+        margin-bottom: 20px;
+        align-content: center;
     }
 
     /* Styling for toggle text "Data View" */
     .toggle-text {
-        position: right;
         color: white;
         font-weight: bold;
+        margin-right: 15px;
     }
 
     /* Styling for the background text "NetTrac" */
@@ -193,21 +203,23 @@
     <span>Search<br> Inventory</span>
     </div>
 
-        <!-- Search Form -->
-    <div class="search-form mb-4">
-        <form asp-action="Index" method="get">
-            <div class="form-group">
-                <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" />
-            </div>
-        </form>
+    <div class="search-length">
+            <!-- Search Form -->
+        <div class="search-form mb-4">
+            <form asp-action="Index" method="get">
+                <div class="form-group">
+                    <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" />
+                </div>
+            </form>
+    </div>
 
     </div>
         <!-- Toggle button to expand or collapse table data -->
     <div class="toggle-container">
-        <button id="toggleExpand" class="toggle-button" onclick="toggleColumns()"></button>
         <span class= "toggle-text">
             <span>Data View</span>
-            </span>
+        </span>
+        <button id="toggleExpand" class="toggle-button" onclick="toggleColumns()"></button>
     </div>
 </div>
 
