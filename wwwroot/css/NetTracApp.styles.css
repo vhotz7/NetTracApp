@@ -66,7 +66,6 @@ body, p, span, label, input, button {
     top: 50%; /* Center vertically */
     transform: translateY(-50%); /* Adjust text position */
     font-size: 50px; /* Size of the background text */
-    font-weight: bold; /* Make text bold */
     z-index: 1; /* Ensure text appears above the background */
     color: #ffff00; /* Yellow text color */
 }
@@ -75,7 +74,6 @@ body, p, span, label, input, button {
 .centered-text {
     margin: 0 auto; /* Center horizontally */
     font-size: 20px; /* Font size */
-    font-weight: bold; /* Bold text */
     color: #ffffff; /* White text color */
     z-index: 2; /* Ensure it appears above other elements */
     position: relative;
