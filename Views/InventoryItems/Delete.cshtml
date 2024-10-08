@@ -5,104 +5,118 @@
 }
 
 <style>
-    /* top border styling */
+    /* Top border styling */
     .top-border {
         position: relative;
-        background-color: #970000; /* dark red background color */
-        color: #ffff00; /* yellow text color */
-        height: 60px; /* height of the top banner */
+        background-color: #970000; /* Dark red background color */
+        color: #ffff00; /* Yellow text color */
+        height: 70px; /* Height of the top banner */
         display: flex;
         align-items: center;
-        padding-left: 20px; /* space for the left side text */
+        padding-left: 20px; /* Space for the left side text */
+        border-radius: 10px; /* Rounded corners */
     }
 
-    /* styling for the background text "NetTrac" */
+    /* Styling for the background text "NetTrac" */
     .background-text {
         position: absolute;
-        left: 20px; /* position text near the left */
-        top: 50%; /* center vertically */
-        transform: translateY(-50%); /* adjust text position */
-        font-size: 50px; /* size of the background text */
-        font-weight: bold; /* make text bold */
-        z-index: 1; /* ensure text appears above the background */
-        color: #ffff00; /* yellow text color */
+        left: 20px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Adjust text position */
+        font-size: 50px; /* Size of the background text */
+        font-family: Impact; /* Impact font */
+        z-index: 1; /* Ensure text appears above the background */
+        color: #ffff00; /* Yellow text color */
     }
 
-    /* styling for the centered text "IT Network Tracker" */
+    #circle {
+        background: black;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 10px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Adjust circle position */
+    }
+
+    /* Styling for the centered text "View Inventory" */
     .centered-text {
-        margin: 0 auto; /* center horizontally */
-        font-size: 20px; /* font size */
-        font-weight: bold; /* bold text */
-        color: #ffffff; /* white text color */
-        z-index: 2; /* ensure it appears above other elements */
+        margin: 0 auto; /* Center horizontally */
+        font-size: 30px; /* Font size */
+        font-family: Impact; /* Font family */
+        color: #ffffff; /* White text color */
+        z-index: 2; /* Ensure it appears above other elements */
         position: relative;
     }
 
-    /* custom style for orange button */
-    .btn-custom-orange {
-        background-color: #ac3e0b; /* orange color */
-        color: white;
-        border: none;
-    }
-
-        .btn-custom-orange:hover {
-            background-color: #8a2e0a; /* darker orange on hover */
-        }
-
-    /* prevent footer or buttons from being cut off */
-    .container {
-        padding-bottom: 70px; /* space at the bottom to prevent cutoff */
-    }
-
-    /* style adjustments for form container to ensure it doesn't cut off */
-    .form-horizontal {
-        padding-bottom: 70px; /* extra padding at the bottom */
-    }
-
-    /* style for the delete confirmation text */
-    .delete-warning {
-        color: #b30000; /* red color for warning text */
-        font-weight: bold; /* bold font for emphasis */
-        font-size: 24px; /* larger font size for emphasis */
-        margin-bottom: 15px; /* space below the warning text */
-        text-align: center; /* center the text */
-    }
-
-    /* custom style for the delete button */
+    /* Custom style for the delete button */
     .btn-delete {
-        background-color: #970000; /* default red color for Delete button */
+        background-color: #970000; /* Red color for Delete button */
         color: white;
         border: none;
-        padding: 5px 15px; /* adjust padding for consistency */
+        padding: 5px 15px; /* Adjust padding for consistency */
         font-weight: bold;
     }
 
         .btn-delete:hover,
         .btn-delete:focus {
-            background-color: #b30000; /* lighter red color on hover */
-            color: white; /* keep text white on hover */
+            background-color: #b30000; /* Lighter red color on hover */
+            color: white; /* Keep text white on hover */
             border: none;
         }
 
-    /* align the delete and cancel buttons next to each other and center them */
-    .button-container {
-        display: flex;
-        justify-content: center; /* center the buttons horizontally */
-        gap: 10px; /* add space between the buttons */
-        margin-top: 15px; /* space above the button container */
+    /* Custom style for orange button */
+    .btn-custom-orange {
+        background-color: #ac3e0b; /* Orange color */
+        color: white;
+        border: none;
+        padding: 5px 15px; /* Adjust padding for consistency */
+        font-weight: bold;
     }
 
-    /* make the table smaller */
+        .btn-custom-orange:hover {
+            background-color: #8a2e0a; /* Darker orange on hover */
+        }
+
+    /* Prevent footer or buttons from being cut off */
+    .container {
+        padding-bottom: 70px; /* Space at the bottom to prevent cutoff */
+    }
+
+    /* Style adjustments for form container to ensure it doesn't cut off */
+    .form-horizontal {
+        padding-bottom: 70px; /* Extra padding at the bottom */
+    }
+
+    /* Style for the delete confirmation text */
+    .delete-warning {
+        color: #b30000; /* Red color for warning text */
+        font-weight: bold; /* Bold font for emphasis */
+        font-size: 24px; /* Larger font size for emphasis */
+        margin-bottom: 15px; /* Space below the warning text */
+        text-align: center; /* Center the text */
+    }
+
+    /* Align the delete and cancel buttons next to each other and center them */
+    .button-container {
+        display: flex;
+        justify-content: center; /* Center the buttons horizontally */
+        gap: 10px; /* Add space between the buttons */
+        margin-top: 15px; /* Space above the button container */
+    }
+
+    /* Make the table smaller */
     .table-bordered {
-        width: auto; /* make the table width automatic */
-        max-width: 600px; /* limit the maximum width */
-        margin: 0 auto; /* center the table */
-        font-size: 14px; /* smaller font size for the table */
+        width: auto; /* Make the table width automatic */
+        max-width: 600px; /* Limit the maximum width */
+        margin: 0 auto; /* Center the table */
+        font-size: 14px; /* Smaller font size for the table */
     }
 
         .table-bordered th,
         .table-bordered td {
-            padding: 5px 10px; /* reduce padding for smaller table size */
+            padding: 5px 10px; /* Reduce padding for smaller table size */
         }
 </style>
 
@@ -110,17 +124,20 @@
     <!-- background text "NetTrac" -->
     <span class="background-text">NetTrac</span>
 
-    <!-- centered text "IT Network Tracker" -->
+    <!-- Circle -->
+    <span id="circle"></span>
+
+    <!-- Centered Text "View Inventory" -->
     <span class="centered-text">View Inventory</span>
 </div>
 
-<!-- delete confirmation message centered on the page -->
+<!-- Delete confirmation message centered on the page -->
 <div class="delete-warning">
     Are you sure you want to delete this Inventory Item?
 </div>
 
 <div>
-    <!-- table for displaying all item details -->
+    <!-- Table for displaying all item details -->
     <table class="table table-bordered">
         <tbody>
             <tr>
@@ -202,7 +219,7 @@
         </tbody>
     </table>
 
-    <!-- centered buttons for delete confirmation and cancel -->
+    <!-- Centered buttons for delete confirmation and cancel -->
     <div class="button-container">
         <form asp-action="Delete" method="post">
             <input type="hidden" asp-for="Id" />

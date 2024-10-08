@@ -10,10 +10,11 @@
         position: relative;
         background-color: #970000; /* Dark red background color */
         color: #ffff00; /* Yellow text color */
-        height: 60px; /* Adjust height as needed */
+        height: 70px; /* Height of the top banner */
         display: flex;
         align-items: center;
         padding-left: 20px; /* Space for the left side text */
+        border-radius: 10px; /* Rounded corners */
     }
 
     /* Styling for the background text "NetTrac" */
@@ -21,57 +22,70 @@
         position: absolute;
         left: 20px; /* Position text near the left */
         top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Center the text vertically */
-        font-size: 50px; /* Adjust font size */
-        font-weight: bold; /* Bold text */
-        z-index: 1; /* Ensure it appears above the background */
+        transform: translateY(-50%); /* Adjust text position */
+        font-size: 50px; /* Size of the background text */
+        font-family: Impact; /* Impact font */
+        z-index: 1; /* Ensure text appears above the background */
         color: #ffff00; /* Yellow text color */
     }
 
-    /* Styling for the centered text "IT Network Tracker" */
+    #circle {
+        background: black;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 10px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Adjust circle position */
+    }
+
+    /* Styling for the centered text "Edit Inventory" */
     .centered-text {
         margin: 0 auto; /* Center horizontally */
-        font-size: 20px; /* Adjust font size */
-        font-weight: bold; /* Bold text */
+        font-size: 30px; /* Font size */
+        font-family: Impact; /* Font family */
         color: #ffffff; /* White text color */
-        z-index: 2; /* Ensure it appears on top */
+        z-index: 2; /* Ensure it appears above other elements */
         position: relative;
     }
 
-    /* Custom style for orange button */
-    .btn-custom-orange {
-        background-color: #ac3e0b; /* Orange color */
-        color: white;
-        border: none;
-    }
-
-    /* Ensure footer or buttons do not cut off */
-    .container {
-        padding-bottom: 70px; /* Prevent content from being cut off */
-    }
-
-    /* Style adjustments for form container to ensure it doesn't cut off */
-    .form-horizontal {
-        padding-bottom: 70px; /* Extra padding at the bottom */
-    }
-
-    /* Spacing between form groups */
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    /* Modify label styling */
-    .custom-label {
+    /* Style for the form */
+    .form-group label {
         font-weight: bold;
-        margin-right: 5px;
     }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: #ac3e0b;/*orange button*/
+        
+        border-color: #ac3e0b; /* Match border color */
+    }
+
+        .btn-primary:hover {
+            background-color: #e05c1a; /* lighter orange color on hover*/
+            border-color: #e05c1a; /* lighter orange color on hover */
+        }
+
+    .btn-secondary {
+        background-color: #970000; /* Secondary gray color */
+        border-color: #970000; /* Match border color */
+    }
+
+        .btn-secondary:hover {
+            background-color: #b30000; /* lighter red color on hover */
+            border-color: #b30000; /* lighter red color on hover */
+        }
 </style>
 
 <div class="top-border">
     <!-- Background Text "NetTrac" -->
     <span class="background-text">NetTrac</span>
 
-    <!-- Centered Text "IT Network Tracker" -->
+    <!-- Circle -->
+    <span id="circle"></span>
+
+    <!-- Centered Text "Edit Inventory" -->
     <span class="centered-text">Edit Inventory</span>
 </div>
 
@@ -192,20 +206,21 @@
             <span asp-validation-for="LegacyDevice" class="text-danger"></span>
         </div>
 
-        <!-- CreatedBy -->
+        <!-- CreatedBy (Read-only) -->
         <div class="form-group">
             <label asp-for="CreatedBy" class="control-label custom-label">Created By:</label>
             <input asp-for="CreatedBy" class="form-control" readonly />
             <span asp-validation-for="CreatedBy" class="text-danger"></span>
         </div>
 
-        <!-- ModifiedBy -->
+        <!-- ModifiedBy (Read-only) -->
         <div class="form-group">
             <label asp-for="ModifiedBy" class="control-label custom-label">Modified By:</label>
             <input asp-for="ModifiedBy" class="form-control" readonly />
             <span asp-validation-for="ModifiedBy" class="text-danger"></span>
         </div>
 
+        <!-- Form buttons: Save and Back to List -->
         <div class="form-group">
             <input type="submit" value="Save" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn-secondary">Back to List</a>

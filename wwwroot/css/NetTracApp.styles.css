@@ -53,10 +53,11 @@ body, p, span, label, input, button {
     position: relative;
     background-color: #970000; /* Dark red background color */
     color: #ffff00; /* Yellow text color */
-    height: 60px; /* Height of the top banner */
+    height: 70px; /* Height of the top banner */
     display: flex;
     align-items: center;
     padding-left: 20px; /* Space for the left side text */
+    border-radius: 10px; /* Rounded corners */
 }
 
 /* Styling for the background text "NetTrac" */
@@ -66,18 +67,32 @@ body, p, span, label, input, button {
     top: 50%; /* Center vertically */
     transform: translateY(-50%); /* Adjust text position */
     font-size: 50px; /* Size of the background text */
+    font-family: Impact; /* Impact font */
     z-index: 1; /* Ensure text appears above the background */
     color: #ffff00; /* Yellow text color */
+}
+
+#circle {
+    background: black;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 10px; /* Position circle near the left */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust circle position */
 }
 
 /* Styling for the centered text "IT Network Tracker" */
 .centered-text {
     margin: 0 auto; /* Center horizontally */
-    font-size: 20px; /* Font size */
+    font-size: 30px; /* Font size */
+    font-family: Impact; /* Font family */
     color: #ffffff; /* White text color */
     z-index: 2; /* Ensure it appears above other elements */
     position: relative;
 }
+
 
 /* Custom style for buttons */
 .btn-edit {
@@ -206,6 +221,8 @@ input[type="submit"] {
     margin-left: 110px; /* Adjust this to align the submit button */
     padding: 5px 10px;
 }
+
+
 
 
 
