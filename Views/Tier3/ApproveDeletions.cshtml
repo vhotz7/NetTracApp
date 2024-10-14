@@ -1,7 +1,192 @@
 ﻿@model IEnumerable<NetTracApp.Models.InventoryItem>
 
-<h2>Approve Pending Deletions</h2>
-<table class="table">
+@{
+    ViewData["Title"] = "Approve Deletion Requests and Manage Inventory";
+}
+
+<style>
+    /* top border styling */
+    .top-border {
+        position: relative;
+        background-color: #970000;
+        color: #ffff00;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        border-radius: 10px;
+    }
+
+    .search-border {
+        position: relative;
+        background-color: black;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        padding-top: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: space-evenly;
+    }
+
+    .search-length {
+        width: 950px;
+    }
+
+    .search-text {
+        color: orange;
+        line-height: 15px;
+        font-size: medium;
+        margin-bottom: 20px;
+        align-content: center;
+    }
+
+    .toggle-text {
+        color: white;
+        font-weight: bold;
+    }
+
+    .background-text {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 50px;
+        font-family: Impact;
+        z-index: 1;
+        color: #ffff00;
+    }
+
+    #circle {
+        background: black;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .centered-text {
+        margin: 0 auto;
+        font-size: 30px;
+        font-family: Impact;
+        color: #ffffff;
+        z-index: 2;
+        position: relative;
+    }
+
+    .btn-edit {
+        background-color: #ac3e0b;
+        color: white;
+        border: none;
+    }
+
+        .btn-edit:hover,
+        .btn-edit:focus {
+            background-color: #e05c1a;
+            color: white;
+            border: none;
+        }
+
+    .btn-delete {
+        background-color: #970000;
+        color: white;
+        border: none;
+    }
+
+        .btn-delete:hover,
+        .btn-delete:focus {
+            background-color: #b30000;
+            color: white;
+            border: none;
+        }
+
+    .btn-custom-orange {
+        background-color: #ac3e0b;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        display: inline-block;
+        margin: 20px auto;
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+        .btn-custom-orange:hover {
+            background-color: #e05c1a;
+            color: white;
+        }
+
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .toggle-button {
+        width: 60px;
+        height: 30px;
+        background-color: #ddd;
+        border: none;
+        border-radius: 15px;
+        position: relative;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-right: 10px;
+    }
+
+        .toggle-button.active {
+            background-color: #ac3e0b;
+        }
+
+        .toggle-button::before {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-button.active::before {
+            transform: translateX(30px);
+        }
+
+    .container {
+        padding-bottom: 70px;
+    }
+
+    .form-horizontal {
+        padding-bottom: 70px;
+    }
+
+    .extra-column {
+        display: none;
+    }
+</style>
+
+<div class="top-border">
+    <!-- background text "NetTrac" -->
+    <span class="background-text">NetTrac</span>
+
+    <span id="circle"></span>
+
+    <!-- Centered Text "IT Network Tracker" -->
+    <span class="centered-text">Approve and Manage Inventory</span>
+</div>
+
+<!-- Approve/Reject Section -->
+<h3>Approve Pending Deletion Requests</h3>
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Serial Number</th>
@@ -10,18 +195,126 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Where(i => i.PendingDeletion && !i.DeletionApproved))
         {
             <tr>
                 <td>@item.SerialNumber</td>
                 <td>@item.Vendor</td>
                 <td>
-                    <form asp-action="ApproveDeletion" method="post">
+                    <!-- Approve Button -->
+                    <form asp-action="ApproveDeletion" method="post" style="display:inline;">
                         <input type="hidden" name="id" value="@item.Id" />
-                        <button type="submit" class="btn btn-success">Approve</button>
+                        <button type="submit" class="btn btn-custom-orange">Approve</button>
+                    </form>
+
+                    <!-- Delete Button -->
+                    <form asp-action="Delete" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-delete btn-sm">Deny</button>
                     </form>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<!-- CSV Upload Form -->
+<div class="mb-4">
+    <form asp-action="UploadFile" method="post" enctype="multipart/form-data">
+        <!-- File input field allowing multiple file uploads -->
+        <div class="form-group">
+            <label for="file">Upload CSV File(s):</label>
+            <input type="file" name="files" class="form-control-file" multiple />
+        </div>
+
+        <!-- Button to upload files -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-custom-orange">Upload</button>
+        </div>
+    </form>
+</div>
+
+<!-- Button to create a new inventory item -->
+<div class="text-center mb-4">
+    <a asp-controller="InventoryItems" asp-action="Create" class="btn btn-custom-orange">Create New Inventory Item</a>
+</div>
+
+<!-- Inventory Table -->
+<h3>Current Inventory</h3>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Vendor</th>
+            <th>Device Type</th>
+            <th>Serial Number</th>
+            <th>Host Name</th>
+            <th>Asset Tag</th>
+            <th>Current Location</th>
+            <th>Status</th>
+            <th>Date Received</th>
+            <th>Future Location</th>
+            <th>Part ID</th>
+            <!-- Extra columns hidden by default -->
+            <th class="extra-column">Back Ordered</th>
+            <th class="extra-column">Notes</th>
+            <th class="extra-column">Product Description</th>
+            <th class="extra-column">Ready</th>
+            <th class="extra-column">Legacy Device</th>
+            <th class="extra-column">Modified</th>
+            <th class="extra-column">Created</th>
+            <th class="extra-column">Created By</th>
+            <th class="extra-column">Modified By</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Vendor</td>
+                <td>@item.DeviceType</td>
+                <td>@item.SerialNumber</td>
+                <td>@item.HostName</td>
+                <td>@item.AssetTag</td>
+                <td>@item.CurrentLocation</td>
+                <td>@item.Status</td>
+                <td>@item.DateReceived</td>
+                <td>@item.FutureLocation</td>
+                <td>@item.PartID</td>
+                <td class="extra-column">@item.BackOrdered</td>
+                <td class="extra-column">@item.Notes</td>
+                <td class="extra-column">@item.ProductDescription</td>
+                <td class="extra-column">@item.Ready</td>
+                <td class="extra-column">@item.LegacyDevice</td>
+                <td class="extra-column">@item.Modified</td>
+                <td class="extra-column">@item.Created</td>
+                <td class="extra-column">@item.CreatedBy</td>
+                <td class="extra-column">@item.ModifiedBy</td>
+                <td>
+                    <!-- Edit button -->
+                    <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
+
+                    <!-- Delete button -->
+                    <form asp-action="Delete" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-delete btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    // JavaScript function to toggle the display of extra columns
+    function toggleColumns() {
+        var toggleButton = document.getElementById("toggleExpand");
+        var extraColumns = document.querySelectorAll(".extra-column");
+        var isActive = toggleButton.classList.toggle("active");
+
+        // Show or hide extra columns based on toggle button state
+        extraColumns.forEach(function (column) {
+            column.style.display = isActive ? "table-cell" : "none";
+        });
+    }
+</script>
