@@ -2,4 +2,34 @@
 
 <h2>Tier 3 Dashboard - Pending Deletion Requests</h2>
 
-
+@if (!Model.Any())
+{
+    <p>No pending deletions at the moment.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Serial Number</th>
+                <th>Vendor</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.SerialNumber</td>
+                    <td>@item.Vendor</td>
+                    <td>
+                        <form asp-action="ApproveDeletion" method="post">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-success">Approve</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -14,27 +14,31 @@ namespace NetTracApp.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            // Mock authentication logic
+            // Check if the password is correct
             if (password == "pw")
             {
-                if (username == "tier2")
+                // Check if the username is "tier2"
+                if (username == "t2")
                 {
-                    // Redirect to Tier 2 operations
+                    // Redirect to Tier 2 dashboard or operations
                     return RedirectToAction("Tier2Dashboard", "Tier2");
                 }
-                else if (username == "tier3")
+                // Check if the username is "t3" for Tier 3
+                else if (username == "t3")
                 {
-                    // Redirect to Tier 3 operations
-                    return RedirectToAction("Tier3Dashboard", "Tier3");
+                    // Redirect to Tier 3 operations - Approve Deletions
+                    return RedirectToAction("ApproveDeletions", "Tier3");
                 }
                 else
                 {
+                    // Invalid username
                     ViewBag.Message = "Invalid username.";
                     return View("~/Views/Home/Login.cshtml");
                 }
             }
             else
             {
+                // Invalid password
                 ViewBag.Message = "Invalid password.";
                 return View("~/Views/Home/Login.cshtml");
             }

@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetTracApp.Data;
 using NetTracApp.Models;
-using CsvHelper;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -22,7 +19,7 @@ namespace NetTracApp.Controllers
         public InventoryItemsController(ApplicationDbContext context, CsvService csvService)
         {
             _context = context;
-            _csvService = csvService; // Assign the injected CsvService instance to the field
+            _csvService = csvService;
         }
 
         // GET: Display a list of inventory items with search functionality
@@ -127,18 +124,40 @@ namespace NetTracApp.Controllers
             return View(inventoryItem);
         }
 
-        // POST: Handle deletion of an inventory item
+        // POST: Handle deletion of an inventory item for Tier 3 approval
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var inventoryItem = await _context.InventoryItems.FindAsync(id);
-            if (inventoryItem != null)
+
+            if (inventoryItem == null)
             {
+                return NotFound();
+            }
+
+            // Check if the user is a Tier 3 user
+            if (User.IsInRole("Tier3"))
+            {
+                // Allow Tier 3 to delete the item
                 _context.InventoryItems.Remove(inventoryItem);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Item deleted successfully.";
+                return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            else
+            {
+                // For non-Tier 3 users, mark the item as pending deletion
+                inventoryItem.PendingDeletion = true;
+                inventoryItem.DeletionApproved = false; // Ensure it's not yet approved
+
+                _context.InventoryItems.Update(inventoryItem);
+                await _context.SaveChangesAsync();
+
+                // Inform the user that the item is awaiting approval
+                TempData["InfoMessage"] = "Item deletion is waiting for Tier 3 approval.";
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // POST: Handle bulk upload of inventory items from CSV files
@@ -203,6 +222,30 @@ namespace NetTracApp.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        // POST: Handle request deletion (non-Tier 3 users)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RequestDelete(int id)
+        {
+            var inventoryItem = await _context.InventoryItems.FindAsync(id);
+
+            if (inventoryItem == null)
+            {
+                return NotFound();
+            }
+
+            // For non-Tier 3 users, mark the item as pending deletion
+            inventoryItem.PendingDeletion = true;
+            inventoryItem.DeletionApproved = false; // Ensure it's not yet approved
+
+            _context.InventoryItems.Update(inventoryItem);
+            await _context.SaveChangesAsync();
+
+            // Inform the user that the item is awaiting approval
+            TempData["InfoMessage"] = "Item deletion is waiting for Tier 3 approval.";
+            return RedirectToAction(nameof(Index));
         }
 
         // Helper method to check if an inventory item exists

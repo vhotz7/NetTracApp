@@ -221,9 +221,9 @@
 
     <!-- Centered buttons for delete confirmation and cancel -->
     <div class="button-container">
-        <form asp-action="Delete" method="post">
+        <form asp-action="RequestDelete" method="post">
             <input type="hidden" asp-for="Id" />
-            <button type="submit" class="btn btn-delete">Delete</button>
+            <button type="submit" class="btn btn-delete">Request Deletion</button>
         </form>
         <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </div>

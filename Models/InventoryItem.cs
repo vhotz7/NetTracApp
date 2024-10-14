@@ -59,5 +59,8 @@ namespace NetTracApp.Models
 
         [StringLength(255)] // sets maximum length for the modified by field
         public string ModifiedBy { get; set; }
+
+        public bool PendingDeletion { get; set; } = false;
+        public bool DeletionApproved { get; set; } = false;
     }
 }
