@@ -5,8 +5,6 @@
 }
 
 <style>
-   
-
     .background-text {
         position: absolute;
         left: 20px;
@@ -133,41 +131,46 @@
     }
 </style>
 
-
-
 <!-- Approve/Reject Section -->
 <h3>Approve Pending Deletion Requests</h3>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Serial Number</th>
-            <th>Vendor</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Where(i => i.PendingDeletion && !i.DeletionApproved))
-        {
+@if (!Model.Any(i => i.PendingDeletion && !i.DeletionApproved))
+{
+    <p style="color: gray;">No pending deletion requests at this time.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
             <tr>
-                <td>@item.SerialNumber</td>
-                <td>@item.Vendor</td>
-                <td>
-                    <!-- Approve Button -->
-                    <form asp-action="ApproveDeletion" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@item.Id" />
-                        <button type="submit" class="btn btn-custom-orange">Approve</button>
-                    </form>
-
-                    <!-- Delete Button -->
-                    <form asp-action="Delete" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                        <input type="hidden" name="id" value="@item.Id" />
-                        <button type="submit" class="btn btn-delete btn-sm">Deny</button>
-                    </form>
-                </td>
+                <th>Serial Number</th>
+                <th>Vendor</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Where(i => i.PendingDeletion && !i.DeletionApproved))
+            {
+                <tr>
+                    <td>@item.SerialNumber</td>
+                    <td>@item.Vendor</td>
+                    <td>
+                        <!-- Approve Button -->
+                        <form asp-action="ApproveDeletion" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-custom-orange">Approve</button>
+                        </form>
+
+                        <!-- Deny Button -->
+                        <form asp-action="Delete" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-delete btn-sm">Deny</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 <!-- CSV Upload Form -->
 <div class="mb-4">
@@ -192,11 +195,9 @@
 </div>
 
 
-
-
 <!-- Inventory Table -->
 <h3>Current Inventory</h3>
-<table class="table table-striped table-bordered">
+<table id="inventoryTable" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Vendor</th>
@@ -209,17 +210,7 @@
             <th>Date Received</th>
             <th>Future Location</th>
             <th>Part ID</th>
-            <!-- Extra columns hidden by default -->
-            <th class="extra-column">Back Ordered</th>
-            <th class="extra-column">Notes</th>
-            <th class="extra-column">Product Description</th>
-            <th class="extra-column">Ready</th>
-            <th class="extra-column">Legacy Device</th>
-            <th class="extra-column">Modified</th>
-            <th class="extra-column">Created</th>
-            <th class="extra-column">Created By</th>
-            <th class="extra-column">Modified By</th>
-            <th>Actions</th>
+            <th>Actions</th> <!-- Added Actions column -->
         </tr>
     </thead>
     <tbody>
@@ -236,20 +227,11 @@
                 <td>@item.DateReceived</td>
                 <td>@item.FutureLocation</td>
                 <td>@item.PartID</td>
-                <td class="extra-column">@item.BackOrdered</td>
-                <td class="extra-column">@item.Notes</td>
-                <td class="extra-column">@item.ProductDescription</td>
-                <td class="extra-column">@item.Ready</td>
-                <td class="extra-column">@item.LegacyDevice</td>
-                <td class="extra-column">@item.Modified</td>
-                <td class="extra-column">@item.Created</td>
-                <td class="extra-column">@item.CreatedBy</td>
-                <td class="extra-column">@item.ModifiedBy</td>
                 <td>
-                    <!-- Edit button -->
+                    <!-- Edit Button -->
                     <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
 
-                    <!-- Delete button -->
+                    <!-- Delete Button -->
                     <form asp-action="Delete" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
                         <input type="hidden" name="id" value="@item.Id" />
                         <button type="submit" class="btn btn-delete btn-sm">Delete</button>
@@ -259,6 +241,45 @@
         }
     </tbody>
 </table>
+
+<!-- Print Button -->
+<button onclick="printInventoryTable()" class="btn btn-primary" style="margin-top: 20px;">Print Inventory</button>
+
+<script>
+    function printInventoryTable() {
+        var printContents = document.getElementById("inventoryTable").outerHTML; // Get the table's HTML
+        var originalContents = document.body.innerHTML; // Store the original body content
+
+        // Temporarily replace body content with only the table for printing
+        document.body.innerHTML = "<table>" + printContents + "</table>";
+
+        // Trigger the print dialog
+        window.print();
+
+        // Restore the original contents after printing
+        document.body.innerHTML = originalContents;
+        window.location.reload(); // Reload to ensure everything is restored
+    }
+</script>
+
+<style>
+    @@media print {
+        /* Hide everything except the table */
+        body * {
+            visibility: hidden;
+        }
+
+        #inventoryTable, #inventoryTable * {
+            visibility: visible;
+        }
+
+        #inventoryTable {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>
 
 <script>
     // JavaScript function to toggle the display of extra columns

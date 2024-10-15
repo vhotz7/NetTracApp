@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+
+
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<div class="container">
+    <h2 class="text-center" style="color: darkred;">The NetTrac App Project</h2>
+    <p>
+        As part of our capstone project, our team has been tasked with developing the NetTrac Application. This project centers around building a robust IT equipment tracking system for IT departments, aimed at helping organizations track their network inventory and workstations. The inspiration for NetTrac originated from a client who required an efficient tool to manage and track over $2 million worth of equipment inventory. The tool provides a solution for tracking the location and status of assets, ensuring accountability for departmental spending.
+    </p>
+
+    <h2 class="text-center" style="color: darkred;">Our Vision</h2>
+    <p>
+        While the original project fulfilled the client's needs, our group is expanding the application's capabilities. We are working to create a desktop or web-based version in C#, tailored for tier 2 and tier 3 support teams. The enhanced application will allow for CRUD (Create, Read, Update, Delete) operations, bulk CSV uploads, and detailed reporting, enabling seamless management of IT inventory. We are also integrating a single sign-on feature for role-based access control, providing tiered support functionalities with a focus on accuracy and security.
+    </p>
+
+    <p>
+        Our team is excited to contribute to the growth of NetTrac and look forward to delivering a high-quality, scalable solution.
+    </p>
+</div>
+
+
+<h2 style="color: darkred; text-align: center;">Key Features of Our Application</h2>
+
+<div style="padding: 20px; background-color: #f4f4f4; border-radius: 8px; font-family: Arial, sans-serif;">
+    <p>
+        The NetTrac Application is an advanced IT equipment tracking system designed to offer powerful tools for managing network inventory, workstations, and other assets across organizations. Here are the key functionalities our app provides:
+    </p>
+
+    <ul style="line-height: 1.6; padding-left: 20px;">
+        <li>
+            <strong>Inventory Management and Search:</strong> The app features a detailed inventory table that allows users to search for specific items using vendor or serial numbers. Users can easily locate assets and view critical information such as device type, serial number, host name, and locations.
+        </li>
+
+        <li>
+            <strong>CSV Upload Capability:</strong> The app supports bulk uploads of inventory data via CSV files, making it easy for IT departments to manage large datasets. The system processes the uploads efficiently and handles duplicate records to ensure data consistency.
+        </li>
+
+        <li>
+            <strong>Edit and Delete Inventory Items:</strong> Authorized users (tier 2 and tier 3) can edit or delete inventory items, ensuring they have full control over the data. Tier 3 users can approve or deny deletion requests, ensuring accountability before any item is permanently removed.
+        </li>
+
+        <li>
+            <strong>Deletion Request and Approval Workflow:</strong> Deletion requests made by tier 2 users are sent for approval to tier 3 users. This workflow ensures that no items are removed from the inventory without proper authorization and approval.
+        </li>
+
+        <li>
+            <strong>Role-Based Access Control with Single Sign-On (SSO):</strong> Our app uses SSO to provide role-based access, distinguishing between tier 2 and tier 3 users, with different levels of permissions for operations like deletions and approvals.
+        </li>
+
+        <li>
+            <strong>Print Inventory Data:</strong> The app allows users to print a clean, printer-friendly version of the current inventory, hiding unnecessary columns and focusing on key details.
+        </li>
+
+        <li>
+            <strong>Data View Toggle:</strong> The app includes a toggle function to expand or collapse extra columns in the inventory table, such as back-ordered status, product descriptions, and more, allowing users to customize their data view.
+        </li>
+    </ul>
+
+    <p>
+        These features make the NetTrac Application a comprehensive system for IT equipment tracking and management, streamlining operations for tier 2 and tier 3 support teams.
+    </p>
+</div>

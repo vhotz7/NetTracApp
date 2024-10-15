@@ -5,51 +5,6 @@
 }
 
 <style>
-    /* Top border styling */
-    .top-border {
-        position: relative;
-        background-color: #970000; /* Dark red background color */
-        color: #ffff00; /* Yellow text color */
-        height: 70px; /* Height of the top banner */
-        display: flex;
-        align-items: center;
-        padding-left: 20px; /* Space for the left side text */
-        border-radius: 10px; /* Rounded corners */
-    }
-
-    /* Styling for the background text "NetTrac" */
-    .background-text {
-        position: absolute;
-        left: 20px; /* Position text near the left */
-        top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Adjust text position */
-        font-size: 50px; /* Size of the background text */
-        font-family: Impact; /* Impact font */
-        z-index: 1; /* Ensure text appears above the background */
-        color: #ffff00; /* Yellow text color */
-    }
-
-    #circle {
-        background: black;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        position: absolute;
-        left: 10px; /* Position text near the left */
-        top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Adjust circle position */
-    }
-
-    /* Styling for the centered text "Edit Inventory" */
-    .centered-text {
-        margin: 0 auto; /* Center horizontally */
-        font-size: 30px; /* Font size */
-        font-family: Impact; /* Font family */
-        color: #ffffff; /* White text color */
-        z-index: 2; /* Ensure it appears above other elements */
-        position: relative;
-    }
-
     /* Style for the form */
     .form-group label {
         font-weight: bold;
@@ -57,8 +12,7 @@
 
     /* Button styling */
     .btn-primary {
-        background-color: #ac3e0b;/*orange button*/
-        
+        background-color: #ac3e0b; /*orange button*/
         border-color: #ac3e0b; /* Match border color */
     }
 
@@ -76,13 +30,30 @@
             background-color: #b30000; /* lighter red color on hover */
             border-color: #b30000; /* lighter red color on hover */
         }
+
+    /* Button group to keep buttons together */
+    .button-group {
+        display: flex;
+        gap: 10px; /* Space between buttons */
+        justify-content: flex-start; /* Align buttons to the left */
+    }
+
+    /* Align checkbox and label to the left */
+    .form-check {
+        display: flex;
+        align-items: center;
+    }
+
+    .form-check-input {
+        margin-left: 10px; /* Add space between checkbox and label */
+    }
 </style>
 
-<h2 style="color: black;">Edit</h2>
+<h2 style="color: darkred; text-align: center;">Edit Item</h2>
 
 <form asp-action="Edit" method="post">
     <div class="form-horizontal">
-        <hr />
+    
         <input type="hidden" asp-for="Id" />
 
         <!-- Vendor -->
@@ -159,10 +130,13 @@
             <span asp-validation-for="Status" class="text-danger"></span>
         </div>
 
-        <!-- BackOrdered -->
+        <!-- BackOrdered (Dropdown for True/False) -->
         <div class="form-group">
             <label asp-for="BackOrdered" class="control-label custom-label">Back Ordered:</label>
-            <input asp-for="BackOrdered" class="form-control" />
+            <select asp-for="BackOrdered" class="form-control">
+                <option value="true">true</option>
+                <option value="false">false</option>
+            </select>
             <span asp-validation-for="BackOrdered" class="text-danger"></span>
         </div>
 
@@ -190,10 +164,10 @@
             <span asp-validation-for="Ready" class="text-danger"></span>
         </div>
 
-        <!-- LegacyDevice (Checkbox) -->
-        <div class="form-group">
+        <!-- LegacyDevice (Checkbox aligned next to the label) -->
+        <div class="form-group" style="display: flex; align-items: center;">
             <label asp-for="LegacyDevice" class="control-label custom-label">Legacy Device:</label>
-            <input asp-for="LegacyDevice" class="form-check-input" type="checkbox" />
+            <input asp-for="LegacyDevice" class="form-check-input" type="checkbox" style="margin-left: 10px;" />
             <span asp-validation-for="LegacyDevice" class="text-danger"></span>
         </div>
 
@@ -211,8 +185,8 @@
             <span asp-validation-for="ModifiedBy" class="text-danger"></span>
         </div>
 
-        <!-- Form buttons: Save and Back to List -->
-        <div class="form-group">
+        <!-- Button group for Save and Back to List buttons -->
+        <div class="form-group button-group">
             <input type="submit" value="Save" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn-secondary">Back to List</a>
         </div>

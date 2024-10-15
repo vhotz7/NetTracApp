@@ -20,19 +20,7 @@ body, p, span, label, input, button {
 }
 
 /* Search border styling */
-.search-border {
-    position: relative;
-    background-color: black;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    padding-top: 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    justify-content: space-evenly;
-}
+
 
  /* Search bar length setting */
 .search-length {
@@ -139,45 +127,8 @@ body, p, span, label, input, button {
         color: white;
     }
 
-/* Toggle switch styling */
-.toggle-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
 
-.toggle-button {
-    width: 60px;
-    height: 30px;
-    background-color: #ddd; /* Color when toggle is off */
-    border: none;
-    border-radius: 15px;
-    position: relative;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-right: 10px; /* Space between button and text */
-}
 
-    .toggle-button.active {
-        background-color: #ac3e0b; /* Orange color when toggle is on */
-    }
-
-    .toggle-button::before {
-        content: "";
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        width: 24px;
-        height: 24px;
-        background-color: white;
-        border-radius: 50%;
-        transition: transform 0.3s;
-    }
-
-    .toggle-button.active::before {
-        transform: translateX(30px); /* Move circle when toggle is on */
-    }
 
 /* Ensure footer or buttons do not cut off */
 .container {

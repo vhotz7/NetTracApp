@@ -119,7 +119,7 @@ namespace NetTracApp.Controllers
 
 
         // action to display the privacy page
-        public IActionResult Privacy()
+        public IActionResult AboutUs()
         {
             return View();
         }
