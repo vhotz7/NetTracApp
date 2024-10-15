@@ -110,62 +110,60 @@
 </style>
 
 
-<div class="top-border">
-    <!-- background text "NetTrac" -->
-    <span class="background-text">NetTrac</span>
 
-    <span id="circle"></span>
 
-    <!-- Centered Text "IT Network Tracker" -->
-    <span class="centered-text">IT Network Tracker</span>
-</div>
-
-<div class="search-border">
-
-    <div class="search-text">
-        <span>Search<br> Inventory</span>
+<div class="search-border" style="background-color: black; height: 45px; display: flex; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; border-radius: 8px; margin-top: 20px; margin-bottom: 5px; max-width: 2000px; margin-left: auto; margin-right: auto;">
+    <div class="search-text" style="color: orange; font-size: 15px;  display: flex; align-items: center;">
+        Search Inventory
     </div>
 
-    <div class="search-length">
+    <div class="search-length" style="flex-grow: 1; max-width: 800px; padding-left: 20px;">
         <!-- Search Form -->
-        <div class="search-form mb-4">
+        <div class="search-form" style="width: 100%;">
             <form asp-action="Index" method="get">
-                <div class="form-group">
-                    <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" />
+                <div class="form-group" style="margin-bottom: 0; display: flex; align-items: center;">
+                    <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" style="height: 30px; width: 100%;" />
                 </div>
             </form>
         </div>
-
     </div>
-    <!-- Toggle button to expand or collapse table data -->
-    <div class="toggle-container">
-        <span class="toggle-text">
-            <span>Data View</span>
+
+    <div class="toggle-container" style="display: flex; align-items: center;">
+        <span class="toggle-text" style="color: white; font-weight: bold; margin-right: 10px;">
+            Data View
         </span>
-        <button id="toggleExpand" class="toggle-button" onclick="toggleColumns()"></button>
+        <button id="toggleExpand" class="toggle-button" onclick="toggleColumns()" style="height: 30px;"></button>
     </div>
 </div>
+
+
+
+
+
 
 <!-- CSV Upload Form -->
 <div class="mb-4">
     <form asp-action="UploadFile" method="post" enctype="multipart/form-data">
-        <!-- File input field allowing multiple file uploads -->
         <div class="form-group">
+            <!-- Wrap file input and upload button in a flexbox container -->
             <label for="file">Upload CSV File(s):</label>
-            <input type="file" name="files" class="form-control-file" multiple />
-        </div>
-
-        <!-- Button to upload files -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-custom-orange">Upload</button>
+            <div style="display: flex; align-items: center;">
+                <!-- File input field allowing multiple file uploads -->
+                <input type="file" name="files" class="form-control-file" multiple style="margin-right: 10px;" />
+                <!-- Button placed directly next to the file input field -->
+                <button type="submit" class="btn btn-custom-orange" style="height: auto;">Upload</button>
+            </div>
         </div>
     </form>
 </div>
 
-<!-- Button to create a new inventory item, centered on the page -->
-<div class="text-center mb-4">
-    <a asp-controller="InventoryItems" asp-action="Create" class="btn btn-custom-orange">Create New Inventory Item</a>
+<div style="text-align: right; margin-bottom: 10px;">
+    <a asp-controller="InventoryItems" asp-action="Create" style="color: #ac3e0b; font-weight: bold; text-decoration: none;">
+        Create New Inventory Item
+    </a>
 </div>
+
+
 
 
 <!-- inventory table displaying current data -->

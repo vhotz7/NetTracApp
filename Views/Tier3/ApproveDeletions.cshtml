@@ -5,48 +5,7 @@
 }
 
 <style>
-    /* top border styling */
-    .top-border {
-        position: relative;
-        background-color: #970000;
-        color: #ffff00;
-        height: 70px;
-        display: flex;
-        align-items: center;
-        padding-left: 20px;
-        border-radius: 10px;
-    }
-
-    .search-border {
-        position: relative;
-        background-color: black;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        padding-left: 20px;
-        padding-top: 20px;
-        border-radius: 5px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        justify-content: space-evenly;
-    }
-
-    .search-length {
-        width: 950px;
-    }
-
-    .search-text {
-        color: orange;
-        line-height: 15px;
-        font-size: medium;
-        margin-bottom: 20px;
-        align-content: center;
-    }
-
-    .toggle-text {
-        color: white;
-        font-weight: bold;
-    }
+   
 
     .background-text {
         position: absolute;
@@ -174,15 +133,7 @@
     }
 </style>
 
-<div class="top-border">
-    <!-- background text "NetTrac" -->
-    <span class="background-text">NetTrac</span>
 
-    <span id="circle"></span>
-
-    <!-- Centered Text "IT Network Tracker" -->
-    <span class="centered-text">Approve and Manage Inventory</span>
-</div>
 
 <!-- Approve/Reject Section -->
 <h3>Approve Pending Deletion Requests</h3>
@@ -221,23 +172,27 @@
 <!-- CSV Upload Form -->
 <div class="mb-4">
     <form asp-action="UploadFile" method="post" enctype="multipart/form-data">
-        <!-- File input field allowing multiple file uploads -->
         <div class="form-group">
+            <!-- Wrap file input and upload button in a flexbox container -->
             <label for="file">Upload CSV File(s):</label>
-            <input type="file" name="files" class="form-control-file" multiple />
-        </div>
-
-        <!-- Button to upload files -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-custom-orange">Upload</button>
+            <div style="display: flex; align-items: center;">
+                <!-- File input field allowing multiple file uploads -->
+                <input type="file" name="files" class="form-control-file" multiple style="margin-right: 10px;" />
+                <!-- Button placed directly next to the file input field -->
+                <button type="submit" class="btn btn-custom-orange" style="height: auto;">Upload</button>
+            </div>
         </div>
     </form>
 </div>
 
-<!-- Button to create a new inventory item -->
-<div class="text-center mb-4">
-    <a asp-controller="InventoryItems" asp-action="Create" class="btn btn-custom-orange">Create New Inventory Item</a>
+<div style="text-align: right; margin-bottom: 10px;">
+    <a asp-controller="InventoryItems" asp-action="Create" style="color: #ac3e0b; font-weight: bold; text-decoration: none;">
+        Create New Inventory Item
+    </a>
 </div>
+
+
+
 
 <!-- Inventory Table -->
 <h3>Current Inventory</h3>

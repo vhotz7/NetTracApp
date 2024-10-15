@@ -8,6 +8,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" />
+
     <!-- Site-wide custom styles (site.css) -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
@@ -15,41 +18,25 @@
     <link rel="stylesheet" href="~/css/NetTracApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NetTracApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        @if (User?.Identity != null && User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Sign Out</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <div class="top-border" style="background-color: #970000; color: #ffff00; height: 65px; border-radius: 8px; margin: 20px auto; padding-left: 20px; display: flex; align-items: center; position: relative; max-width: 95%; width: 1325px;">
+        <!-- background text "NetTrac" -->
+        <span class="background-text" style="font-size: 50px; font-family: Impact;">NetTrac</span>
+
+        <span id="circle" style="background: black; border-radius: 50%; width: 60px; height: 60px; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+
+        <!-- Centered Text "IT Network Tracker" -->
+        <span class="centered-text" style="margin: 0 auto; font-size: 30px; font-family: Impact; color: #ffffff;">IT Network Tracker</span>
+
+        <!-- Home and Login Icons -->
+        <span class="icons" style="display: flex; align-items: center; margin-right: 30px;">
+            <a href="@Url.Action("Index", "Home")" style="margin-right: 20px; text-decoration: none; color: white;">
+                <i class="bi bi-house-door" style="font-size: 2.5rem;"></i>
+            </a>
+            <a href="@Url.Action("Index", "Login")" style="text-decoration: none; color: white;">
+                <i class="bi bi-person" style="font-size: 2.5rem;"></i>
+            </a>
+        </span>
+    </div>
 
     <div class="container">
         <main role="main" class="pb-3">
