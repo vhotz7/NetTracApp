@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Home\Privacy.cshtml" />
+    <Content Remove="Views\Tier2\Tier2Dashboard.cshtml.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

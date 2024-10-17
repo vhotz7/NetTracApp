@@ -67,7 +67,9 @@ app.UseAuthorization(); // enable authorization middleware
 // configure default route pattern for controllers
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages(); // map Razor Pages
+    pattern: "{controller=Login}/{action=Index}/{id?}");
 
-app.Run(); // run the application
+// Map Razor Pages (if needed)
+app.MapRazorPages();
+
+app.Run();
