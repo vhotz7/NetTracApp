@@ -122,10 +122,12 @@
         Search Inventory
     </div>
 
+   
+
     <div class="search-length" style="flex-grow: 1; max-width: 800px; padding-left: 10px;">
         <!-- Search Form -->
         <div class="search-form" style="width: 100%;">
-            <form asp-action="Index" method="get" style="width: 100%; display: flex; align-items: center;">
+            <form asp-action="Tier2Dashboard" method="get" style="width: 100%; display: flex; align-items: center;">
                 <div class="form-group" style="margin-bottom: 0; width: 100%; display: flex; align-items: center;">
                     <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" style="height: 35px; width: 100%; box-sizing: border-box;" />
                 </div>
@@ -169,80 +171,98 @@
 
 
 
-<!-- inventory table displaying current data -->
-<table class="table table-striped table-bordered">
-    <thead class="thead-dark">
-        <tr>
-            <!-- default columns -->
-            <th>Vendor</th>
-            <th>Device Type</th>
-            <th>Serial Number</th>
-            <th>Host Name</th>
-            <th>Asset Tag</th>
-            <th>Current Location</th>
-            <th>Status</th>
-            <th>Date Received</th>
-            <th>Future Location</th>
-            <th>Part ID</th>
-            <!-- extra columns hidden by default -->
-            <th class="extra-column">Back Ordered</th>
-            <th class="extra-column">Notes</th>
-            <th class="extra-column">Product Description</th>
-            <th class="extra-column">Ready</th>
-            <th class="extra-column">Legacy Device</th>
-            <th class="extra-column">Modified</th>
-            <th class="extra-column">Created</th>
-            <th class="extra-column">Created By</th>
-            <th class="extra-column">Modified By</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <!-- display default columns -->
-                    <td>@item.Vendor</td>
-                    <td>@item.DeviceType</td>
-                    <td>@item.SerialNumber</td>
-                    <td>@item.HostName</td>
-                    <td>@item.AssetTag</td>
-                    <td>@item.CurrentLocation</td>
-                    <td>@item.Status</td>
-                    <td>@item.DateReceived</td>
-                    <td>@item.FutureLocation</td>
-                    <td>@item.PartID</td>
-                    <!-- display extra columns when expanded -->
-                    <td class="extra-column">@item.BackOrdered</td>
-                    <td class="extra-column">@item.Notes</td>
-                    <td class="extra-column">@item.ProductDescription</td>
-                    <td class="extra-column">@item.Ready</td>
-                    <td class="extra-column">@item.LegacyDevice</td>
-                    <td class="extra-column">@item.Modified</td>
-                    <td class="extra-column">@item.Created</td>
-                    <td class="extra-column">@item.CreatedBy</td>
-                    <td class="extra-column">@item.ModifiedBy</td>
-                    <td>
-                        <!-- edit button -->
-                        <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
+<form asp-action="DeleteSelected" method="post">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <!-- Select All Column -->
+                <th>
+                    <input type="checkbox" id="select-all" /> Select All
+                </th>
 
-                        <!-- delete button -->
-                        <a asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete btn-sm">Delete</a>
-                    </td>
+                <!-- Default Columns -->
+                <th>Vendor</th>
+                <th>Device Type</th>
+                <th>Serial Number</th>
+                <th>Host Name</th>
+                <th>Asset Tag</th>
+                <th>Current Location</th>
+                <th>Status</th>
+                <th>Date Received</th>
+                <th>Future Location</th>
+                <th>Part ID</th>
+
+                <!-- Extra Columns -->
+                <th class="extra-column">Back Ordered</th>
+                <th class="extra-column">Notes</th>
+                <th class="extra-column">Product Description</th>
+                <th class="extra-column">Ready</th>
+                <th class="extra-column">Legacy Device</th>
+                <th class="extra-column">Modified</th>
+                <th class="extra-column">Created</th>
+                <th class="extra-column">Created By</th>
+                <th class="extra-column">Modified By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr class="selectable-row">
+                        <!-- Checkbox for Each Row -->
+                        <td>
+                            <input type="checkbox" name="selectedIds" value="@item.Id" class="row-checkbox" />
+                        </td>
+
+                        <!-- Display Default Columns -->
+                        <td>@item.Vendor</td>
+                        <td>@item.DeviceType</td>
+                        <td>@item.SerialNumber</td>
+                        <td>@item.HostName</td>
+                        <td>@item.AssetTag</td>
+                        <td>@item.CurrentLocation</td>
+                        <td>@item.Status</td>
+                        <td>@item.DateReceived</td>
+                        <td>@item.FutureLocation</td>
+                        <td>@item.PartID</td>
+
+                        <!-- Display Extra Columns -->
+                        <td class="extra-column">@item.BackOrdered</td>
+                        <td class="extra-column">@item.Notes</td>
+                        <td class="extra-column">@item.ProductDescription</td>
+                        <td class="extra-column">@item.Ready</td>
+                        <td class="extra-column">@item.LegacyDevice</td>
+                        <td class="extra-column">@item.Modified</td>
+                        <td class="extra-column">@item.Created</td>
+                        <td class="extra-column">@item.CreatedBy</td>
+                        <td class="extra-column">@item.ModifiedBy</td>
+
+                        <!-- Action Buttons -->
+                        <td>
+                            <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
+                            <!-- Delete button -->
+                            <a asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <!-- Display if No Items Found -->
+                <tr>
+                    <td colspan="21" class="text-center">No inventory items found.</td>
                 </tr>
             }
-        }
-        else
-        {
-            <!-- display if no inventory items are found -->
-            <tr>
-                <td colspan="19" class="text-center">No inventory items found.</td>
-            </tr>
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+    <!-- Action Buttons at the Bottom -->
+    <div class="d-flex justify-content-center mt-4">
+        <button type="submit" class="btn btn-delete btn-sm">Delete Selected (Pending Approval)</button>
+    </div>
+</form>
 
 
 
@@ -260,4 +280,62 @@
             column.style.display = isActive ? "table-cell" : "none";
         });
     }
+</script>
+
+
+
+
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+        window.onload = function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            var duplicateMessage = '@TempData["DuplicateMessage"]';
+
+            if (successMessage || duplicateMessage) {
+                var message = "";
+
+                if (successMessage) {
+                    message += successMessage + "\n";
+                }
+
+                if (duplicateMessage) {
+                    message += duplicateMessage;
+                }
+
+                alert(message.trim());
+            }
+        };
+    </script>
+}
+
+
+<div class="d-flex justify-content-center mt-5">
+    <form asp-action="SaveAsNewFile" method="post">
+        <button type="submit" class="btn btn-custom-orange">Save As New File</button>
+    </form>
+</div>
+
+
+ 
+
+<script>
+    // Select all checkboxes when the header checkbox is clicked
+    document.getElementById('select-all').addEventListener('change', function (e) {
+        const checkboxes = document.querySelectorAll('.row-checkbox');
+        checkboxes.forEach(checkbox => checkbox.checked = e.target.checked);
+    });
+
+    // Toggle the checkbox when clicking anywhere in a row
+    document.querySelectorAll('.selectable-row').forEach(row => {
+        row.addEventListener('click', function (e) {
+            // Prevent toggling if the user clicked directly on a checkbox
+            if (e.target.tagName !== 'INPUT') {
+                const checkbox = row.querySelector('.row-checkbox');
+                checkbox.checked = !checkbox.checked;
+            }
+        });
+    });
 </script>

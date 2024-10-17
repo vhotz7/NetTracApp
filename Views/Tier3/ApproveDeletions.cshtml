@@ -5,80 +5,60 @@
 }
 
 <style>
-    .background-text {
-        position: absolute;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 50px;
-        font-family: Impact;
-        z-index: 1;
-        color: #ffff00;
+    /* Adjust input box size */
+    .form-control {
+        width: 100%;
+        height: 40px; /* Adjust height to match the design */
+        font-size: 1rem; /* Adjust font size */
     }
 
-    #circle {
-        background: black;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        position: absolute;
-        left: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .centered-text {
-        margin: 0 auto;
-        font-size: 30px;
-        font-family: Impact;
-        color: #ffffff;
-        z-index: 2;
-        position: relative;
-    }
-
+    /* custom style for the edit button */
     .btn-edit {
-        background-color: #ac3e0b;
+        background-color: #ac3e0b; /* default orange color for edit button */
         color: white;
         border: none;
     }
 
         .btn-edit:hover,
         .btn-edit:focus {
-            background-color: #e05c1a;
-            color: white;
+            background-color: #e05c1a; /* lighter orange color on hover */
+            color: white; /* keep text white on hover */
             border: none;
         }
 
+    /* custom style for the delete button */
     .btn-delete {
-        background-color: #970000;
+        background-color: #970000; /* default red color for delete button */
         color: white;
         border: none;
     }
 
         .btn-delete:hover,
         .btn-delete:focus {
-            background-color: #b30000;
-            color: white;
+            background-color: #b30000; /* lighter red color on hover */
+            color: white; /* keep text white on hover */
             border: none;
         }
 
+    /* custom style for the "create new inventory item" button */
     .btn-custom-orange {
-        background-color: #ac3e0b;
-        color: white;
+        background-color: #ac3e0b; /* orange background color */
+        color: white; /* white text color */
         border: none;
-        padding: 5px 10px;
-        display: inline-block;
-        margin: 20px auto;
-        text-align: center;
-        font-weight: bold;
-        font-size: 14px;
+        padding: 5px 10px; /* adjust padding to match other buttons */
+        display: inline-block; /* keep the button inline */
+        margin: 20px auto; /* center horizontally with margin */
+        text-align: center; /* center text */
+        font-weight: bold; /* make the text bold */
+        font-size: 14px; /* adjust font size to match other buttons */
     }
 
         .btn-custom-orange:hover {
-            background-color: #e05c1a;
+            background-color: #e05c1a; /* lighter orange color on hover */
             color: white;
         }
 
+    /* toggle switch styling */
     .toggle-container {
         display: flex;
         align-items: center;
@@ -87,49 +67,81 @@
     }
 
     .toggle-button {
-        width: 60px;
-        height: 30px;
-        background-color: #ddd;
+        width: 40px;
+        height: 20px;
+        background-color: #ddd; /* default color when off */
         border: none;
-        border-radius: 15px;
+        border-radius: 10px;
         position: relative;
         cursor: pointer;
         transition: background-color 0.3s;
-        margin-right: 10px;
+        margin-right: 10px; /* space between button and text */
     }
 
         .toggle-button.active {
-            background-color: #ac3e0b;
+            background-color: #ac3e0b; /* orange color when active */
         }
 
         .toggle-button::before {
             content: "";
             position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
             background-color: white;
             border-radius: 50%;
             transition: transform 0.3s;
         }
 
         .toggle-button.active::before {
-            transform: translateX(30px);
+            transform: translateX(20px); /* move toggle circle when active */
         }
 
+    /* prevent footer or buttons from being cut off */
     .container {
-        padding-bottom: 70px;
+        padding-bottom: 70px; /* space at the bottom to prevent cutoff */
     }
 
+    /* style adjustments for form container to ensure it doesn't cut off */
     .form-horizontal {
-        padding-bottom: 70px;
+        padding-bottom: 70px; /* extra padding at the bottom */
     }
 
+    /* hide additional columns by default */
     .extra-column {
         display: none;
     }
 </style>
+
+
+
+<div class="search-border" style="background-color: black; height: 45px; display: flex; align-items: center; justify-content: space-between; padding-left: 10px; padding-right: 10px; border-radius: 8px; margin-top: 20px; margin-bottom: 5px; max-width: 2000px; margin-left: auto; margin-right: auto; box-sizing: border-box;">
+    <div class="search-text" style="color: orange; font-size: 15px; display: flex; align-items: center;">
+        Search Inventory
+    </div>
+
+
+
+    <div class="search-length" style="flex-grow: 1; max-width: 800px; padding-left: 10px;">
+        <!-- Search Form -->
+        <div class="search-form" style="width: 100%;">
+            <form asp-action="ApproveDeletions" method="get" style="width: 100%; display: flex; align-items: center;">
+                <div class="form-group" style="margin-bottom: 0; width: 100%; display: flex; align-items: center;">
+                    <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" style="height: 35px; width: 100%; box-sizing: border-box;" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toggle-container" style="display: flex; align-items: center; justify-content: center;">
+        <span class="toggle-text" style="color: white; font-weight: bold; margin-right: 10px;">
+            Data View
+        </span>
+        <button id="toggleExpand" class="toggle-button" onclick="toggleColumns()" style="height: 20px; display: flex; align-items: center; justify-content: center;"></button>
+    </div>
+</div>
+
 
 <!-- Approve/Reject Section -->
 <h3>Approve Pending Deletion Requests</h3>
@@ -139,6 +151,10 @@
 }
 else
 {
+
+    <form asp-action="ApproveAll" method="post">
+        <button type="submit" class="btn btn-delete btn-sm">Approve All</button>
+    </form>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -161,7 +177,7 @@ else
                         </form>
 
                         <!-- Deny Button -->
-                        <form asp-action="Delete" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <form asp-action="DenyDeletion" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to deny this deletion request?');">
                             <input type="hidden" name="id" value="@item.Id" />
                             <button type="submit" class="btn btn-delete btn-sm">Deny</button>
                         </form>
@@ -196,51 +212,100 @@ else
 
 
 <!-- Inventory Table -->
-<h3>Current Inventory</h3>
-<table id="inventoryTable" class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Vendor</th>
-            <th>Device Type</th>
-            <th>Serial Number</th>
-            <th>Host Name</th>
-            <th>Asset Tag</th>
-            <th>Current Location</th>
-            <th>Status</th>
-            <th>Date Received</th>
-            <th>Future Location</th>
-            <th>Part ID</th>
-            <th>Actions</th> <!-- Added Actions column -->
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<form asp-action="DeleteSelected" method="post">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
             <tr>
-                <td>@item.Vendor</td>
-                <td>@item.DeviceType</td>
-                <td>@item.SerialNumber</td>
-                <td>@item.HostName</td>
-                <td>@item.AssetTag</td>
-                <td>@item.CurrentLocation</td>
-                <td>@item.Status</td>
-                <td>@item.DateReceived</td>
-                <td>@item.FutureLocation</td>
-                <td>@item.PartID</td>
-                <td>
-                    <!-- Edit Button -->
-                    <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
+                <!-- Select All Column -->
+                <th>
+                    <input type="checkbox" id="select-all" /> Select All
+                </th>
 
-                    <!-- Delete Button -->
-                    <form asp-action="Delete" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                        <input type="hidden" name="id" value="@item.Id" />
-                        <button type="submit" class="btn btn-delete btn-sm">Delete</button>
-                    </form>
-                </td>
+                <!-- Default Columns -->
+                <th>Vendor</th>
+                <th>Device Type</th>
+                <th>Serial Number</th>
+                <th>Host Name</th>
+                <th>Asset Tag</th>
+                <th>Current Location</th>
+                <th>Status</th>
+                <th>Date Received</th>
+                <th>Future Location</th>
+                <th>Part ID</th>
+
+                <!-- Extra Columns -->
+                <th class="extra-column">Back Ordered</th>
+                <th class="extra-column">Notes</th>
+                <th class="extra-column">Product Description</th>
+                <th class="extra-column">Ready</th>
+                <th class="extra-column">Legacy Device</th>
+                <th class="extra-column">Modified</th>
+                <th class="extra-column">Created</th>
+                <th class="extra-column">Created By</th>
+                <th class="extra-column">Modified By</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr class="selectable-row">
+                        <!-- Checkbox for Each Row -->
+                        <td>
+                            <input type="checkbox" name="selectedIds" value="@item.Id" class="row-checkbox" />
+                        </td>
+
+                        <!-- Display Default Columns -->
+                        <td>@item.Vendor</td>
+                        <td>@item.DeviceType</td>
+                        <td>@item.SerialNumber</td>
+                        <td>@item.HostName</td>
+                        <td>@item.AssetTag</td>
+                        <td>@item.CurrentLocation</td>
+                        <td>@item.Status</td>
+                        <td>@item.DateReceived</td>
+                        <td>@item.FutureLocation</td>
+                        <td>@item.PartID</td>
+
+                        <!-- Display Extra Columns -->
+                        <td class="extra-column">@item.BackOrdered</td>
+                        <td class="extra-column">@item.Notes</td>
+                        <td class="extra-column">@item.ProductDescription</td>
+                        <td class="extra-column">@item.Ready</td>
+                        <td class="extra-column">@item.LegacyDevice</td>
+                        <td class="extra-column">@item.Modified</td>
+                        <td class="extra-column">@item.Created</td>
+                        <td class="extra-column">@item.CreatedBy</td>
+                        <td class="extra-column">@item.ModifiedBy</td>
+
+                        <!-- Action Buttons -->
+                        <td>
+                            <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
+                            <!-- Delete button -->
+                            <a asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete btn-sm">Delete</a>
+                        
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <!-- Display if No Items Found -->
+                <tr>
+                    <td colspan="21" class="text-center">No inventory items found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Action Buttons at the Bottom -->
+    <div class="d-flex justify-content-center mt-4">
+        <button type="submit" class="btn btn-delete btn-sm">Delete Selected</button>
+
+    </div>
+</form>
 
 <!-- Print Button -->
 <button onclick="printInventoryTable()" class="btn btn-primary" style="margin-top: 20px;">Print Inventory</button>
@@ -293,4 +358,62 @@ else
             column.style.display = isActive ? "table-cell" : "none";
         });
     }
+</script>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+        window.onload = function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            var duplicateMessage = '@TempData["DuplicateMessage"]';
+
+            if (successMessage || duplicateMessage) {
+                var message = "";
+
+                if (successMessage) {
+                    message += successMessage + "\n";
+                }
+
+                if (duplicateMessage) {
+                    message += duplicateMessage;
+                }
+
+                alert(message.trim());
+            }
+        };
+    </script>
+}
+
+
+<div class="d-flex justify-content-center mt-5">
+    <form asp-action="DeleteAll" method="post">
+        <button type="submit" class="btn btn-delete">Delete All</button>
+    </form>
+</div>
+<div class="d-flex justify-content-center mt-5">
+    <form asp-action="SaveAsNewFile" method="post">
+        <button type="submit" class="btn btn-custom-orange">Save As New File</button>
+    </form>
+</div>
+
+
+
+<script>
+    // Select all checkboxes when the header checkbox is clicked
+    document.getElementById('select-all').addEventListener('change', function (e) {
+        const checkboxes = document.querySelectorAll('.row-checkbox');
+        checkboxes.forEach(checkbox => checkbox.checked = e.target.checked);
+    });
+
+    // Toggle the checkbox when clicking anywhere in a row
+    document.querySelectorAll('.selectable-row').forEach(row => {
+        row.addEventListener('click', function (e) {
+            // Prevent toggling if the user clicked directly on a checkbox
+            if (e.target.tagName !== 'INPUT') {
+                const checkbox = row.querySelector('.row-checkbox');
+                checkbox.checked = !checkbox.checked;
+            }
+        });
+    });
 </script>

@@ -1,0 +1,11 @@
+Id,Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice,Modified,Created,CreatedBy,ModifiedBy,PendingDeletion,DeletionApproved
+21,"update test ",Laptop,SN021,HOST-021,AT-021,P021,Store B,01/02/2024 00:00:00,Warehouse A,Received,False,Initial stock,High-end Laptop,True,False,01/01/0001 00:00:00,01/01/0001 00:00:00,John Doe,Admin,False,False
+22,Vendor B,Desktop,SN022,HOST-022,AT-022,P022,Store C,01/04/2024 00:00:00,Warehouse B,Inactive,True,Pending,Basic Desktop,False,True,01/06/2024 00:00:00,01/03/2024 00:00:00,Jane Smith,Admin,False,False
+23,Vendor A,Laptop,SN023,HOST-023,AT-023,P023,Store B,01/02/2024 00:00:00,Warehouse A,Active,False,Initial stock,High-end Laptop,True,False,01/05/2024 00:00:00,01/01/2024 00:00:00,John Doe,Admin,False,False
+24,Vendor B,Desktop,SN024,HOST-024,AT-024,P024,Store C,01/04/2024 00:00:00,Warehouse B,Inactive,True,Pending,Basic Desktop,False,True,01/06/2024 00:00:00,01/03/2024 00:00:00,Jane Smith,Admin,False,False
+25,Vendor A,Laptop,SN025,HOST-025,AT-025,P025,Store B,01/02/2024 00:00:00,Warehouse A,Active,False,Initial stock,High-end Laptop,True,False,01/05/2024 00:00:00,01/01/2024 00:00:00,John Doe,Admin,False,False
+26,Vendor B,Desktop,SN026,HOST-026,AT-026,P026,Store C,01/04/2024 00:00:00,Warehouse B,Inactive,True,Pending,Basic Desktop,False,True,01/06/2024 00:00:00,01/03/2024 00:00:00,Jane Smith,Admin,False,False
+27,Vendor A,Laptop,SN027,HOST-027,AT-027,P027,Store B,01/02/2024 00:00:00,Warehouse A,Active,False,Initial stock,High-end Laptop,True,False,01/05/2024 00:00:00,01/01/2024 00:00:00,John Doe,Admin,False,False
+28,Vendor B,Desktop,SN028,HOST-028,AT-028,P028,Store C,01/04/2024 00:00:00,Warehouse B,Inactive,True,Pending,Basic Desktop,False,True,01/06/2024 00:00:00,01/03/2024 00:00:00,Jane Smith,Admin,False,False
+29,Vendor A,Laptop,SN029,HOST-029,AT-029,P029,Store B,01/02/2024 00:00:00,Warehouse A,Active,False,Initial stock,High-end Laptop,True,False,01/05/2024 00:00:00,01/01/2024 00:00:00,John Doe,Admin,False,False
+30,Vendor B,Laptop,SN030,HOST-029,AT-030,P030,Store D,01/02/2024 00:00:00,Warehouse A,Active,True,Pending,High-end Laptop,True,True,01/05/2024 00:00:00,01/01/2024 00:00:00,John Doe,admin,False,False
