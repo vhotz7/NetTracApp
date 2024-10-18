@@ -5,128 +5,88 @@
 }
 
 <style>
-
-
-    /* Make the entire table wider */
+    /* Ensure table uses full width and adapts dynamically */
     #inventoryTable {
-        width: 100%; /* Adjust as needed, e.g., 80%, 1200px */
-        max-width: 1500px; /* Optional: Limit maximum width */
+        width: 100%; /* Use available width */
+        max-width: 1800px; /* Adjust for expanded view */
         margin: 0 auto; /* Center the table horizontally */
         font-size: 14px;
+        border-collapse: collapse; /* Prevent double borders */
+        table-layout: auto; /* Allow columns to resize based on content */
     }
 
+    /* Ensure table headers and data cells align properly */
+    th, td {
+        padding: 12px 8px; /* Add padding for readability */
+        text-align: center;
+        white-space: nowrap; /* Prevent text wrapping */
+    }
 
+    .thead-dark th {
+        background-color: #343a40;
+        color: white;
+    }
 
-
-    /* Extra columns hidden by default */
+    /* Extra columns are hidden by default */
     .extra-column {
         display: none;
     }
-    /* Make the checkbox column narrow */
-    th.checkbox-column, td.checkbox-column {
-        width: 35px; /* Adjust this value as needed */
-        text-align: center; /* Align checkboxes in the center */
+
+    /* Scrollable table on smaller screens */
+    .table-responsive {
+        overflow-x: auto;
+        margin-bottom: 20px;
     }
 
-    /* Ensure the checkboxes are small */
+    /* Ensure checkboxes are properly aligned */
+    .checkbox-column {
+        width: 35px; /* Adjust width as needed */
+        text-align: center;
+    }
+
     .form-check-input {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
         margin: 0 auto;
         display: block;
     }
 
-    /* Prevent wrapping in table headers */
-    #inventoryTable th {
-        white-space: nowrap;
-    }
-
-    /* Prevent table rows from expanding */
-    #inventoryTable td, #inventoryTable th {
-        white-space: nowrap; /* Prevent content from wrapping */
-        padding: 8px; /* Adjust padding for consistent row height */
-        vertical-align: middle; /* Keep checkbox centered vertically */
-    }
-
-    /* Optional: Keep table layout fixed to prevent columns from shifting */
-    #inventoryTable {
-        table-layout: fixed;
-    }
-
-    /* Align text in the center of checkbox columns */
-    .checkbox-column {
-        text-align: center;
-    }
-
-    .table th, .table td {
-        vertical-align: middle; /* Align content vertically in the center */
-        text-align: center; /* Center-align text horizontally */
-    }
-
-    .select-column {
-        width: 50px; /* Narrow width for the checkbox column */
-    }
-
-    .table-responsive {
-        overflow-x: auto; /* Ensure table is scrollable on smaller screens */
-    }
-
-
-
-    /* Adjust input box size */
-    .form-control {
-        width: 100%;
-        height: 40px; /* Adjust height to match the design */
-        font-size: 1rem; /* Adjust font size */
-    }
-
-    /* custom style for the edit button */
+    /* Edit button styling */
     .btn-edit {
-        background-color: #ac3e0b; /* default orange color for edit button */
+        background-color: #ac3e0b;
         color: white;
         border: none;
     }
 
-        .btn-edit:hover,
-        .btn-edit:focus {
-            background-color: #e05c1a; /* lighter orange color on hover */
-            color: white; /* keep text white on hover */
-            border: none;
+        .btn-edit:hover {
+            background-color: #e05c1a;
         }
 
-    /* custom style for the delete button */
+    /* Delete button styling */
     .btn-delete {
-        background-color: #970000; /* default red color for delete button */
+        background-color: #970000;
         color: white;
         border: none;
     }
 
-        .btn-delete:hover,
-        .btn-delete:focus {
-            background-color: #b30000; /* lighter red color on hover */
-            color: white; /* keep text white on hover */
-            border: none;
+        .btn-delete:hover {
+            background-color: #b30000;
         }
 
-    /* custom style for the "create new inventory item" button */
+    /* "Create New Item" button styling */
     .btn-custom-orange {
-        background-color: #ac3e0b; /* orange background color */
-        color: white; /* white text color */
+        background-color: #ac3e0b;
+        color: white;
+        font-weight: bold;
+        padding: 10px 15px;
         border: none;
-        padding: 5px 10px; /* adjust padding to match other buttons */
-        display: inline-block; /* keep the button inline */
-        margin: 20px auto; /* center horizontally with margin */
-        text-align: center; /* center text */
-        font-weight: bold; /* make the text bold */
-        font-size: 14px; /* adjust font size to match other buttons */
+        cursor: pointer;
     }
 
         .btn-custom-orange:hover {
-            background-color: #e05c1a; /* lighter orange color on hover */
-            color: white;
+            background-color: #e05c1a;
         }
 
-    /* toggle switch styling */
     .toggle-container {
         display: flex;
         align-items: center;
@@ -165,20 +125,20 @@
         .toggle-button.active::before {
             transform: translateX(20px); /* move toggle circle when active */
         }
+    /* Ensure content is vertically aligned */
+    .table th, .table td {
+        vertical-align: middle;
+    }
 
-    /* prevent footer or buttons from being cut off */
+    /* Add spacing at the bottom */
     .container {
-        padding-bottom: 70px; /* space at the bottom to prevent cutoff */
+        padding-bottom: 70px;
     }
 
-    /* style adjustments for form container to ensure it doesn't cut off */
-    .form-horizontal {
-        padding-bottom: 70px; /* extra padding at the bottom */
-    }
-
-    /* hide additional columns by default */
+    /* Smooth transition when showing extra columns */
     .extra-column {
         display: none;
+        transition: display 0.3s;
     }
 </style>
 

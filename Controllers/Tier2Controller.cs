@@ -23,21 +23,24 @@ namespace NetTracApp.Controllers
             _csvService = csvService;
         }
 
-        public async Task<IActionResult> Tier2Dashboard(string searchString)
+        public async Task<IActionResult> Tier2Dashboard(string? searchString)
         {
             // Start with all items in the inventory
             var items = _context.InventoryItems.AsQueryable();
 
-            // If there's a search string, filter the items
-            if (!string.IsNullOrEmpty(searchString))
+            // Ensure searchString isn't null or empty, and filter items if needed
+            if (!string.IsNullOrWhiteSpace(searchString))
             {
-                items = items.Where(i => i.Vendor.Contains(searchString) ||
-                                         i.SerialNumber.Contains(searchString));
+                items = items.Where(i => (i.Vendor ?? string.Empty).Contains(searchString) ||
+                                         (i.SerialNumber ?? string.Empty).Contains(searchString));
             }
 
             // Fetch and return the filtered or unfiltered list of items
-            return View(await items.ToListAsync());
+            var itemList = await items.ToListAsync();
+
+            return View(itemList);
         }
+
 
         // POST: Handle bulk upload of inventory items from CSV files
         [HttpPost]

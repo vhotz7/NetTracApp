@@ -16,18 +16,27 @@ namespace NetTracApp.Controllers
         private readonly ApplicationDbContext _context;
         private readonly CsvService _csvService;
 
-        // Injecting ApplicationDbContext and CsvService into the controller
         public Tier3Controller(ApplicationDbContext context, CsvService csvService)
         {
             _context = context;
             _csvService = csvService;
         }
 
-        // Displays items awaiting deletion approval and current inventory
-        public IActionResult ApproveDeletions()
+        // Displays items awaiting deletion approval and current inventory with search functionality
+        public async Task<IActionResult> ApproveDeletions(string? searchString)
         {
-            var inventoryItems = _context.InventoryItems.ToList();
-            return View(inventoryItems);
+            var inventoryItems = _context.InventoryItems.AsQueryable();
+
+            // Filter based on the search string if provided
+            if (!string.IsNullOrWhiteSpace(searchString))
+            {
+                inventoryItems = inventoryItems.Where(i =>
+                    (i.Vendor ?? string.Empty).Contains(searchString) ||
+                    (i.SerialNumber ?? string.Empty).Contains(searchString));
+            }
+
+            var itemList = await inventoryItems.ToListAsync();
+            return View(itemList);
         }
 
         // Handles approval of deletions
