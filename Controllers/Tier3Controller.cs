@@ -21,9 +21,32 @@ namespace NetTracApp.Controllers
             _context = context;
             _csvService = csvService;
         }
+      
+        // GET: Show form to create a new inventory item
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        // Displays items awaiting deletion approval and current inventory with search functionality
-        public async Task<IActionResult> ApproveDeletions(string? searchString)
+        // POST: Handle form submission for creating a new inventory item
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice")] InventoryItem inventoryItem)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(inventoryItem);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Item created successfully!";
+                return RedirectToAction(nameof(ApproveDeletions));
+            }
+            // If the model is invalid, stay on the same page
+            return View(inventoryItem);
+        }
+
+
+            // Displays items awaiting deletion approval and current inventory with search functionality
+            public async Task<IActionResult> ApproveDeletions(string? searchString)
         {
             var inventoryItems = _context.InventoryItems.AsQueryable();
 
@@ -168,26 +191,6 @@ namespace NetTracApp.Controllers
             }
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteAll()
-        {
-            var items = _context.InventoryItems.ToList();
-
-            if (items.Any())
-            {
-                // Directly delete all items without approval for Tier 3 users
-                _context.InventoryItems.RemoveRange(items);
-                await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "All inventory items deleted successfully.";
-            }
-            else
-            {
-                TempData["InfoMessage"] = "No items available to delete.";
-            }
-
-            return RedirectToAction(nameof(ApproveDeletions));
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -211,56 +214,75 @@ namespace NetTracApp.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> DeleteSelected(List<int> selectedIds)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteSelected(List<int> selectedItems)
         {
-            if (selectedIds == null || !selectedIds.Any())
+            if (selectedItems == null || !selectedItems.Any())
             {
-                TempData["InfoMessage"] = "No items selected for deletion.";
-                return RedirectToAction(nameof(ApproveDeletions));
+                return BadRequest("No items selected for deletion.");
             }
 
-            try
-            {
-                // Retrieve the selected items from the database
-                var itemsToDelete = await _context.InventoryItems
-                    .Where(item => selectedIds.Contains(item.Id))
-                    .ToListAsync();
+            // Retrieve items from the database
+            var itemsToDelete = await _context.InventoryItems
+                .Where(i => selectedItems.Contains(i.Id)).ToListAsync();
 
-                if (itemsToDelete.Any())
+            if (User.IsInRole("Tier3")) // Check if the user is Tier 3
+            {
+                // Tier 3: Directly delete the items
+                _context.InventoryItems.RemoveRange(itemsToDelete);
+                await _context.SaveChangesAsync();
+
+                return Ok($"{itemsToDelete.Count} items deleted successfully.");
+            }
+            else
+            {
+                // Tier 2: Mark items for deletion, pending approval
+                foreach (var item in itemsToDelete)
                 {
-                    if (User.IsInRole("Tier3"))
-                    {
-                        // Directly delete items if the user is Tier 3
-                        _context.InventoryItems.RemoveRange(itemsToDelete);
-                        await _context.SaveChangesAsync();
-                        TempData["SuccessMessage"] = $"{itemsToDelete.Count} items deleted successfully.";
-                    }
-                    else
-                    {
-                        // Mark items as pending deletion for Tier 3 approval if user is Tier 2
-                        foreach (var item in itemsToDelete)
-                        {
-                            item.PendingDeletion = true;
-                            item.DeletionApproved = false; // Ensure it's marked as pending approval
-                        }
-
-                        _context.InventoryItems.UpdateRange(itemsToDelete);
-                        await _context.SaveChangesAsync();
-                        TempData["InfoMessage"] = "Selected items are marked for deletion and are awaiting Tier 3 approval.";
-                    }
+                    item.PendingDeletion = true;
+                    item.DeletionApproved = false;
                 }
-                else
-                {
-                    TempData["InfoMessage"] = "No valid items found for deletion.";
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = $"Error deleting items: {ex.Message}";
-            }
 
-            return RedirectToAction(nameof(ApproveDeletions));
+                await _context.SaveChangesAsync();
+                return Ok("Items marked for deletion and pending approval.");
+            }
         }
+        // GET: Tier3/Edit/{id}
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var inventoryItem = await _context.InventoryItems.FindAsync(id);
+            if (inventoryItem == null) return NotFound();
+
+            return View(inventoryItem);
+        }
+
+        // POST: Tier3/Edit/{id}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, InventoryItem inventoryItem)
+        {
+            if (id != inventoryItem.Id) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(inventoryItem);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(ApproveDeletions));
+                }
+                catch (Exception)
+                {
+                    return Problem("There was an error updating the item.");
+                }
+            }
+
+            return View(inventoryItem); // Reload the view if invalid data is found
+        }
+
+
         // Handles denying of deletions
         [HttpPost]
         public async Task<IActionResult> DenyDeletion(int id)
@@ -283,9 +305,54 @@ namespace NetTracApp.Controllers
             TempData["SuccessMessage"] = "Item has been moved back to inventory and removed from pending status.";
             return RedirectToAction(nameof(ApproveDeletions));
         }
+        [HttpPost("/Inventory/DeleteItems")]
+        public async Task<IActionResult> DeleteItems([FromBody] List<int> itemIds)
+        {
+            // Check if the current user is a Tier 3 user
+            if (User.IsInRole("Tier3")) // Adjust to your role management logic
+            {
+                var itemsToDelete = await _context.InventoryItems
+                    .Where(item => itemIds.Contains(item.Id))
+                    .ToListAsync();
 
+                if (itemsToDelete.Count == 0)
+                {
+                    return NotFound(new { message = "No items found to delete." });
+                }
+
+                // Delete items directly for T3 users
+                _context.InventoryItems.RemoveRange(itemsToDelete);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Items deleted successfully." });
+            }
+            else
+            {
+                // Route deletion requests for Tier 2 users to approval
+                var itemsToUpdate = await _context.InventoryItems
+                    .Where(item => itemIds.Contains(item.Id))
+                    .ToListAsync();
+
+                if (itemsToUpdate.Count == 0)
+                {
+                    return NotFound(new { message = "No items found to request deletion." });
+                }
+
+                foreach (var item in itemsToUpdate)
+                {
+                    item.PendingDeletion = true;
+                    item.DeletionApproved = false;
+                }
+
+                _context.InventoryItems.UpdateRange(itemsToUpdate);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Deletion request submitted for approval." });
+            }
+          
+            }
+
+
+        }
 
     }
-
-}
-

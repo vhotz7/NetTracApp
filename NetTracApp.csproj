@@ -8,7 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Tier2\NewFolder\**" />
+    <Content Remove="Views\Tier2\NewFolder\**" />
+    <EmbeddedResource Remove="Views\Tier2\NewFolder\**" />
+    <None Remove="Views\Tier2\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Home\Privacy.cshtml" />
+    <Content Remove="Views\Tier2\DeleteRequest.cshtml" />
     <Content Remove="Views\Tier2\Tier2Dashboard.cshtml.cshtml" />
   </ItemGroup>
 

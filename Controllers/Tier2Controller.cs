@@ -121,7 +121,7 @@ namespace NetTracApp.Controllers
             return RedirectToAction(nameof(Tier2Dashboard));
         }
         // GET: /Tier2/Tier2Dashboard
-        
+
 
 
         [HttpPost]
@@ -280,5 +280,68 @@ namespace NetTracApp.Controllers
         {
             return _context.InventoryItems.Any(e => e.Id == id);
         }
+        // GET: Tier2/Edit/{id}
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var inventoryItem = await _context.InventoryItems.FindAsync(id);
+            if (inventoryItem == null) return NotFound();
+
+            return View(inventoryItem);
+        }
+
+        // POST: Tier2/Edit/{id}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, InventoryItem inventoryItem)
+        {
+            if (id != inventoryItem.Id) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(inventoryItem);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Tier2Dashboard)); // Redirect to Tier 2 dashboard
+                }
+                catch (Exception)
+                {
+                    return Problem("There was an error updating the item.");
+                }
+            }
+
+            return View(inventoryItem); // Reload the view if invalid data is found
+        }
+        // GET: Tier2/Index (or just /Tier2)
+        public async Task<IActionResult> Index()
+        {
+            var items = await _context.InventoryItems.ToListAsync();
+            return View(items); // Ensure you have an Index view
+        }
+
+        // GET: Tier2/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Handle form submission for creating a new inventory item
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice")] InventoryItem inventoryItem)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(inventoryItem);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Item created successfully!";
+                return RedirectToAction(nameof(Tier2Dashboard));
+            }
+            return View(inventoryItem);
+        }
+
+
     }
 }

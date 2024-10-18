@@ -233,7 +233,7 @@ else
 </div>
 
 <div style="text-align: right; margin-bottom: 10px;">
-    <a asp-controller="InventoryItems" asp-action="Create" style="color: #ac3e0b; font-weight: bold; text-decoration: none;">
+    <a asp-controller="Tier3" asp-action="Create" style="color: #ac3e0b; font-weight: bold; text-decoration: none;">
         Create New Inventory Item
     </a>
 </div>
@@ -301,8 +301,13 @@ else
                         <td class="extra-column">@item.CreatedBy</td>
                         <td class="extra-column">@item.ModifiedBy</td>
                         <td>
-                            <a asp-controller="Tier2EditDashboard" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
-                            <a asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete btn-sm">Delete</a>
+                            <a asp-controller="Tier3" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
+                            <button type="button"
+                                    class="btn btn-delete btn-sm"
+                                    onclick="deleteSingleItem('@item.Id')">
+                                Delete Item
+                            </button>
+
                         </td>
                     </tr>
                 }
@@ -315,7 +320,12 @@ else
             }
         </tbody>
     </table>
-    <button type="submit" class="btn btn-delete btn-sm">Delete Selected (Pending Approval)</button>
+    <button type="button"
+            class="btn btn-delete btn-sm"
+            onclick="deleteSelectedItems()">
+        Delete Selected Items
+    </button>
+
 </form>
 
 <!-- Print Button -->
@@ -427,4 +437,19 @@ else
             }
         });
     });
+</script>
+
+
+<script>
+    // JavaScript function to toggle the display of extra columns
+    function toggleColumns() {
+        var toggleButton = document.getElementById("toggleExpand");
+        var extraColumns = document.querySelectorAll(".extra-column");
+        var isActive = toggleButton.classList.toggle("active");
+
+        // Show or hide extra columns based on toggle button state
+        extraColumns.forEach(function (column) {
+            column.style.display = isActive ? "table-cell" : "none";
+        });
+    }
 </script>

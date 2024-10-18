@@ -1,0 +1,153 @@
+﻿@model IEnumerable<NetTracApp.Models.InventoryItem>
+
+@{
+    ViewData["Title"] = "Delete Request";
+}
+<style>
+    /* Top border styling */
+    .top-border {
+        position: relative;
+        background-color: #970000; /* Dark red background color */
+        color: #ffff00; /* Yellow text color */
+        height: 70px; /* Height of the top banner */
+        display: flex;
+        align-items: center;
+        padding-left: 20px; /* Space for the left side text */
+        border-radius: 10px; /* Rounded corners */
+    }
+
+    /* Styling for the background text "NetTrac" */
+    .background-text {
+        position: absolute;
+        left: 20px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Adjust text position */
+        font-size: 50px; /* Size of the background text */
+        font-family: Impact; /* Impact font */
+        z-index: 1; /* Ensure text appears above the background */
+        color: #ffff00; /* Yellow text color */
+    }
+
+    #circle {
+        background: black;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 10px; /* Position text near the left */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Adjust circle position */
+    }
+
+    /* Styling for the centered text "View Inventory" */
+    .centered-text {
+        margin: 0 auto; /* Center horizontally */
+        font-size: 30px; /* Font size */
+        font-family: Impact; /* Font family */
+        color: #ffffff; /* White text color */
+        z-index: 2; /* Ensure it appears above other elements */
+        position: relative;
+    }
+
+    /* Custom style for the delete button */
+    .btn-delete {
+        background-color: #970000; /* Red color for Delete button */
+        color: white;
+        border: none;
+        padding: 5px 15px; /* Adjust padding for consistency */
+        font-weight: bold;
+    }
+
+        .btn-delete:hover,
+        .btn-delete:focus {
+            background-color: #b30000; /* Lighter red color on hover */
+            color: white; /* Keep text white on hover */
+            border: none;
+        }
+
+    /* Custom style for orange button */
+    .btn-custom-orange {
+        background-color: #ac3e0b; /* Orange color */
+        color: white;
+        border: none;
+        padding: 5px 15px; /* Adjust padding for consistency */
+        font-weight: bold;
+    }
+
+        .btn-custom-orange:hover {
+            background-color: #8a2e0a; /* Darker orange on hover */
+        }
+
+    /* Prevent footer or buttons from being cut off */
+    .container {
+        padding-bottom: 70px; /* Space at the bottom to prevent cutoff */
+    }
+
+    /* Style adjustments for form container to ensure it doesn't cut off */
+    .form-horizontal {
+        padding-bottom: 70px; /* Extra padding at the bottom */
+    }
+
+    /* Style for the delete confirmation text */
+    .delete-warning {
+        color: #b30000; /* Red color for warning text */
+        font-weight: bold; /* Bold font for emphasis */
+        font-size: 24px; /* Larger font size for emphasis */
+        margin-bottom: 15px; /* Space below the warning text */
+        text-align: center; /* Center the text */
+    }
+
+    /* Align the delete and cancel buttons next to each other and center them */
+    .button-container {
+        display: flex;
+        justify-content: center; /* Center the buttons horizontally */
+        gap: 10px; /* Add space between the buttons */
+        margin-top: 15px; /* Space above the button container */
+    }
+
+    /* Make the table smaller */
+    .table-bordered {
+        width: auto; /* Make the table width automatic */
+        max-width: 600px; /* Limit the maximum width */
+        margin: 0 auto; /* Center the table */
+        font-size: 14px; /* Smaller font size for the table */
+    }
+
+        .table-bordered th,
+        .table-bordered td {
+            padding: 5px 10px; /* Reduce padding for smaller table size */
+        }
+</style>
+
+<h2>Delete Request</h2>
+
+<p>The following items have been selected for deletion. Please confirm:</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Vendor</th>
+            <th>Serial Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Vendor</td>
+                <td>@item.SerialNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Form to confirm deletion -->
+<form asp-action="ConfirmDeletion" method="post">
+    @foreach (var item in Model)
+    {
+        <input type="hidden" name="selectedItems" value="@item.Id" />
+    }
+    <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+</form>
+
+<a asp-action="Tier2Dashboard" class="btn btn-secondary">Cancel</a>

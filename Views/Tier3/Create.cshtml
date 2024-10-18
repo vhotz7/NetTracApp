@@ -112,9 +112,10 @@
 
 
 <!-- Form to create a new inventory item -->
-<form asp-action="Create" asp-controller="InventoryItems" method="post">
+<form asp-action="Create" asp-controller="Tier3" method="post">
     <div class="form-horizontal">
-      
+
+
         <!-- Input for vendor -->
         <div class="form-group">
             <label asp-for="Vendor" class="control-label">Vendor</label>
@@ -229,7 +230,7 @@
 
         <div class="form-group button-group">
             <input type="submit" value="Create" class="btn btn-primary" />
-            <a asp-action="Index" asp-controller="InventoryItems" class="btn btn-cancel">Cancel</a>
+            <a asp-action="ApproveDeletions" asp-controller="Tier3" class="btn btn-cancel">Cancel</a>
         </div>
     </div>
 </form>

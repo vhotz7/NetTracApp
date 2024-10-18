@@ -169,95 +169,147 @@
 
 
 
-<!-- inventory table displaying current data -->
-<table class="table table-striped table-bordered">
-    <thead class="thead-dark">
-        <tr>
-            <!-- default columns -->
-            <th>Vendor</th>
-            <th>Device Type</th>
-            <th>Serial Number</th>
-            <th>Host Name</th>
-            <th>Asset Tag</th>
-            <th>Current Location</th>
-            <th>Status</th>
-            <th>Date Received</th>
-            <th>Future Location</th>
-            <th>Part ID</th>
-            <!-- extra columns hidden by default -->
-            <th class="extra-column">Back Ordered</th>
-            <th class="extra-column">Notes</th>
-            <th class="extra-column">Product Description</th>
-            <th class="extra-column">Ready</th>
-            <th class="extra-column">Legacy Device</th>
-            <th class="extra-column">Modified</th>
-            <th class="extra-column">Created</th>
-            <th class="extra-column">Created By</th>
-            <th class="extra-column">Modified By</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            @foreach (var item in Model)
+<!-- Inventory Table Displaying Current Data -->
+<form id="deleteForm">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    <input type="checkbox" id="selectAll" /> Select All
+                </th>
+                <th>Vendor</th>
+                <th>Device Type</th>
+                <th>Serial Number</th>
+                <th>Host Name</th>
+                <th>Asset Tag</th>
+                <th>Current Location</th>
+                <th>Status</th>
+                <th>Date Received</th>
+                <th>Future Location</th>
+                <th>Part ID</th>
+                <th class="extra-column">Back Ordered</th>
+                <th class="extra-column">Notes</th>
+                <th class="extra-column">Product Description</th>
+                <th class="extra-column">Ready</th>
+                <th class="extra-column">Legacy Device</th>
+                <th class="extra-column">Modified</th>
+                <th class="extra-column">Created</th>
+                <th class="extra-column">Created By</th>
+                <th class="extra-column">Modified By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selectedItems" value="@item.Id" />
+                        </td>
+                        <td>@item.Vendor</td>
+                        <td>@item.DeviceType</td>
+                        <td>@item.SerialNumber</td>
+                        <td>@item.HostName</td>
+                        <td>@item.AssetTag</td>
+                        <td>@item.CurrentLocation</td>
+                        <td>@item.Status</td>
+                        <td>@item.DateReceived.ToString("MM/dd/yyyy")</td>
+                        <td>@item.FutureLocation</td>
+                        <td>@item.PartID</td>
+                        <td class="extra-column">@item.BackOrdered</td>
+                        <td class="extra-column">@item.Notes</td>
+                        <td class="extra-column">@item.ProductDescription</td>
+                        <td class="extra-column">@item.Ready</td>
+                        <td class="extra-column">@item.LegacyDevice</td>
+                        <td class="extra-column">@item.Modified</td>
+                        <td class="extra-column">@item.Created</td>
+                        <td class="extra-column">@item.CreatedBy</td>
+                        <td class="extra-column">@item.ModifiedBy</td>
+                        <td>
+                            <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id"
+                               class="btn btn-edit btn-sm">Edit</a>
+
+                            <button type="button" class="btn btn-danger btn-sm"
+                                    onclick="deleteItem(@item.Id)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
             {
                 <tr>
-                    <!-- display default columns -->
-                    <td>@item.Vendor</td>
-                    <td>@item.DeviceType</td>
-                    <td>@item.SerialNumber</td>
-                    <td>@item.HostName</td>
-                    <td>@item.AssetTag</td>
-                    <td>@item.CurrentLocation</td>
-                    <td>@item.Status</td>
-                    <td>@item.DateReceived</td>
-                    <td>@item.FutureLocation</td>
-                    <td>@item.PartID</td>
-                    <!-- display extra columns when expanded -->
-                    <td class="extra-column">@item.BackOrdered</td>
-                    <td class="extra-column">@item.Notes</td>
-                    <td class="extra-column">@item.ProductDescription</td>
-                    <td class="extra-column">@item.Ready</td>
-                    <td class="extra-column">@item.LegacyDevice</td>
-                    <td class="extra-column">@item.Modified</td>
-                    <td class="extra-column">@item.Created</td>
-                    <td class="extra-column">@item.CreatedBy</td>
-                    <td class="extra-column">@item.ModifiedBy</td>
-                    <td>
-                        <!-- edit button -->
-                        <a asp-controller="InventoryItems" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
-
-                        <!-- delete button -->
-                        <a asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete btn-sm">Delete</a>
-                    </td>
+                    <td colspan="21" class="text-center">No inventory items found.</td>
                 </tr>
             }
-        }
-        else
-        {
-            <!-- display if no inventory items are found -->
-            <tr>
-                <td colspan="19" class="text-center">No inventory items found.</td>
-            </tr>
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-
-
-
+    <button type="button" class="btn btn-danger" onclick="deleteSelectedItems()">Delete Selected</button>
+</form>
 
 <script>
-    // function to toggle visibility of extra columns
-    function toggleColumns() {
-        var toggleButton = document.getElementById("toggleExpand");
-        var extraColumns = document.querySelectorAll(".extra-column");
-        var isActive = toggleButton.classList.toggle("active");
-
-        // show or hide extra columns based on toggle button state
-        extraColumns.forEach(function (column) {
-            column.style.display = isActive ? "table-cell" : "none";
-        });
+    // JavaScript to handle individual item deletion
+    function deleteItem(itemId) {
+        fetch(`/Tier3/Delete/${itemId}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('[name="__RequestVerificationToken"]').value
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(text || 'Failed to delete item.');
+                    });
+                }
+                location.reload(); // Reload the page on success
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting item.');
+            });
     }
+
+    // JavaScript to handle bulk deletion
+    function deleteSelectedItems() {
+        const selectedItems = Array.from(document.querySelectorAll('input[name="selectedItems"]:checked'))
+            .map(checkbox => parseInt(checkbox.value));
+
+        if (selectedItems.length === 0) {
+            alert('No items selected for deletion.');
+            return;
+        }
+
+        fetch('@Url.Action("DeleteSelected", "Tier3")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('[name="__RequestVerificationToken"]').value
+            },
+            body: JSON.stringify(selectedItems)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(text || 'Failed to delete selected items.');
+                    });
+                }
+                alert('Selected items deleted successfully.');
+                location.reload(); // Reload the page on success
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting selected items.');
+            });
+    }
+
+    // Select/Deselect all checkboxes
+    document.getElementById('selectAll').addEventListener('change', function (e) {
+        const checkboxes = document.querySelectorAll('input[name="selectedItems"]');
+        checkboxes.forEach(checkbox => checkbox.checked = e.target.checked);
+    });
 </script>
