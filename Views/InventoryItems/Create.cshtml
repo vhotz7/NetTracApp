@@ -112,7 +112,7 @@
 
 
 <!-- Form to create a new inventory item -->
-<form asp-action="Create">
+<form asp-action="Create" asp-controller="InventoryItems" method="post">
     <div class="form-horizontal">
       
         <!-- Input for vendor -->
@@ -227,10 +227,9 @@
             <span asp-validation-for="LegacyDevice" class="text-danger"></span>
         </div>
 
-        <!-- Button group to ensure buttons are close together -->
         <div class="form-group button-group">
             <input type="submit" value="Create" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn-cancel">Cancel</a>
+            <a asp-action="Index" asp-controller="InventoryItems" class="btn btn-cancel">Cancel</a>
         </div>
     </div>
 </form>

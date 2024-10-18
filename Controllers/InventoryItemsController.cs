@@ -46,16 +46,19 @@ namespace NetTracApp.Controllers
         // POST: Handle form submission for creating a new inventory item
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice,CreatedBy,ModifiedBy")] InventoryItem inventoryItem)
+        public async Task<IActionResult> Create([Bind("Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice")] InventoryItem inventoryItem)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(inventoryItem);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Item created successfully!";
                 return RedirectToAction(nameof(Index));
             }
+            // If the model is invalid, stay on the same page
             return View(inventoryItem);
         }
+
 
         // GET: Show form to edit an existing inventory item
         public async Task<IActionResult> Edit(int? id)
