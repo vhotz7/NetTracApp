@@ -97,9 +97,15 @@ body, p, span, label, input, button {
     }
 
 .btn-delete {
-    background-color: #970000; /* Red color for Delete button */
-    color: white;
+    background-color: #970000;
+    color: white; /* White text color */
     border: none;
+    padding: 5px 10px; /* Adjust padding to match other buttons */
+    display: inline-block; /* Keep the button inline */
+    margin: 20px auto; /* Center horizontally with margin */
+    text-align: center; /* Center text */
+    font-weight: bold; /* Make the text bold */
+    font-size: 14px;
 }
 
     .btn-delete:hover,

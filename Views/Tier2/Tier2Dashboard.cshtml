@@ -5,6 +5,34 @@
 }
 
 <style>
+    .delete-button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px; /* Optional: Add some spacing from other elements */
+    }
+    .actions-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; /* Add space between the form and the link */
+    }
+
+    /* Upload form styling */
+    .upload-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px; /* Add space between label and input */
+    }
+
+    /* Styling for the file input and button alignment */
+    .upload-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Add space between input and button */
+    }
+
+
     /* Ensure table uses full width and adapts dynamically */
     #inventoryTable {
         width: 100%; /* Use available width */
@@ -22,10 +50,7 @@
         white-space: nowrap; /* Prevent text wrapping */
     }
 
-    .thead-dark th {
-        background-color: #343a40;
-        color: white;
-    }
+    
 
     /* Extra columns are hidden by default */
     .extra-column {
@@ -55,7 +80,10 @@
     .btn-edit {
         background-color: #ac3e0b;
         color: white;
+        font-weight: bold;
+        padding: 10px 15px;
         border: none;
+        cursor: pointer;
     }
 
         .btn-edit:hover {
@@ -66,7 +94,10 @@
     .btn-delete {
         background-color: #970000;
         color: white;
+        font-weight: bold;
+        padding: 10px 15px;
         border: none;
+        cursor: pointer;
     }
 
         .btn-delete:hover {
@@ -195,7 +226,7 @@
 
 
 
-<form id="deleteForm" asp-action="DeleteSelected" method="post" onsubmit="return handleBulkDeleteRequest(event);">
+<form method="post" asp-action="RequestDelete" id="bulkDeleteForm">
     <table id="inventoryTable" class="table table-striped table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -262,7 +293,7 @@
                             <button type="button"
                                     class="btn btn-delete btn-sm"
                                     onclick="requestDeletion('@item.Id')">
-                                Request Deletion
+                                Delete
                             </button>
                 </td>
             </tr>
@@ -277,7 +308,12 @@
 </tbody>
 
     </table>
-    <button type="submit" class="btn btn-delete btn-sm">Request Deletion for Selected</button>
+    <div class="delete-button-container">
+        <form asp-controller="Tier2" asp-action="RequestDelete" method="post">
+            <button type="submit" class="btn btn-delete btn-sm">Delete Requested Items</button>
+        </form>
+    </div>
+
   
 </form>
 

@@ -5,36 +5,49 @@ using NetTracApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// get the connection string from the configuration file
+// Get the connection string from the configuration file
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-// add and configure the database context with MySQL
+// Add and configure the database context with MySQL
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)),
     mysqlOptions =>
     {
-        // enable retry on failure for database connections
+        // Enable retry on failure for database connections
         mysqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 5, // maximum number of retry attempts
-            maxRetryDelay: TimeSpan.FromSeconds(10), // delay between retries
-            errorNumbersToAdd: null); // no specific error numbers to add for retry
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(10),
+            errorNumbersToAdd: null);
     }));
 
-// add exception filter for database-related pages
+// Add exception filter for database-related pages
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-// configure identity services for user authentication and authorization
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+// Configure identity services with role-based authentication and authorization
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+})
+.AddRoles<IdentityRole>() // Add role support
+.AddEntityFrameworkStores<ApplicationDbContext>();
 
-// add support for controllers and views
+// Configure the authentication cookie to avoid unnecessary logouts
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Login/Index"; // Redirect to login if unauthenticated
+    options.AccessDeniedPath = "/Login/AccessDenied"; // Redirect on access denied
+    options.ExpireTimeSpan = TimeSpan.FromDays(30); // Extend cookie lifetime
+    options.SlidingExpiration = true; // Renew cookie with each request
+});
+
+// Add support for controllers and views
 builder.Services.AddControllersWithViews();
 
-// register the custom CsvService for dependency injection
+// Register CsvService for dependency injection
 builder.Services.AddScoped<CsvService>();
 
-// configure logging to output to console and debug window
+// Configure logging to output to console and debug window
 builder.Services.AddLogging(config =>
 {
     config.AddConsole();
@@ -43,31 +56,29 @@ builder.Services.AddLogging(config =>
 
 var app = builder.Build();
 
-// configure middleware for different environments
+// Configure middleware for different environments
 if (app.Environment.IsDevelopment())
 {
-    // use developer-friendly database error pages in development
     app.UseMigrationsEndPoint();
 }
 else
 {
-    // use a generic error page in production
     app.UseExceptionHandler("/Home/Error");
-    app.UseHsts(); // use HTTP Strict Transport Security
+    app.UseHsts();
 }
 
-app.UseHttpsRedirection(); // redirect HTTP requests to HTTPS
-app.UseStaticFiles(); // serve static files
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 
-app.UseRouting(); // configure routing
+app.UseRouting();
 
-app.UseAuthentication(); // enable authentication middleware
-app.UseAuthorization(); // enable authorization middleware
+app.UseAuthentication(); // Ensure authentication middleware is enabled
+app.UseAuthorization(); // Ensure authorization middleware is enabled
 
-// configure default route pattern for controllers
+// Configure default route pattern for controllers
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Login}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"); // Change default route to Home/Index
 
 // Map Razor Pages (if needed)
 app.MapRazorPages();
