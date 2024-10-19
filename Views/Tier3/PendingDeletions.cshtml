@@ -1,0 +1,42 @@
+﻿@model IEnumerable<NetTracApp.Models.InventoryItem>
+
+<h2>Pending Deletion Requests</h2>
+
+@if (!Model.Any())
+{
+    <p>No pending deletion requests at this time.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Vendor</th>
+                <th>Device Type</th>
+                <th>Serial Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Vendor</td>
+                    <td>@item.DeviceType</td>
+                    <td>@item.SerialNumber</td>
+                    <td>
+                        <form asp-action="ApproveDeletion" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-success">Approve</button>
+                        </form>
+
+                        <form asp-action="DenyDeletion" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-warning">Deny</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

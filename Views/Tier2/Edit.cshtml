@@ -1,0 +1,195 @@
+﻿@model NetTracApp.Models.InventoryItem
+
+@{
+    ViewData["Title"] = "Edit Inventory Item (Tier 2)";
+}
+
+<style>
+    /* Style for the form */
+    .form-group label {
+        font-weight: bold;
+    }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: #ac3e0b; /*orange button*/
+        border-color: #ac3e0b; /* Match border color */
+    }
+
+        .btn-primary:hover {
+            background-color: #e05c1a; /* lighter orange color on hover*/
+            border-color: #e05c1a; /* lighter orange color on hover */
+        }
+
+    .btn-secondary {
+        background-color: #970000; /* Secondary gray color */
+        border-color: #970000; /* Match border color */
+    }
+
+        .btn-secondary:hover {
+            background-color: #b30000; /* lighter red color on hover */
+            border-color: #b30000; /* lighter red color on hover */
+        }
+
+    /* Button group to keep buttons together */
+    .button-group {
+        display: flex;
+        gap: 10px; /* Space between buttons */
+        justify-content: flex-start; /* Align buttons to the left */
+    }
+
+    /* Align checkbox and label to the left */
+    .form-check {
+        display: flex;
+        align-items: center;
+    }
+
+    .form-check-input {
+        margin-left: 10px; /* Add space between checkbox and label */
+    }
+</style>
+
+<h2 style="color: darkred; text-align: center;">Edit Item</h2>
+
+<form asp-action="Edit" method="post">
+    <div class="form-horizontal">
+
+        <input type="hidden" asp-for="Id" />
+
+        <!-- Vendor -->
+        <div class="form-group">
+            <label asp-for="Vendor" class="control-label custom-label">Vendor:</label>
+            <input asp-for="Vendor" class="form-control" />
+            <span asp-validation-for="Vendor" class="text-danger"></span>
+        </div>
+
+        <!-- DeviceType -->
+        <div class="form-group">
+            <label asp-for="DeviceType" class="control-label custom-label">Device Type:</label>
+            <input asp-for="DeviceType" class="form-control" />
+            <span asp-validation-for="DeviceType" class="text-danger"></span>
+        </div>
+
+        <!-- SerialNumber -->
+        <div class="form-group">
+            <label asp-for="SerialNumber" class="control-label custom-label">Serial Number:</label>
+            <input asp-for="SerialNumber" class="form-control" />
+            <span asp-validation-for="SerialNumber" class="text-danger"></span>
+        </div>
+
+        <!-- HostName -->
+        <div class="form-group">
+            <label asp-for="HostName" class="control-label custom-label">Host Name:</label>
+            <input asp-for="HostName" class="form-control" />
+            <span asp-validation-for="HostName" class="text-danger"></span>
+        </div>
+
+        <!-- AssetTag -->
+        <div class="form-group">
+            <label asp-for="AssetTag" class="control-label custom-label">Asset Tag:</label>
+            <input asp-for="AssetTag" class="form-control" />
+            <span asp-validation-for="AssetTag" class="text-danger"></span>
+        </div>
+
+        <!-- PartID -->
+        <div class="form-group">
+            <label asp-for="PartID" class="control-label custom-label">Part ID:</label>
+            <input asp-for="PartID" class="form-control" />
+            <span asp-validation-for="PartID" class="text-danger"></span>
+        </div>
+
+        <!-- FutureLocation -->
+        <div class="form-group">
+            <label asp-for="FutureLocation" class="control-label custom-label">Future Location:</label>
+            <input asp-for="FutureLocation" class="form-control" />
+            <span asp-validation-for="FutureLocation" class="text-danger"></span>
+        </div>
+
+        <!-- DateReceived -->
+        <div class="form-group">
+            <label asp-for="DateReceived" class="control-label custom-label">Date Received:</label>
+            <input asp-for="DateReceived" class="form-control" type="date" />
+            <span asp-validation-for="DateReceived" class="text-danger"></span>
+        </div>
+
+        <!-- CurrentLocation -->
+        <div class="form-group">
+            <label asp-for="CurrentLocation" class="control-label custom-label">Current Location:</label>
+            <input asp-for="CurrentLocation" class="form-control" />
+            <span asp-validation-for="CurrentLocation" class="text-danger"></span>
+        </div>
+
+        <!-- Status -->
+        <div class="form-group">
+            <label asp-for="Status" class="control-label custom-label">Status:</label>
+            <select asp-for="Status" class="form-control">
+                <option value="Received">Received</option>
+                <option value="In Route">In Route</option>
+                <option value="Set to Delete">Set to Delete</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <!-- BackOrdered (Dropdown for True/False) -->
+        <div class="form-group">
+            <label asp-for="BackOrdered" class="control-label custom-label">Back Ordered:</label>
+            <select asp-for="BackOrdered" class="form-control">
+                <option value="true">true</option>
+                <option value="false">false</option>
+            </select>
+            <span asp-validation-for="BackOrdered" class="text-danger"></span>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group">
+            <label asp-for="Notes" class="control-label custom-label">Notes:</label>
+            <textarea asp-for="Notes" class="form-control"></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+
+        <!-- ProductDescription -->
+        <div class="form-group">
+            <label asp-for="ProductDescription" class="control-label custom-label">Product Description:</label>
+            <input asp-for="ProductDescription" class="form-control" />
+            <span asp-validation-for="ProductDescription" class="text-danger"></span>
+        </div>
+
+        <!-- Ready (Dropdown for Yes/No) -->
+        <div class="form-group">
+            <label asp-for="Ready" class="control-label custom-label">Ready:</label>
+            <select asp-for="Ready" class="form-control">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+            <span asp-validation-for="Ready" class="text-danger"></span>
+        </div>
+
+        <!-- LegacyDevice (Checkbox aligned next to the label) -->
+        <div class="form-group" style="display: flex; align-items: center;">
+            <label asp-for="LegacyDevice" class="control-label custom-label">Legacy Device:</label>
+            <input asp-for="LegacyDevice" class="form-check-input" type="checkbox" style="margin-left: 10px;" />
+            <span asp-validation-for="LegacyDevice" class="text-danger"></span>
+        </div>
+
+        <!-- CreatedBy (Read-only) -->
+        <div class="form-group">
+            <label asp-for="CreatedBy" class="control-label custom-label">Created By:</label>
+            <input asp-for="CreatedBy" class="form-control" readonly />
+            <span asp-validation-for="CreatedBy" class="text-danger"></span>
+        </div>
+
+        <!-- ModifiedBy (Read-only) -->
+        <div class="form-group">
+            <label asp-for="ModifiedBy" class="control-label custom-label">Modified By:</label>
+            <input asp-for="ModifiedBy" class="form-control" readonly />
+            <span asp-validation-for="ModifiedBy" class="text-danger"></span>
+        </div>
+
+        <!-- Button group for Save and Back to List buttons -->
+        <div class="form-group button-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a asp-action="Tier2Dashboard" asp-controller="Tier2" class="btn btn-secondary">Back to List</a>
+
+        </div>
+    </div>
+</form>

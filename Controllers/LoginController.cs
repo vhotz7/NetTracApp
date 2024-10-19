@@ -27,7 +27,7 @@ namespace NetTracApp.Controllers
                 else if (username == "t3")
                 {
                     // Redirect to Tier 3 operations - Approve Deletions
-                    return RedirectToAction("ApproveDeletions", "Tier3");
+                    return RedirectToAction("Tier3Dashboard", "Tier3");
                 }
                 else
                 {

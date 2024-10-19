@@ -188,18 +188,17 @@
 </div>
 
 <div style="text-align: right; margin-bottom: 10px;">
-    <a asp-controller="InventoryItems" asp-action="Create" style="color: #ac3e0b; font-weight: bold; text-decoration: none;">
+    <a asp-controller="Tier2" asp-action="Create" style="color: #ac3e0b; font-weight: bold; text-decoration: none;">
         Create New Inventory Item
     </a>
 </div>
 
 
 
-<form asp-action="DeleteSelected" method="post">
+<form id="deleteForm" asp-action="DeleteSelected" method="post" onsubmit="return handleBulkDeleteRequest(event);">
     <table id="inventoryTable" class="table table-striped table-bordered">
         <thead class="thead-dark">
             <tr>
-                <!-- Select All Checkbox Column -->
                 <th class="checkbox-column">
                     <input type="checkbox" class="form-check-input" id="selectAll" />
                 </th>
@@ -208,8 +207,8 @@
                 <th>Serial #</th>
                 <th>Host Name</th>
                 <th>Asset Tag</th>
-                <th>CurrentLocation</th>
-                <th>FutureLocation</th>
+                <th>Current Location</th>
+                <th>Future Location</th>
                 <th>Status</th>
                 <th>Date Received</th>
                 <th>Part ID</th>
@@ -226,111 +225,127 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model != null && Model.Any())
-            {
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="checkbox-column">
-                            <input type="checkbox" class="form-check-input" name="selectedItems" value="@item.Id" />
-                        </td>
-                        <td>@item.Vendor</td>
-                        <td>@item.DeviceType</td>
-                        <td>@item.SerialNumber</td>
-                        <td>@item.HostName</td>
-                        <td>@item.AssetTag</td>
-                        <td>@item.CurrentLocation</td>
-                        <td>@item.FutureLocation</td>
-                        <td>@item.Status</td>
-                        <td>@item.DateReceived.ToString("MM/dd/yyyy")</td>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td class="checkbox-column">
+                    <input type="checkbox" class="form-check-input" name="selectedItems" value="@item.Id" />
+                </td>
+                <td>@item.Vendor</td>
+                <td>@item.DeviceType</td>
+                <td>@item.SerialNumber</td>
+                <td>@item.HostName</td>
+                <td>@item.AssetTag</td>
+                <td>@item.CurrentLocation</td>
+                <td>@item.FutureLocation</td>
+                <td>@item.Status</td>
+                <td>@item.DateReceived.ToString("MM/dd/yyyy")</td>
+                <td>@item.PartID</td>
+                <td class="extra-column">@item.BackOrdered</td>
+                <td class="extra-column">@item.Notes</td>
+                <td class="extra-column">@item.ProductDescription</td>
+                <td class="extra-column">@item.Ready</td>
+                <td class="extra-column">@item.LegacyDevice</td>
+                <td class="extra-column">@item.Modified</td>
+                <td class="extra-column">@item.Created</td>
+                <td class="extra-column">@item.CreatedBy</td>
+                <td class="extra-column">@item.ModifiedBy</td>
+                <td>
+                    <!-- Edit Button -->
+                    <a asp-action="Edit" asp-controller="Tier2" asp-route-id="@item.Id" class="btn btn-edit btn-sm">
+                        Edit
+                    </a>
 
+                    <!-- Request Deletion Button -->
+                            <button type="button"
+                                    class="btn btn-delete btn-sm"
+                                    onclick="requestDeletion('@item.Id')">
+                                Request Deletion
+                            </button>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="20" class="text-center">No inventory items found.</td>
+        </tr>
+    }
+</tbody>
 
-                        <td>@item.PartID</td>
-                        <td class="extra-column">@item.BackOrdered</td>
-                        <td class="extra-column">@item.Notes</td>
-                        <td class="extra-column">@item.ProductDescription</td>
-                        <td class="extra-column">@item.Ready</td>
-                        <td class="extra-column">@item.LegacyDevice</td>
-                        <td class="extra-column">@item.Modified</td>
-                        <td class="extra-column">@item.Created</td>
-                        <td class="extra-column">@item.CreatedBy</td>
-                        <td class="extra-column">@item.ModifiedBy</td>
-                        <td>
-                            <a asp-controller="Tier2EditDashboard" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
-                            <a asp-controller="InventoryItems" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-delete btn-sm">Delete</a>
-                        </td>
-                    </tr>
-                }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="20" class="text-center">No inventory items found.</td>
-                </tr>
-            }
-        </tbody>
     </table>
-    <button type="submit" class="btn btn-delete btn-sm">Delete Selected (Pending Approval)</button>
+    <button type="submit" class="btn btn-delete btn-sm">Request Deletion for Selected</button>
+  
 </form>
 
 
 
 
 
+<script>
+    function handleBulkDeleteRequest(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const checkboxes = document.querySelectorAll('input[name="selectedItems"]:checked');
+        if (checkboxes.length === 0) {
+            alert('No items selected for deletion.');
+            return false; // Prevent further actions
+        }
+
+        const confirmationMessage = `Are you sure you want to request deletion for the selected items?`;
+        if (!confirm(confirmationMessage)) {
+            return false; // If the user cancels, do not submit the form
+        }
+
+        // If the user confirms, submit the form via AJAX
+        const formData = new FormData(event.target); 
+
+        fetch('@Url.Action("DeleteSelected", "Tier2")', { 
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); 
+        })
+        .then(data => {
+            // Show basic alert pop-up
+            alert("The items have been routed to Tier 3 for approval!");
+            // Optionally refresh the page or update the UI accordingly
+             location.reload(); 
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            alert("An error occurred while processing your request.");
+        });
+
+        return false; 
+    }
+
+    // Select/Deselect all checkboxes
+    document.getElementById('selectAll').addEventListener('change', function (e) {
+        const checkboxes = document.querySelectorAll('input[name="selectedItems"]');
+        checkboxes.forEach(checkbox => checkbox.checked = e.target.checked);
+    });
+
+</script>
 
 <script>
-    // function to toggle visibility of extra columns
+    // JavaScript function to toggle the display of extra columns
     function toggleColumns() {
         var toggleButton = document.getElementById("toggleExpand");
         var extraColumns = document.querySelectorAll(".extra-column");
         var isActive = toggleButton.classList.toggle("active");
 
-        // show or hide extra columns based on toggle button state
+        // Show or hide extra columns based on toggle button state
         extraColumns.forEach(function (column) {
             column.style.display = isActive ? "table-cell" : "none";
         });
     }
 </script>
-
-<script>
-    document.getElementById('selectAll').addEventListener('change', function () {
-        const checkboxes = document.querySelectorAll('input[name="selectedItems"]');
-        checkboxes.forEach(checkbox => checkbox.checked = this.checked);
-    });
-</script>
-
-
-
-
-
-
-@section Scripts {
-    <script type="text/javascript">
-        window.onload = function () {
-            var successMessage = '@TempData["SuccessMessage"]';
-            var duplicateMessage = '@TempData["DuplicateMessage"]';
-
-            if (successMessage || duplicateMessage) {
-                var message = "";
-
-                if (successMessage) {
-                    message += successMessage + "\n";
-                }
-
-                if (duplicateMessage) {
-                    message += duplicateMessage;
-                }
-
-                alert(message.trim());
-            }
-        };
-    </script>
-}
-
-
-<div class="d-flex justify-content-center mt-5">
-    <form asp-action="SaveAsNewFile" method="post">
-        <button type="submit" class="btn btn-custom-orange">Save As New File</button>
-    </form>
-</div>
 
