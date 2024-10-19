@@ -316,8 +316,5 @@ public async Task<IActionResult> RequestDelete([FromForm] List<int> selectedItem
             }
             return View(inventoryItem);
         }
->>>>>>> a7f4f09f79e2a94d4d73ee04c92dca413a813b8e
-
-
     }
 }
