@@ -329,7 +329,7 @@
 
     </table>
     <div class="delete-button-container">
-        <form asp-controller="Tier2" asp-action="RequestDelete" method="post">
+          <form asp-controller="Tier2" asp-action="RequestDelete" method="post">
             <button type="submit" class="btn btn-delete btn-sm">Delete Requested Items</button>
         </form>
     </div>
@@ -404,4 +404,43 @@
         });
     }
 </script>
+
+<!-- Print Button -->
+<button onclick="printInventoryTable()" class="btn btn-primary" style="margin-top: 20px;">Print Inventory</button>
+
+<script>
+    function printInventoryTable() {
+        var printContents = document.getElementById("inventoryTable").outerHTML;
+        var originalContents = document.body.innerHTML;
+
+        // Set the table contents in the body for printing
+        document.body.innerHTML = printContents;
+
+        // Trigger the print dialog
+        window.print();
+
+        // Restore the original contents after printing
+        document.body.innerHTML = originalContents;
+        window.location.reload(); // Reload to ensure scripts and layout restore
+    }
+</script>
+
+<style>
+    @@media print {
+        /* Hide everything except the table */
+        body * {
+            visibility: hidden;
+        }
+
+        #inventoryTable, #inventoryTable * {
+            visibility: visible;
+        }
+
+        #inventoryTable {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>
 

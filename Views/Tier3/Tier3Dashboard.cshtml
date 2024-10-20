@@ -322,7 +322,10 @@
             }
         </tbody>
     </table>
-    <button type="submit" class="btn btn-delete btn-sm centered-button">Delete Selected Items</button>
+    <button type="button" class="btn btn-delete btn-sm centered-button" onclick="confirmDelete()">
+        Delete Selected Items
+    </button>
+
 </form>
 
 
@@ -406,4 +409,73 @@
         });
     });
 
+</script>
+
+
+<!-- Print Button -->
+<button onclick="printInventoryTable()" class="btn btn-primary" style="margin-top: 20px;">Print Inventory</button>
+
+<script>
+    function printInventoryTable() {
+        var printContents = document.getElementById("inventoryTable").outerHTML;
+    var originalContents = document.body.innerHTML;
+
+    // Set the table contents in the body for printing
+    document.body.innerHTML = printContents;
+
+    // Trigger the print dialog
+    window.print();
+
+    // Restore the original contents after printing
+    document.body.innerHTML = originalContents;
+    window.location.reload(); // Reload to ensure scripts and layout restore
+    }
+</script>
+
+<style>
+    @@media print {
+        /* Hide everything except the table */
+        body * {
+            visibility: hidden;
+        }
+
+        #inventoryTable, #inventoryTable * {
+            visibility: visible;
+        }
+
+        #inventoryTable {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>
+
+
+
+<!-- JavaScript for Confirmation -->
+<script>
+    function confirmDelete() {
+        const selectedItems = document.querySelectorAll('.item-checkbox:checked');
+
+    // Check if any items are selected
+    if (selectedItems.length === 0) {
+        alert('Please select at least one item to delete.');
+    return;
+        }
+
+    // Show confirmation popup
+    const confirmDelete = window.confirm(`Are you sure you want to delete ${selectedItems.length} items?`);
+
+    // If confirmed, submit the form
+    if (confirmDelete) {
+        document.getElementById('deleteForm').submit();
+        }
+    }
+
+    // Select All Checkbox Logic
+    document.getElementById('selectAll').addEventListener('change', function () {
+        const checkboxes = document.querySelectorAll('.item-checkbox');
+        checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+    });
 </script>
