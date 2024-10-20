@@ -24,6 +24,23 @@
 </div>
 
 <style>
+    .button-container {
+        display: flex;
+        justify-content: center; /* Centers the button horizontally */
+        margin-top: 20px; /* Adds space above the button */
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+    .print-button-container {
+        position: fixed;
+        bottom: 20px; /* Adjust as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        }
     .delete-button-container {
         display: flex;
         justify-content: center;
@@ -330,13 +347,12 @@
     </table>
     <div class="delete-button-container">
           <form asp-controller="Tier2" asp-action="RequestDelete" method="post">
-            <button type="submit" class="btn btn-delete btn-sm">Delete Requested Items</button>
+            <button type="submit" class="btn btn-delete btn-sm">Delete Items Request</button>
         </form>
     </div>
 
   
 </form>
-
 
 
 
@@ -406,7 +422,11 @@
 </script>
 
 <!-- Print Button -->
-<button onclick="printInventoryTable()" class="btn btn-primary" style="margin-top: 20px;">Print Inventory</button>
+<div class="button-container">
+    <button onclick="printInventoryTable()" class="btn btn-primary">
+        Print Inventory
+    </button>
+</div>
 
 <script>
     function printInventoryTable() {

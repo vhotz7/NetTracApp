@@ -29,6 +29,16 @@
 
 
 <style>
+    .button-container {
+        display: flex;
+        justify-content: center; /* Centers the button horizontally */
+        margin-top: 20px; /* Adds space above the button */
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
     .centered-button {
         display: block; /* Make the button behave like a block element */
         margin: 10px auto 0; /* Center the button horizontally with margin auto */
@@ -60,10 +70,7 @@
         white-space: nowrap; /* Prevent text wrapping */
     }
 
-    .thead-dark th {
-        background-color: #343a40;
-        color: white;
-    }
+    
 
     /* Extra columns are hidden by default */
     .extra-column {
@@ -413,7 +420,11 @@
 
 
 <!-- Print Button -->
-<button onclick="printInventoryTable()" class="btn btn-primary" style="margin-top: 20px;">Print Inventory</button>
+<div class="button-container">
+    <button onclick="printInventoryTable()" class="btn btn-primary">
+        Print Inventory
+    </button>
+</div>
 
 <script>
     function printInventoryTable() {
