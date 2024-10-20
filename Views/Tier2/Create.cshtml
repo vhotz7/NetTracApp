@@ -4,6 +4,27 @@
     ViewData["Title"] = "Create Inventory Item";
 }
 
+
+<div class="top-border" style="background-color: #970000; color: #ffff00; height: 80px; border-radius: 8px; margin: 20px auto; padding-left: 20px; display: flex; align-items: center; position: relative; max-width: 100%; width: 1450px;">
+    <!-- background text "NetTrac" -->
+    <span class="background-text" style="font-size: 70px; font-family: Impact;">NetTrac</span>
+
+    <span id="circle" style="background: black; border-radius: 50%; width: 75px; height: 75px; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+
+    <!-- Centered Text "IT Network Tracker" -->
+    <span class="centered-text" style="margin: 0 auto; font-size: 45px; font-family: Impact; color: #ffffff;">Create New Item</span>
+
+    <!-- Home and Login Icons -->
+    <span class="icons" style="display: flex; align-items: center; margin-right: 30px;">
+        <a href="@Url.Action("Tier2Dashboard", "Tier2")" style="margin-right: 20px; text-decoration: none; color: white;">
+            <i class="bi bi-house-door" style="font-size: 2.5rem;"></i>
+        </a>
+        <a href="@Url.Action("Index", "Login")" style="text-decoration: none; color: white;">
+            <i class="bi bi-box-arrow-right" style="font-size: 2.5rem;"></i>
+        </a>
+    </span>
+</div>
+
 <style>
     /* top border styling */
     .top-border {
@@ -108,7 +129,7 @@
 
 </style>
 
-<h2 style="color: darkred; text-align: center;">Create New Inventory Item</h2>
+
 
 
 <!-- Form to create a new inventory item -->

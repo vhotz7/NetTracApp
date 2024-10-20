@@ -212,28 +212,32 @@ namespace NetTracApp.Controllers
         [HttpPost]
         public IActionResult ApproveAllDeletions()
         {
+            // Retrieve all items marked for pending deletion
             var pendingItems = _context.InventoryItems
                                        .Where(item => item.PendingDeletion)
                                        .ToList();
 
             if (pendingItems.Any())
             {
-                foreach (var item in pendingItems)
-                {
-                    item.PendingDeletion = false; // Mark as approved
-                    
-                }
+                // Remove all pending items from the database
+                _context.InventoryItems.RemoveRange(pendingItems);
 
+                // Save the changes to the database
                 _context.SaveChanges();
-                TempData["SuccessMessage"] = "All pending items have been approved.";
+
+                // Set success message for the user
+                TempData["SuccessMessage"] = "All pending deletion requests have been approved and items removed.";
             }
             else
             {
-                TempData["InfoMessage"] = "No pending items to approve.";
+                // Inform the user that there are no items to approve
+                TempData["InfoMessage"] = "No items are pending for deletion.";
             }
 
+            // Redirect to the Tier 3 Dashboard
             return RedirectToAction("Tier3Dashboard");
         }
+
 
 
         // GET: Edit an item in Tier3Dashboard
