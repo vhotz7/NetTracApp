@@ -1,0 +1,107 @@
+﻿@model NetTracApp.Models.InventoryItem
+
+<!-- Header -->
+<div class="top-border"
+     style="background-color: #970000; color: #ffff00; height: 80px; border-radius: 8px;
+            margin: 20px auto; padding-left: 20px; display: flex; align-items: center;
+            position: relative; max-width: 100%; width: 1450px;">
+    <span class="background-text" style="font-size: 70px; font-family: Impact;">NetTrac</span>
+
+    <span id="circle"
+          style="background: black; border-radius: 50%; width: 75px; height: 75px;
+                 position: absolute; left: 10px; top: 50%; transform: translateY(-50%);">
+    </span>
+
+    <span class="centered-text"
+          style="margin: 0 auto; font-size: 45px; font-family: Impact; color: #ffffff;">
+        Request Deletion
+    </span>
+
+    <span class="icons" style="display: flex; align-items: center; margin-right: 30px;">
+        <a href="@Url.Action("Tier2Dashboard", "Tier2")"
+           style="margin-right: 20px; text-decoration: none; color: white;">
+            <i class="bi bi-house-door" style="font-size: 2.5rem;"></i>
+        </a>
+        <a href="@Url.Action("Index", "Login")"
+           style="text-decoration: none; color: white;">
+            <i class="bi bi-box-arrow-right" style="font-size: 2.5rem;"></i>
+        </a>
+    </span>
+</div>
+
+
+
+<!-- Delete Confirmation -->
+<div class="delete-warning">
+    Are you sure you want to send a Request to delete this Inventory Item?
+</div>
+
+
+<!-- Inventory Item Details -->
+<table class="table-bordered">
+    <tr>
+        <th>Vendor</th>
+        <td>@Model.Vendor</td>
+    </tr>
+    <tr>
+        <th>Device Type</th>
+        <td>@Model.DeviceType</td>
+    </tr>
+    <tr>
+        <th>Serial Number</th>
+        <td>@Model.SerialNumber</td>
+    </tr>
+</table>
+
+<!-- Button Container -->
+<div class="button-container" style="margin-top: 20px;">
+    <form asp-action="SubmitDeleteRequest" method="post" style="display: inline;">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-delete">Send Delete Request</button>
+    </form>
+    <a asp-action="Tier2Dashboard" class="btn btn-custom-orange" style="margin-left: 10px;">No</a>
+</div>
+
+<style>
+    .table-bordered {
+        width: 50%;
+        margin: 20px auto;
+        border-collapse: collapse;
+    }
+
+    .table-bordered th, .table-bordered td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .button-container {
+        text-align: center;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-warning {
+        background-color: #f0ad4e;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .delete-warning {
+        color: red; /* Red text color */
+        font-weight: bold; /* Bold for emphasis */
+        font-size: 24px; /* Larger font size */
+        text-align: center; /* Center the message */
+        margin-top: 20px; /* Space above the message */
+        margin-bottom: 20px; /* Space below the message */
+       
+</style>

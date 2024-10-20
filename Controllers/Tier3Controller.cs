@@ -172,42 +172,71 @@ namespace NetTracApp.Controllers
             return RedirectToAction(nameof(PendingDeletions));
         }
 
-        // POST: Delete an item directly from Tier3Dashboard
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // GET: Display the delete confirmation page
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var item = await _context.InventoryItems.FindAsync(id);
-            if (item == null) return NotFound();
-
-            _context.InventoryItems.Remove(item);
-            await _context.SaveChangesAsync();
-
-            TempData["SuccessMessage"] = "Item deleted successfully.";
-            return RedirectToAction(nameof(Tier3Dashboard));
-        }
-
-        // POST: Bulk delete selected items from Tier3Dashboard
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteSelected(List<int> selectedIds)
-        {
-            if (selectedIds == null || !selectedIds.Any())
+            var inventoryItem = await _context.InventoryItems.FindAsync(id);
+            if (inventoryItem == null)
             {
-                TempData["InfoMessage"] = "No items selected.";
+                TempData["ErrorMessage"] = "Item not found.";
                 return RedirectToAction(nameof(Tier3Dashboard));
             }
 
+            return View(inventoryItem); // Render the delete confirmation page
+        }
+
+        // POST: Handle the deletion after confirmation
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var inventoryItem = await _context.InventoryItems.FindAsync(id);
+
+            if (inventoryItem != null)
+            {
+                _context.InventoryItems.Remove(inventoryItem);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Item deleted successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Item not found.";
+            }
+
+            return RedirectToAction(nameof(Tier3Dashboard));
+        }
+
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteSelected(int[] selectedIds)
+        {
+            if (selectedIds == null || !selectedIds.Any())
+            {
+                TempData["ErrorMessage"] = "No items selected for deletion.";
+                return RedirectToAction("Tier3Dashboard");
+            }
+
             var itemsToDelete = await _context.InventoryItems
-                .Where(i => selectedIds.Contains(i.Id))
+                .Where(item => selectedIds.Contains(item.Id))
                 .ToListAsync();
+
+            if (!itemsToDelete.Any())
+            {
+                TempData["ErrorMessage"] = "No matching items found.";
+                return RedirectToAction("Tier3Dashboard");
+            }
 
             _context.InventoryItems.RemoveRange(itemsToDelete);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = $"{itemsToDelete.Count} items deleted.";
-            return RedirectToAction(nameof(Tier3Dashboard));
+            TempData["SuccessMessage"] = $"{itemsToDelete.Count} items deleted successfully.";
+            return RedirectToAction("Tier3Dashboard");
         }
+
 
         [HttpPost]
         public IActionResult ApproveAllDeletions()

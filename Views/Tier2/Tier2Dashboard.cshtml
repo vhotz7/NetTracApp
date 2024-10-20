@@ -309,11 +309,12 @@
                     </a>
 
                     <!-- Request Deletion Button -->
-                            <button type="button"
-                                    class="btn btn-delete btn-sm"
-                                    onclick="requestDeletion('@item.Id')">
+                            <a asp-action="RequestDelete"
+                               asp-controller="Tier2"
+                               asp-route-id="@item.Id"
+                               class="btn btn-delete btn-sm">
                                 Delete
-                            </button>
+                            </a>
                 </td>
             </tr>
         }

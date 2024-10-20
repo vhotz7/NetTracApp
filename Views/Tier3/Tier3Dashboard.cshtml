@@ -29,6 +29,20 @@
 
 
 <style>
+    .centered-button {
+        display: block; /* Make the button behave like a block element */
+        margin: 10px auto 0; /* Center the button horizontally with margin auto */
+        padding: 10px 20px; /* Adjust padding for consistent size */
+        background-color: #970000;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+        .centered-button:hover {
+            background-color: #b30000;
+        }
+
     /* Ensure table uses full width and adapts dynamically */
     #inventoryTable {
         width: 100%; /* Use available width */
@@ -267,7 +281,7 @@
                 {
                     <tr>
                         <td class="checkbox-column">
-                            <input type="checkbox" class="form-check-input" name="selectedIds" value="@item.Id" />
+                            <input type="checkbox" class="form-check-input item-checkbox" name="selectedIds" value="@item.Id" />
                         </td>
                         <td>@item.Vendor</td>
                         <td>@item.DeviceType</td>
@@ -290,9 +304,10 @@
                         <td class="extra-column">@item.ModifiedBy</td>
                         <td>
                             <a asp-controller="Tier3" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit btn-sm">Edit</a>
-                            <a href="javascript:void(0);"
-                               class="btn btn-delete btn-sm"
-                               onclick="deleteItem('@Url.Action("Delete", "Tier3")', @item.Id)">
+                            <a asp-controller="Tier3"
+                               asp-action="Delete"
+                               asp-route-id="@item.Id"
+                               class="btn btn-delete btn-sm">
                                 Delete
                             </a>
                         </td>
@@ -307,47 +322,34 @@
             }
         </tbody>
     </table>
-    <button type="submit" class="btn btn-delete btn-sm">Delete Selected Items </button>
+    <button type="submit" class="btn btn-delete btn-sm centered-button">Delete Selected Items</button>
 </form>
 
+
 <script>
-function toggleSelectAll() {
-    const selectAllCheckbox = document.getElementById('selectAll');
-    const checkboxes = document.querySelectorAll('input[name="selectedIds"]');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = selectAllCheckbox.checked;
-    });
-}
-
-function deleteSelectedItems() {
-    const form = document.getElementById('deleteForm');
-    const checkboxes = form.querySelectorAll('input[name="selectedIds"]:checked');
-    
-    if (checkboxes.length === 0) {
-        alert("Please select at least one item to delete.");
-        return;
+    // Toggle select all checkboxes
+    function toggleSelectAll() {
+        const isChecked = document.getElementById('selectAll').checked;
+        const checkboxes = document.querySelectorAll('.item-checkbox');
+        checkboxes.forEach(checkbox => checkbox.checked = isChecked);
     }
-    
-    if (confirm("Are you sure you want to delete the selected items?")) {
-        form.submit();
+
+    // Single item delete with confirmation
+    function deleteItem(url, id) {
+        if (confirm('Are you sure you want to delete this item?')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `${url}/${id}`;
+            document.body.appendChild(form);
+            form.submit();
+        }
     }
-}
 
 
-function deleteSingleItem(itemId) {
-    if (confirm("Are you sure you want to delete this item?")) {
-        // Redirect to your delete action or call your delete API directly
-        window.location.href = '/Tier3/Delete/' + itemId;
-    }
-}
-</script>
 
 
-<div class="d-flex justify-content-center mt-5">
-    <form asp-action="SaveAsNewFile" method="post">
-        <button type="submit" class="btn btn-custom-orange">Save As New File</button>
-    </form>
-</div>
+
+
 
 
 
@@ -382,4 +384,26 @@ function deleteSingleItem(itemId) {
             column.style.display = isActive ? "table-cell" : "none";
         });
     }
+</script>
+
+
+
+
+<script>
+    // Select/Deselect all checkboxes when the header checkbox is clicked
+    document.getElementById('selectAll').addEventListener('change', function (e) {
+        const checkboxes = document.querySelectorAll('.item-checkbox');
+        checkboxes.forEach(checkbox => checkbox.checked = e.target.checked);
+    });
+
+    // Toggle checkbox selection when clicking on a row, except when clicking on a checkbox directly
+    document.querySelectorAll('.selectable-row').forEach(row => {
+        row.addEventListener('click', function (e) {
+            if (e.target.tagName !== 'INPUT') {
+                const checkbox = row.querySelector('.item-checkbox');
+                checkbox.checked = !checkbox.checked;
+            }
+        });
+    });
+
 </script>

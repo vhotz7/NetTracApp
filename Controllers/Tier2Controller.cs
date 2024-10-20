@@ -135,6 +135,45 @@ namespace NetTracApp.Controllers
 
             return RedirectToAction("Tier2Dashboard");
         }
+        // GET: Display the delete request confirmation page for Tier 2
+        // GET: Display the Request Delete page
+        [HttpGet]
+        public IActionResult RequestDelete(int id)
+        {
+            var inventoryItem = _context.InventoryItems.FirstOrDefault(i => i.Id == id);
+            if (inventoryItem == null)
+            {
+                TempData["ErrorMessage"] = "Item not found.";
+                return RedirectToAction(nameof(Tier2Dashboard));
+            }
+
+            return View(inventoryItem); // Render the RequestDelete view
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SubmitDeleteRequest(int id)
+        {
+            var inventoryItem = await _context.InventoryItems.FindAsync(id);
+
+            if (inventoryItem != null)
+            {
+                // Mark item as pending deletion for Tier 3 approval
+                inventoryItem.PendingDeletion = true;
+                _context.Update(inventoryItem);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Deletion request submitted for Tier 3 approval.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Item not found.";
+            }
+
+            return RedirectToAction(nameof(Tier2Dashboard)); // Redirect to Tier2 dashboard
+        }
+
 
 
 
