@@ -214,16 +214,16 @@ namespace NetTracApp.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> DeleteSelected(int[] selectedIds)
+        public async Task<IActionResult> DeleteSelected(string[] selectedSerialNumbers)
         {
-            if (selectedIds == null || !selectedIds.Any())
+            if (selectedSerialNumbers == null || !selectedSerialNumbers.Any())
             {
                 TempData["ErrorMessage"] = "No items selected for deletion.";
                 return RedirectToAction("Tier3Dashboard");
             }
 
             var itemsToDelete = await _context.InventoryItems
-                .Where(item => selectedIds.Contains(item.Id))
+                .Where(item => selectedSerialNumbers.Contains(item.SerialNumber))
                 .ToListAsync();
 
             if (!itemsToDelete.Any())
@@ -238,6 +238,7 @@ namespace NetTracApp.Controllers
             TempData["SuccessMessage"] = $"{itemsToDelete.Count} items deleted successfully.";
             return RedirectToAction("Tier3Dashboard");
         }
+
 
 
         [HttpPost]
@@ -283,9 +284,10 @@ namespace NetTracApp.Controllers
         // POST: Update item details
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, InventoryItem inventoryItem)
+        public async Task<IActionResult> Edit(string serialNumber, InventoryItem inventoryItem)
         {
-            if (id != inventoryItem.Id) return NotFound();
+            if (serialNumber != inventoryItem.SerialNumber)
+                return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -295,19 +297,14 @@ namespace NetTracApp.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Tier3Dashboard));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    return Problem("There was an error updating the item.");
+                    return Problem($"There was an error updating the item: {ex.Message}");
                 }
             }
             return View(inventoryItem);
         }
 
-        // GET: Tier3/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
 
         // POST: Tier3/Create
         [HttpPost]

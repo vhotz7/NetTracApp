@@ -106,7 +106,7 @@ namespace NetTracApp.Controllers
         // POST: Request deletion of selected items
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RequestDelete(List<int> selectedItems)
+        public async Task<IActionResult> RequestDelete(List<string> selectedItems)
         {
             if (selectedItems == null || !selectedItems.Any())
             {
@@ -117,7 +117,7 @@ namespace NetTracApp.Controllers
             try
             {
                 var itemsToUpdate = await _context.InventoryItems
-                    .Where(i => selectedItems.Contains(i.Id))
+                    .Where(i => selectedItems.Contains(i.SerialNumber))
                     .ToListAsync();
 
                 foreach (var item in itemsToUpdate)
@@ -142,17 +142,17 @@ namespace NetTracApp.Controllers
         // GET: Display the delete request confirmation page for Tier 2
         // GET: Display the Request Delete page
         [HttpGet]
-        public IActionResult RequestDelete(int id)
-        {
-            var inventoryItem = _context.InventoryItems.FirstOrDefault(i => i.Id == id);
-            if (inventoryItem == null)
-            {
-                TempData["ErrorMessage"] = "Item not found.";
-                return RedirectToAction(nameof(Tier2Dashboard));
-            }
+        public IActionResult RequestDelete(string serialNumber)
+{
+    var inventoryItem = _context.InventoryItems.FirstOrDefault(i => i.SerialNumber == serialNumber);
+    if (inventoryItem == null)
+    {
+        TempData["ErrorMessage"] = "Item not found.";
+        return RedirectToAction(nameof(Tier2Dashboard));
+    }
 
-            return View(inventoryItem); // Render the RequestDelete view
-        }
+    return View(inventoryItem);
+}
 
 
         [HttpPost]
@@ -236,9 +236,9 @@ namespace NetTracApp.Controllers
         // POST: Edit an inventory item
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, InventoryItem inventoryItem)
+        public async Task<IActionResult> Edit(string serialNumber, InventoryItem inventoryItem)
         {
-            if (id != inventoryItem.Id) return NotFound();
+            if (serialNumber != inventoryItem.SerialNumber) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -264,6 +264,8 @@ namespace NetTracApp.Controllers
             return View(items);
         }
 
-        private bool InventoryItemExists(int id) => _context.InventoryItems.Any(e => e.Id == id);
+        // Updated method to check if an InventoryItem exists by SerialNumber
+        private bool InventoryItemExists(string serialNumber) =>
+            _context.InventoryItems.Any(e => e.SerialNumber == serialNumber);
     }
 }

@@ -57,7 +57,7 @@
 <div class="button-container">
     <form asp-action="Delete" method="post" style="display: inline-block; margin: 0;">
         @Html.AntiForgeryToken()
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="SerialNumber" />
         <button type="submit" class="btn btn-delete">Yes</button>
     </form>
     <a asp-action="Tier3Dashboard" class="btn btn-custom-orange" style="margin-left: 5px;">No</a>

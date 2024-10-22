@@ -21,11 +21,11 @@ namespace NetTracApp.Data
 
             // specify the primary key for the InventoryItem entity
             modelBuilder.Entity<InventoryItem>()
-                .HasKey(i => i.Id);
+                .HasKey(i => i.SerialNumber);
 
             // configure Id property to be auto-generated
             modelBuilder.Entity<InventoryItem>()
-                .Property(i => i.Id)
+                .Property(i => i.SerialNumber)
                 .ValueGeneratedOnAdd();
 
             // set maximum length and required constraint for Vendor property

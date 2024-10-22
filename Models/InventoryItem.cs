@@ -6,9 +6,10 @@ namespace NetTracApp.Models
 {
     public class InventoryItem
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Key]  // Set SerialNumber as the primary key
+        [Required(ErrorMessage = "Serial Number is required.")]
+        [StringLength(255)]
+        public string SerialNumber { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Vendor is required.")]
         [StringLength(255)]
@@ -16,9 +17,6 @@ namespace NetTracApp.Models
 
         [StringLength(255)]
         public string? DeviceType { get; set; }
-
-        [StringLength(255)]
-        public string? SerialNumber { get; set; }
 
         [StringLength(255)]
         public string? HostName { get; set; }

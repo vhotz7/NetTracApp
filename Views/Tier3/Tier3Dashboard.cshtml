@@ -160,7 +160,7 @@
                 {
                     <tr>
                         <td class="checkbox-column">
-                            <input type="checkbox" class="form-check-input item-checkbox" name="selectedIds" value="@item.Id" />
+                            <input type="checkbox" class="form-check-input item-checkbox" name="selectedIds" value="@item.SerialNumber" />
                         </td>
                         <td>@item.Vendor</td>
                         <td>@item.DeviceType</td>
@@ -182,10 +182,10 @@
                         <td class="extra-column">@item.CreatedBy</td>
                         <td class="extra-column">@item.ModifiedBy</td>
                         <td>
-                            <a asp-controller="Tier3" asp-action="Edit" asp-route-id="@item.Id" class="btn btn btn-edit">Edit</a>
+                            <a asp-controller="Tier3" asp-action="Edit" asp-route-id="@item.SerialNumber" class="btn btn btn-edit">Edit</a>
                             <a asp-controller="Tier3"
                                asp-action="Delete"
-                               asp-route-id="@item.Id"
+                               asp-route-id="@item.SerialNumber"
                                class="btn btn-delete">
                                 Delete
                             </a>
