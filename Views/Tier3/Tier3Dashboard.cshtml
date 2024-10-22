@@ -122,6 +122,10 @@
 </div>
 
 
+<div style="margin-bottom: 15px;">
+    <h4 style="color: #970000; font-size: 1.2rem;">Total Inventory Items: @ViewBag.TotalItems</h4>
+</div>
+
 
 <!-- Inventory Table -->
 <form asp-action="DeleteSelected" method="post" id="deleteForm">
@@ -160,7 +164,7 @@
                 {
                     <tr>
                         <td class="checkbox-column">
-                            <input type="checkbox" class="form-check-input item-checkbox" name="selectedIds" value="@item.SerialNumber" />
+                            <input type="checkbox" class="form-check-input item-checkbox" name="selectedSerialNumbers" value="@item.SerialNumber" />
                         </td>
                         <td>@item.Vendor</td>
                         <td>@item.DeviceType</td>
@@ -182,13 +186,9 @@
                         <td class="extra-column">@item.CreatedBy</td>
                         <td class="extra-column">@item.ModifiedBy</td>
                         <td>
-                            <a asp-controller="Tier3" asp-action="Edit" asp-route-id="@item.SerialNumber" class="btn btn btn-edit">Edit</a>
-                            <a asp-controller="Tier3"
-                               asp-action="Delete"
-                               asp-route-id="@item.SerialNumber"
-                               class="btn btn-delete">
-                                Delete
-                            </a>
+                            <a asp-controller="Tier3" asp-action="Edit" asp-route-serialNumber="@item.SerialNumber" class="btn btn-edit">Edit</a>
+                            <a asp-controller="Tier3" asp-action="Delete" asp-route-serialNumber="@item.SerialNumber" class="btn btn-delete">Delete</a>
+
                         </td>
                     </tr>
                 }
@@ -207,6 +207,12 @@
 
 </form>
 
+
+<div style="margin-top: 15px; text-align: right;">
+    <p style="font-weight: bold; color: #333;">
+       Signed in as: <span style="color: #8B0000;">@ViewBag.UserType </span>
+    </p>
+</div>
 
 <script>
     // Toggle select all checkboxes

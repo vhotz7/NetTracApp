@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using System.Globalization;
 
 namespace NetTracApp.Controllers
 {
@@ -34,12 +35,16 @@ namespace NetTracApp.Controllers
             }
 
             var itemList = await items.ToListAsync();
+
+            ViewBag.TotalItems = itemList.Count; // Pass the total item count to the view
+            ViewBag.UserType = "T2"; // Assuming the logged-in user is T2. Adjust as needed.
+
             return View(itemList);
         }
 
 
-        // POST: Handle CSV file uploads
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadFile(List<IFormFile> files)
         {
             if (files == null || !files.Any())
@@ -52,11 +57,13 @@ namespace NetTracApp.Controllers
             if (!Directory.Exists(uploadFolder)) Directory.CreateDirectory(uploadFolder);
 
             int totalNewRecords = 0;
+            int skippedRecords = 0;
             var duplicateRecords = new List<string>();
+            var invalidDateRecords = new List<string>();
 
             foreach (var file in files)
             {
-                if (!Path.GetExtension(file.FileName).Equals(".csv", System.StringComparison.OrdinalIgnoreCase))
+                if (!Path.GetExtension(file.FileName).Equals(".csv", StringComparison.OrdinalIgnoreCase))
                 {
                     TempData["ErrorMessage"] = "Only CSV files are allowed.";
                     continue;
@@ -71,24 +78,49 @@ namespace NetTracApp.Controllers
                 try
                 {
                     using var reader = new StreamReader(savedFilePath);
-                    var inventoryItems = _csvService.ReadCsvFile(reader.BaseStream).ToList();
+                    var csvConfig = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture)
+                    {
+                        TrimOptions = CsvHelper.Configuration.TrimOptions.Trim,
+                        HeaderValidated = null,
+                        MissingFieldFound = null
+                    };
+
+                    using var csv = new CsvHelper.CsvReader(reader, csvConfig);
+                    var inventoryItems = csv.GetRecords<InventoryItem>().ToList();
 
                     foreach (var item in inventoryItems)
-
                     {
-                        if (item?.SerialNumber != null) // Check if item and SerialNumber are not null
+                        // Check if SerialNumber and Vendor are present
+                        if (string.IsNullOrWhiteSpace(item.SerialNumber) || string.IsNullOrWhiteSpace(item.Vendor))
                         {
-                            if (_context.InventoryItems.Any(e => e.SerialNumber == item.SerialNumber))
-                                duplicateRecords.Add(item.SerialNumber);
-                            else
-                            {
-                                _context.InventoryItems.Add(item);
-                                totalNewRecords++;
-                            }
+                            skippedRecords++;
+                            continue;
                         }
 
-                        await _context.SaveChangesAsync();
+                        // Check if the date is valid
+                        if (item.DateReceived == default || item.Modified == default || item.Created == default)
+                        {
+                            invalidDateRecords.Add(item.SerialNumber);
+                            skippedRecords++;
+                            continue;
+                        }
+
+                        // Check for duplicate SerialNumber
+                        bool isDuplicate = await _context.InventoryItems
+                            .AnyAsync(e => e.SerialNumber == item.SerialNumber);
+
+                        if (isDuplicate)
+                        {
+                            duplicateRecords.Add(item.SerialNumber); // Track duplicate SNs
+                            continue;
+                        }
+
+                        // Add the valid item to the database
+                        _context.InventoryItems.Add(item);
+                        totalNewRecords++;
                     }
+
+                    await _context.SaveChangesAsync(); // Save all new items at once
                 }
                 catch (Exception ex)
                 {
@@ -96,12 +128,20 @@ namespace NetTracApp.Controllers
                 }
             }
 
+            // Display messages for skipped and duplicate records
             TempData["SuccessMessage"] = $"{totalNewRecords} new items uploaded successfully.";
+            if (skippedRecords > 0)
+                TempData["InfoMessage"] = $"{skippedRecords} rows were skipped due to missing fields or invalid data.";
             if (duplicateRecords.Any())
-                TempData["DuplicateMessage"] = $"Duplicates: {string.Join(", ", duplicateRecords)}";
+                TempData["DuplicateMessage"] = $"Duplicate Serial Numbers: {string.Join(", ", duplicateRecords)}";
+            if (invalidDateRecords.Any())
+                TempData["DateErrorMessage"] = $"Invalid Dates found for: {string.Join(", ", invalidDateRecords)}";
 
             return RedirectToAction(nameof(Tier2Dashboard));
         }
+
+
+
 
         // POST: Request deletion of selected items
         [HttpPost]
@@ -157,9 +197,10 @@ namespace NetTracApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SubmitDeleteRequest(int id)
+        public async Task<IActionResult> SubmitDeleteRequest(string serialNumber)
         {
-            var inventoryItem = await _context.InventoryItems.FindAsync(id);
+            var inventoryItem = await _context.InventoryItems
+                .FirstOrDefaultAsync(i => i.SerialNumber == serialNumber);
 
             if (inventoryItem != null)
             {
@@ -181,30 +222,7 @@ namespace NetTracApp.Controllers
 
 
 
-        // POST: Save inventory items to a new CSV file
-        [HttpPost]
-        public IActionResult SaveAsNewFile()
-        {
-            try
-            {
-                var inventoryItems = _context.InventoryItems.ToList();
-                var memoryStream = new MemoryStream();
 
-                using (var writer = new StreamWriter(memoryStream, leaveOpen: true))
-                using (var csv = new CsvHelper.CsvWriter(writer, System.Globalization.CultureInfo.InvariantCulture))
-                {
-                    csv.WriteRecords(inventoryItems);
-                }
-
-                memoryStream.Position = 0;
-                return File(memoryStream, "text/csv", $"UpdatedInventory_{DateTime.Now:yyyyMMdd_HHmmss}.csv");
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = $"Error generating the file: {ex.Message}";
-                return RedirectToAction(nameof(Tier2Dashboard));
-            }
-        }
 
         // GET: Create new inventory item
         public IActionResult Create() => View();
@@ -225,11 +243,14 @@ namespace NetTracApp.Controllers
         }
 
         // GET: Edit an inventory item
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string serialNumber)
         {
-            if (id == null) return NotFound();
+            if (string.IsNullOrWhiteSpace(serialNumber))
+                return NotFound();
 
-            var item = await _context.InventoryItems.FindAsync(id);
+            var item = await _context.InventoryItems
+                .FirstOrDefaultAsync(i => i.SerialNumber == serialNumber);
+
             return item == null ? NotFound() : View(item);
         }
 
@@ -238,24 +259,30 @@ namespace NetTracApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string serialNumber, InventoryItem inventoryItem)
         {
-            if (serialNumber != inventoryItem.SerialNumber) return NotFound();
+            if (serialNumber != inventoryItem.SerialNumber)
+                return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(inventoryItem);
+                    // Attach the updated item to the context
+                    _context.InventoryItems.Update(inventoryItem);
                     await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Item updated successfully!";
                     return RedirectToAction(nameof(Tier2Dashboard));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    return Problem("There was an error updating the item.");
+                    // Optional: Log the exception for debugging
+                    ModelState.AddModelError("", $"There was an error updating the item: {ex.Message}");
                 }
             }
 
             return View(inventoryItem);
         }
+
 
         // GET: Tier2/Index (default view)
         public async Task<IActionResult> Index()

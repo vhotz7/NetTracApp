@@ -45,12 +45,12 @@ else
                         <td>@item.SerialNumber</td>
                         <td style="text-align: center;">
                             <form asp-action="ApproveDeletion" method="post" style="display:inline;">
-                                <input type="hidden" name="id" value="@item.SerialNumber" />
+                                <input type="hidden" name="serialNumber" value="@item.SerialNumber" />
                                 <button type="submit" class="btn btn-custom-orange">Approve</button>
                             </form>
 
                             <form asp-action="DenyDeletion" method="post" style="display:inline;">
-                                <input type="hidden" name="id" value="@item.SerialNumber" />
+                                <input type="hidden" name="serialNumber" value="@item.SerialNumber" />
                                 <button type="submit" class="btn btn-delete">Deny</button>
                             </form>
                         </td>

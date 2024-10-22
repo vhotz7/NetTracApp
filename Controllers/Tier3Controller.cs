@@ -22,12 +22,19 @@ namespace NetTracApp.Controllers
             _csvService = csvService;  // Initialize csvService
         }
 
+
+
+
+
         private async Task<int> GetPendingDeletionsCount()
         {
             return await _context.InventoryItems
                 .Where(i => i.PendingDeletion && !i.DeletionApproved)
                 .CountAsync();
+
         }
+
+
 
         // POST: Upload CSV File
         [HttpPost]
@@ -78,14 +85,14 @@ namespace NetTracApp.Controllers
                         if (item?.SerialNumber != null)
                             // Check for duplicates based on SerialNumber
                             if (_context.InventoryItems.Any(e => e.SerialNumber == item.SerialNumber))
-                        {
-                            duplicateRecords.Add(item.SerialNumber);
-                        }
-                        else
-                        {
-                            _context.InventoryItems.Add(item);
-                            totalNewRecords++;
-                        }
+                            {
+                                duplicateRecords.Add(item.SerialNumber);
+                            }
+                            else
+                            {
+                                _context.InventoryItems.Add(item);
+                                totalNewRecords++;
+                            }
                     }
 
                     // Save changes to the database
@@ -106,35 +113,36 @@ namespace NetTracApp.Controllers
 
             return RedirectToAction(nameof(Tier3Dashboard));
         }
-        // GET: Tier3 Dashboard (like Tier2Dashboard)
-        // GET: Tier3Dashboard
         public async Task<IActionResult> Tier3Dashboard(string? searchString)
         {
             // Get pending deletions count
             int pendingDeletionsCount = await GetPendingDeletionsCount();
 
             // Retrieve inventory items with optional search filtering
-            var items = _context.InventoryItems.AsQueryable();
+            var itemsQuery = _context.InventoryItems.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchString))
             {
-                items = items.Where(i =>
+                itemsQuery = itemsQuery.Where(i =>
                     (i.Vendor ?? string.Empty).Contains(searchString) ||
                     (i.SerialNumber ?? string.Empty).Contains(searchString));
             }
 
-            var itemList = await items.ToListAsync();
+            var items = await itemsQuery.ToListAsync(); // Execute query and get the items
+            ViewBag.TotalItems = items.Count; // Pass total item count to the view
+            ViewBag.UserType = "T3"; // Assume T3 user for this dashboard
 
-            // Use ViewData to pass pending deletions count to the view
+            // Use ViewData to pass additional data to the view
             ViewData["PendingDeletionsCount"] = pendingDeletionsCount;
             ViewData["searchString"] = searchString;
 
-            return View(itemList);
+            return View(items); // Pass the item list to the view
         }
-    
 
-    // GET: Pending Deletions Page
-    public async Task<IActionResult> PendingDeletions()
+
+
+        // GET: Pending Deletions Page
+        public async Task<IActionResult> PendingDeletions()
         {
             var pendingItems = await _context.InventoryItems
                 .Where(i => i.PendingDeletion && !i.DeletionApproved)
@@ -146,9 +154,9 @@ namespace NetTracApp.Controllers
         // POST: Approve a pending deletion request
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ApproveDeletion(int id)
+        public async Task<IActionResult> ApproveDeletion(string serialNumber)
         {
-            var item = await _context.InventoryItems.FindAsync(id);
+            var item = await _context.InventoryItems.FindAsync(serialNumber); // Use serialNumber as key
             if (item == null) return NotFound();
 
             _context.InventoryItems.Remove(item);
@@ -158,13 +166,26 @@ namespace NetTracApp.Controllers
             return RedirectToAction(nameof(PendingDeletions));
         }
 
+
         // POST: Deny a pending deletion request
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DenyDeletion(int id)
+        public async Task<IActionResult> DenyDeletion(string serialNumber)
         {
-            var item = await _context.InventoryItems.FindAsync(id);
-            if (item == null) return NotFound();
+            if (string.IsNullOrWhiteSpace(serialNumber))
+            {
+                TempData["ErrorMessage"] = "Invalid serial number.";
+                return RedirectToAction(nameof(PendingDeletions));
+            }
+
+            var item = await _context.InventoryItems
+                .FirstOrDefaultAsync(i => i.SerialNumber == serialNumber);
+
+            if (item == null)
+            {
+                TempData["ErrorMessage"] = "Item not found.";
+                return RedirectToAction(nameof(PendingDeletions));
+            }
 
             item.PendingDeletion = false;  // Reset pending status
             _context.InventoryItems.Update(item);
@@ -174,11 +195,12 @@ namespace NetTracApp.Controllers
             return RedirectToAction(nameof(PendingDeletions));
         }
 
+
         // GET: Display the delete confirmation page
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string serialNumber)
         {
-            var inventoryItem = await _context.InventoryItems.FindAsync(id);
+            var inventoryItem = await _context.InventoryItems.FindAsync(serialNumber);
             if (inventoryItem == null)
             {
                 TempData["ErrorMessage"] = "Item not found.";
@@ -188,12 +210,13 @@ namespace NetTracApp.Controllers
             return View(inventoryItem); // Render the delete confirmation page
         }
 
+
         // POST: Handle the deletion after confirmation
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string serialNumber)
         {
-            var inventoryItem = await _context.InventoryItems.FindAsync(id);
+            var inventoryItem = await _context.InventoryItems.FindAsync(serialNumber);
 
             if (inventoryItem != null)
             {
@@ -213,13 +236,15 @@ namespace NetTracApp.Controllers
 
 
 
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteSelected(string[] selectedSerialNumbers)
         {
             if (selectedSerialNumbers == null || !selectedSerialNumbers.Any())
             {
                 TempData["ErrorMessage"] = "No items selected for deletion.";
-                return RedirectToAction("Tier3Dashboard");
+                return RedirectToAction(nameof(Tier3Dashboard));
             }
 
             var itemsToDelete = await _context.InventoryItems
@@ -229,15 +254,17 @@ namespace NetTracApp.Controllers
             if (!itemsToDelete.Any())
             {
                 TempData["ErrorMessage"] = "No matching items found.";
-                return RedirectToAction("Tier3Dashboard");
+                return RedirectToAction(nameof(Tier3Dashboard));
             }
 
             _context.InventoryItems.RemoveRange(itemsToDelete);
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = $"{itemsToDelete.Count} items deleted successfully.";
-            return RedirectToAction("Tier3Dashboard");
+            return RedirectToAction(nameof(Tier3Dashboard));
         }
+
+
 
 
 
@@ -272,19 +299,22 @@ namespace NetTracApp.Controllers
 
 
 
-        // GET: Edit an item in Tier3Dashboard
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null) return NotFound();
+       
 
-            var item = await _context.InventoryItems.FindAsync(id);
+        // GET: Edit an item in Tier3Dashboard
+        public async Task<IActionResult> Edit(string serialNumber)
+        {
+            if (string.IsNullOrEmpty(serialNumber))
+                return NotFound();
+
+            var item = await _context.InventoryItems.FindAsync(serialNumber);
             return item == null ? NotFound() : View(item);
         }
 
         // POST: Update item details
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string serialNumber, InventoryItem inventoryItem)
+        public async Task<IActionResult> Edit(string serialNumber, [Bind("SerialNumber,Vendor,DeviceType,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice,CreatedBy,ModifiedBy,PendingDeletion")] InventoryItem inventoryItem)
         {
             if (serialNumber != inventoryItem.SerialNumber)
                 return NotFound();
@@ -295,40 +325,24 @@ namespace NetTracApp.Controllers
                 {
                     _context.Update(inventoryItem);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Item updated successfully!";
                     return RedirectToAction(nameof(Tier3Dashboard));
                 }
                 catch (Exception ex)
                 {
-                    return Problem($"There was an error updating the item: {ex.Message}");
-                }
-            }
-            return View(inventoryItem);
-        }
-
-
-        // POST: Tier3/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice")] InventoryItem inventoryItem)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Add(inventoryItem);
-                    await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = "Item created successfully!";
-                    return RedirectToAction(nameof(Tier3Dashboard));
-                }
-                catch (Exception)
-                {
                     // Optional: Log the exception
-                    ModelState.AddModelError(string.Empty, "An error occurred while creating the item. Please try again.");
+                    ModelState.AddModelError(string.Empty, $"Error updating the item: {ex.Message}");
                 }
             }
             return View(inventoryItem);
         }
+
+
 
 
     }
+
 }
+
+
+

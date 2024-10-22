@@ -1,110 +1,110 @@
-Id,Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice,Modified,Created,CreatedBy,ModifiedBy,PendingDeletion,DeletionApproved
-21,update test ,Laptop,SN021,HOST-021,AT-021,P021,Store B,1/2/2024 0:00,Warehouse A,Received,FALSE,Initial stock,High-end Laptop,TRUE,FALSE,1/1/2001 0:00,1/1/2001 0:00,John Doe,Admin,FALSE,FALSE
-22,Vendor B,Desktop,SN022,HOST-022,AT-022,P022,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-23,Vendor A,Laptop,SN023,HOST-023,AT-023,P023,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial stock,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-24,Vendor B,Desktop,SN024,HOST-024,AT-024,P024,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-25,Vendor A,Laptop,SN025,HOST-025,AT-025,P025,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial stock,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-26,Vendor B,Desktop,SN026,HOST-026,AT-026,P026,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-27,Vendor A,Laptop,SN027,HOST-027,AT-027,P027,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial stock,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-28,Vendor B,Desktop,SN028,HOST-028,AT-028,P028,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-29,Vendor A,Laptop,SN029,HOST-029,AT-029,P029,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial stock,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-30,Vendor B,Laptop,SN030,HOST-029,AT-030,P030,Store D,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-31,Vendor A,Laptop,SN031,HOST-021,AT-031,P031,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-32,Vendor B,Laptop,SN032,HOST-022,AT-032,P032,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Pending,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-33,Vendor A,Laptop,SN033,HOST-023,AT-033,P033,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-34,Vendor B,Laptop,SN034,HOST-024,AT-034,P034,Store C,1/4/2024 0:00,Warehouse B,Active,FALSE,Pending,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-35,Vendor A,Laptop,SN035,HOST-025,AT-035,P035,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-36,Vendor B,Desktop,SN036,HOST-026,AT-036,P036,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-37,Vendor A,Laptop,SN037,HOST-027,AT-037,P037,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-38,Vendor B,Desktop,SN038,HOST-028,AT-038,P038,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-39,Vendor A,Desktop,SN039,HOST-029,AT-039,P039,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Initial Stock,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-40,Vendor B,Laptop,SN040,HOST-029,AT-040,P040,Store D,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-41,Vendor A,Desktop,SN041,HOST-021,AT-041,P041,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Pending,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-42,Vendor B,Laptop,SN042,HOST-022,AT-042,P042,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-43,Vendor A,Laptop,SN043,HOST-023,AT-043,P043,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-44,Vendor B,Desktop,SN044,HOST-024,AT-044,P044,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Initial Stock,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-45,Vendor A,Desktop,SN045,HOST-025,AT-045,P045,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-46,Vendor B,Laptop,SN046,HOST-026,AT-046,P046,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Pending,Basic Desktop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-47,Vendor A,Desktop,SN047,HOST-027,AT-047,P047,Store B,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-48,Vendor B,Laptop,SN048,HOST-028,AT-048,P048,Store C,1/4/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-49,Vendor A,Laptop,SN049,HOST-029,AT-049,P049,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-50,Vendor B,Laptop,SN050,HOST-029,AT-050,P050,Store D,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-51,Vendor A,Laptop,SN051,HOST-021,AT-051,P051,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Pending,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-52,Vendor B,Desktop,SN052,HOST-022,AT-052,P052,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-53,Vendor A,Laptop,SN053,HOST-023,AT-053,P053,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Pending,High-end Laptop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-54,Vendor B,Laptop,SN054,HOST-024,AT-054,P054,Store C,1/4/2024 0:00,Warehouse A,Active,TRUE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-55,Vendor A,Laptop,SN055,HOST-025,AT-055,P055,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-56,Vendor B,Desktop,SN056,HOST-026,AT-056,P056,Store C,1/4/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-57,Vendor A,Desktop,SN057,HOST-027,AT-057,P057,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-58,Vendor B,Laptop,SN058,HOST-028,AT-058,P058,Store C,1/4/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,Basic Desktop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-59,Vendor A,Desktop,SN059,HOST-029,AT-059,P059,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-60,Vendor B,Laptop,SN060,HOST-029,AT-060,P060,Store D,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Pending,High-end Laptop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-61,Vendor A,Laptop,SN061,HOST-021,AT-061,P061,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-62,Vendor B,Desktop,SN062,HOST-022,AT-062,P062,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Initial Stock,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-63,Vendor A,Laptop,SN063,HOST-023,AT-063,P063,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-64,Vendor B,Desktop,SN064,HOST-024,AT-064,P064,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Pending,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-65,Vendor A,Laptop,SN065,HOST-025,AT-065,P065,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-66,Vendor B,Desktop,SN066,HOST-026,AT-066,P066,Store C,1/4/2024 0:00,Warehouse B,Active,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-67,Vendor A,Desktop,SN067,HOST-027,AT-067,P067,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-68,Vendor B,Desktop,SN068,HOST-028,AT-068,P068,Store C,1/4/2024 0:00,Warehouse B,Active,FALSE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-69,Vendor A,Desktop,SN069,HOST-029,AT-069,P069,Store B,1/2/2024 0:00,Warehouse B,Active,FALSE,Initial Stock,Basic Desktop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-70,Vendor B,Laptop,SN070,HOST-029,AT-070,P070,Store D,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-71,Vendor A,Desktop,SN071,HOST-021,AT-071,P071,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-72,Vendor B,Desktop,SN072,HOST-022,AT-072,P072,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Pending,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-73,Vendor A,Laptop,SN073,HOST-023,AT-073,P073,Store B,1/2/2024 0:00,Warehouse B,Active,FALSE,Initial Stock,High-end Laptop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-74,Vendor B,Laptop,SN074,HOST-024,AT-074,P074,Store C,1/4/2024 0:00,Warehouse B,Active,FALSE,Pending,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-75,Vendor A,Desktop,SN075,HOST-025,AT-075,P075,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-76,Vendor B,Desktop,SN076,HOST-026,AT-076,P076,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Initial Stock,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-77,Vendor A,Laptop,SN077,HOST-027,AT-077,P077,Store B,1/2/2024 0:00,Warehouse A,Inactive,TRUE,Initial Stock,High-end Laptop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-78,Vendor B,Laptop,SN078,HOST-028,AT-078,P078,Store C,1/4/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-79,Vendor A,Laptop,SN079,HOST-029,AT-079,P079,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-80,Vendor B,Laptop,SN080,HOST-029,AT-080,P080,Store D,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-81,Vendor A,Desktop,SN081,HOST-021,AT-081,P081,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Initial Stock,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-82,Vendor B,Desktop,SN082,HOST-022,AT-082,P082,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-83,Vendor A,Laptop,SN083,HOST-023,AT-083,P083,Store B,1/2/2024 0:00,Warehouse A,Inactive,TRUE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-84,Vendor B,Laptop,SN084,HOST-024,AT-084,P084,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Pending,High-end Laptop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-85,Vendor A,Desktop,SN085,HOST-025,AT-085,P085,Store B,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-86,Vendor B,Desktop,SN086,HOST-026,AT-086,P086,Store C,1/4/2024 0:00,Warehouse A,Inactive,TRUE,Pending,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-87,Vendor A,Desktop,SN087,HOST-027,AT-087,P087,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-88,Vendor B,Laptop,SN088,HOST-028,AT-088,P088,Store C,1/4/2024 0:00,Warehouse B,Inactive,FALSE,Initial Stock,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-89,Vendor A,Desktop,SN089,HOST-029,AT-089,P089,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-90,Vendor B,Desktop,SN090,HOST-029,AT-090,P090,Store D,1/2/2024 0:00,Warehouse B,Active,FALSE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-91,Vendor A,Laptop,SN091,HOST-021,AT-091,P091,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Pending,Basic Desktop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-92,Vendor B,Desktop,SN092,HOST-022,AT-092,P092,Store C,1/4/2024 0:00,Warehouse B,Active,FALSE,Initial Stock,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-93,Vendor A,Laptop,SN093,HOST-023,AT-093,P093,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-94,Vendor B,Laptop,SN094,HOST-024,AT-094,P094,Store C,1/4/2024 0:00,Warehouse B,Active,TRUE,Pending,Basic Desktop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-95,Vendor A,Desktop,SN095,HOST-025,AT-095,P095,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Initial Stock,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-96,Vendor B,Desktop,SN096,HOST-026,AT-096,P096,Store C,1/4/2024 0:00,Warehouse A,Inactive,TRUE,Initial Stock,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-97,Vendor A,Laptop,SN097,HOST-027,AT-097,P097,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Pending,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-98,Vendor B,Laptop,SN098,HOST-028,AT-098,P098,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-99,Vendor A,Desktop,SN099,HOST-029,AT-099,P099,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-100,Vendor B,Desktop,SN100,HOST-029,AT-100,P100,Store D,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-101,Vendor A,Desktop,SN101,HOST-021,AT-101,P101,Store B,1/2/2024 0:00,Warehouse B,Active,FALSE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-102,Vendor B,Desktop,SN102,HOST-022,AT-102,P102,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-103,Vendor A,Laptop,SN103,HOST-023,AT-103,P103,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Initial Stock,Basic Desktop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-104,Vendor B,Desktop,SN104,HOST-024,AT-104,P104,Store C,1/4/2024 0:00,Warehouse A,Inactive,TRUE,Pending,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-105,Vendor A,Desktop,SN105,HOST-025,AT-105,P105,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-106,Vendor B,Desktop,SN106,HOST-026,AT-106,P106,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-107,Vendor A,Laptop,SN107,HOST-027,AT-107,P107,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-108,Vendor B,Desktop,SN108,HOST-028,AT-108,P108,Store C,1/4/2024 0:00,Warehouse A,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-109,Vendor A,Desktop,SN109,HOST-029,AT-109,P109,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-110,Vendor B,Desktop,SN110,HOST-029,AT-110,P110,Store D,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Pending,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-111,Vendor A,Desktop,SN111,HOST-021,AT-111,P111,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Pending,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-112,Vendor B,Laptop,SN112,HOST-022,AT-112,P112,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-113,Vendor A,Desktop,SN113,HOST-023,AT-113,P113,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-114,Vendor B,Desktop,SN114,HOST-024,AT-114,P114,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Pending,Basic Desktop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-115,Vendor A,Desktop,SN115,HOST-025,AT-115,P115,Store B,1/2/2024 0:00,Warehouse B,Active,TRUE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-116,Vendor B,Desktop,SN116,HOST-026,AT-116,P116,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Initial Stock,Basic Desktop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-117,Vendor A,Laptop,SN117,HOST-027,AT-117,P117,Store B,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-118,Vendor B,Laptop,SN118,HOST-028,AT-118,P118,Store C,1/4/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-119,Vendor A,Laptop,SN119,HOST-029,AT-119,P119,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-120,Vendor B,Desktop,SN120,HOST-029,AT-120,P120,Store D,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Pending,High-end Laptop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-121,Vendor A,Laptop,SN121,HOST-021,AT-121,P121,Store B,1/2/2024 0:00,Warehouse A,Inactive,TRUE,Initial Stock,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-122,Vendor B,Laptop,SN122,HOST-022,AT-122,P122,Store C,1/4/2024 0:00,Warehouse B,Inactive,FALSE,Pending,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
-123,Vendor A,Laptop,SN123,HOST-023,AT-123,P123,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Initial Stock,High-end Laptop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-124,Vendor B,Laptop,SN124,HOST-024,AT-124,P124,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-125,Vendor A,Laptop,SN125,HOST-025,AT-125,P125,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
-126,Vendor B,Desktop,SN126,HOST-026,AT-126,P126,Store C,1/4/2024 0:00,Warehouse A,Inactive,TRUE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-127,Vendor A,Desktop,SN127,HOST-027,AT-127,P127,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Initial Stock,Basic Desktop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-128,Vendor B,Laptop,SN128,HOST-028,AT-128,P128,Store C,1/4/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
-128,Vendor A,Desktop,SN128,HOST-029,AT-129,P129,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice,Modified,Created,CreatedBy,ModifiedBy,PendingDeletion,DeletionApproved
+update test ,Laptop,SN021,HOST-021,AT-021,P021,Store B,1/2/2024 0:00,Warehouse A,Received,FALSE,Initial stock,High-end Laptop,TRUE,FALSE,1/1/2001 0:00,1/1/2001 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN022,HOST-022,AT-022,P022,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN023,HOST-023,AT-023,P023,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial stock,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN024,HOST-024,AT-024,P024,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN025,HOST-025,AT-025,P025,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial stock,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN026,HOST-026,AT-026,P026,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN027,HOST-027,AT-027,P027,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial stock,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN028,HOST-028,AT-028,P028,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN029,HOST-029,AT-029,P029,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial stock,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN030,HOST-029,AT-030,P030,Store D,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN031,HOST-021,AT-031,P031,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Laptop,SN032,HOST-022,AT-032,P032,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Pending,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN033,HOST-023,AT-033,P033,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Laptop,SN034,HOST-024,AT-034,P034,Store C,1/4/2024 0:00,Warehouse B,Active,FALSE,Pending,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN035,HOST-025,AT-035,P035,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN036,HOST-026,AT-036,P036,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN037,HOST-027,AT-037,P037,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN038,HOST-028,AT-038,P038,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Desktop,SN039,HOST-029,AT-039,P039,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Initial Stock,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN040,HOST-029,AT-040,P040,Store D,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Desktop,SN041,HOST-021,AT-041,P041,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Pending,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Laptop,SN042,HOST-022,AT-042,P042,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN043,HOST-023,AT-043,P043,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN044,HOST-024,AT-044,P044,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Initial Stock,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN045,HOST-025,AT-045,P045,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Laptop,SN046,HOST-026,AT-046,P046,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Pending,Basic Desktop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Desktop,SN047,HOST-027,AT-047,P047,Store B,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN048,HOST-028,AT-048,P048,Store C,1/4/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN049,HOST-029,AT-049,P049,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN050,HOST-029,AT-050,P050,Store D,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN051,HOST-021,AT-051,P051,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Pending,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN052,HOST-022,AT-052,P052,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN053,HOST-023,AT-053,P053,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Pending,High-end Laptop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN054,HOST-024,AT-054,P054,Store C,1/4/2024 0:00,Warehouse A,Active,TRUE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN055,HOST-025,AT-055,P055,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN056,HOST-026,AT-056,P056,Store C,1/4/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Desktop,SN057,HOST-027,AT-057,P057,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN058,HOST-028,AT-058,P058,Store C,1/4/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,Basic Desktop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Desktop,SN059,HOST-029,AT-059,P059,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Laptop,SN060,HOST-029,AT-060,P060,Store D,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Pending,High-end Laptop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN061,HOST-021,AT-061,P061,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN062,HOST-022,AT-062,P062,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Initial Stock,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN063,HOST-023,AT-063,P063,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN064,HOST-024,AT-064,P064,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Pending,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN065,HOST-025,AT-065,P065,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN066,HOST-026,AT-066,P066,Store C,1/4/2024 0:00,Warehouse B,Active,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN067,HOST-027,AT-067,P067,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN068,HOST-028,AT-068,P068,Store C,1/4/2024 0:00,Warehouse B,Active,FALSE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN069,HOST-029,AT-069,P069,Store B,1/2/2024 0:00,Warehouse B,Active,FALSE,Initial Stock,Basic Desktop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Laptop,SN070,HOST-029,AT-070,P070,Store D,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN071,HOST-021,AT-071,P071,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN072,HOST-022,AT-072,P072,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Pending,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN073,HOST-023,AT-073,P073,Store B,1/2/2024 0:00,Warehouse B,Active,FALSE,Initial Stock,High-end Laptop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN074,HOST-024,AT-074,P074,Store C,1/4/2024 0:00,Warehouse B,Active,FALSE,Pending,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN075,HOST-025,AT-075,P075,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN076,HOST-026,AT-076,P076,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Initial Stock,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN077,HOST-027,AT-077,P077,Store B,1/2/2024 0:00,Warehouse A,Inactive,TRUE,Initial Stock,High-end Laptop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN078,HOST-028,AT-078,P078,Store C,1/4/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN079,HOST-029,AT-079,P079,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN080,HOST-029,AT-080,P080,Store D,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Desktop,SN081,HOST-021,AT-081,P081,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Initial Stock,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN082,HOST-022,AT-082,P082,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN083,HOST-023,AT-083,P083,Store B,1/2/2024 0:00,Warehouse A,Inactive,TRUE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN084,HOST-024,AT-084,P084,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Pending,High-end Laptop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Desktop,SN085,HOST-025,AT-085,P085,Store B,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN086,HOST-026,AT-086,P086,Store C,1/4/2024 0:00,Warehouse A,Inactive,TRUE,Pending,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN087,HOST-027,AT-087,P087,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Laptop,SN088,HOST-028,AT-088,P088,Store C,1/4/2024 0:00,Warehouse B,Inactive,FALSE,Initial Stock,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN089,HOST-029,AT-089,P089,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN090,HOST-029,AT-090,P090,Store D,1/2/2024 0:00,Warehouse B,Active,FALSE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN091,HOST-021,AT-091,P091,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Pending,Basic Desktop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN092,HOST-022,AT-092,P092,Store C,1/4/2024 0:00,Warehouse B,Active,FALSE,Initial Stock,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN093,HOST-023,AT-093,P093,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Laptop,SN094,HOST-024,AT-094,P094,Store C,1/4/2024 0:00,Warehouse B,Active,TRUE,Pending,Basic Desktop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Desktop,SN095,HOST-025,AT-095,P095,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Initial Stock,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN096,HOST-026,AT-096,P096,Store C,1/4/2024 0:00,Warehouse A,Inactive,TRUE,Initial Stock,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN097,HOST-027,AT-097,P097,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Pending,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Laptop,SN098,HOST-028,AT-098,P098,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN099,HOST-029,AT-099,P099,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN100,HOST-029,AT-100,P100,Store D,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Desktop,SN101,HOST-021,AT-101,P101,Store B,1/2/2024 0:00,Warehouse B,Active,FALSE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN102,HOST-022,AT-102,P102,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN103,HOST-023,AT-103,P103,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Initial Stock,Basic Desktop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN104,HOST-024,AT-104,P104,Store C,1/4/2024 0:00,Warehouse A,Inactive,TRUE,Pending,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN105,HOST-025,AT-105,P105,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN106,HOST-026,AT-106,P106,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN107,HOST-027,AT-107,P107,Store B,1/2/2024 0:00,Warehouse A,Active,FALSE,Initial Stock,High-end Laptop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN108,HOST-028,AT-108,P108,Store C,1/4/2024 0:00,Warehouse A,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN109,HOST-029,AT-109,P109,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN110,HOST-029,AT-110,P110,Store D,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Pending,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN111,HOST-021,AT-111,P111,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Pending,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN112,HOST-022,AT-112,P112,Store C,1/4/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN113,HOST-023,AT-113,P113,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN114,HOST-024,AT-114,P114,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Pending,Basic Desktop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Desktop,SN115,HOST-025,AT-115,P115,Store B,1/2/2024 0:00,Warehouse B,Active,TRUE,Pending,Basic Desktop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Desktop,SN116,HOST-026,AT-116,P116,Store C,1/4/2024 0:00,Warehouse A,Active,FALSE,Initial Stock,Basic Desktop,FALSE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN117,HOST-027,AT-117,P117,Store B,1/2/2024 0:00,Warehouse B,Active,TRUE,Initial Stock,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN118,HOST-028,AT-118,P118,Store C,1/4/2024 0:00,Warehouse A,Active,TRUE,Initial Stock,High-end Laptop,TRUE,FALSE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN119,HOST-029,AT-119,P119,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN120,HOST-029,AT-120,P120,Store D,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Pending,High-end Laptop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN121,HOST-021,AT-121,P121,Store B,1/2/2024 0:00,Warehouse A,Inactive,TRUE,Initial Stock,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN122,HOST-022,AT-122,P122,Store C,1/4/2024 0:00,Warehouse B,Inactive,FALSE,Pending,High-end Laptop,TRUE,TRUE,1/5/2024 0:00,1/1/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor A,Laptop,SN123,HOST-023,AT-123,P123,Store B,1/2/2024 0:00,Warehouse B,Inactive,FALSE,Initial Stock,High-end Laptop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Laptop,SN124,HOST-024,AT-124,P124,Store C,1/4/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Laptop,SN125,HOST-025,AT-125,P125,Store B,1/2/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,FALSE,TRUE,1/6/2024 0:00,1/3/2024 0:00,John Doe,Admin,FALSE,FALSE
+Vendor B,Desktop,SN126,HOST-026,AT-126,P126,Store C,1/4/2024 0:00,Warehouse A,Inactive,TRUE,Initial Stock,Basic Desktop,TRUE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN127,HOST-027,AT-127,P127,Store B,1/2/2024 0:00,Warehouse B,Inactive,TRUE,Initial Stock,Basic Desktop,TRUE,TRUE,1/6/2024 0:00,1/3/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor B,Laptop,SN129,HOST-028,AT-128,P128,Store C,1/4/2024 0:00,Warehouse A,Active,TRUE,Pending,High-end Laptop,FALSE,FALSE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
+Vendor A,Desktop,SN130,HOST-030,AT-129,P129,Store B,1/2/2024 0:00,Warehouse A,Inactive,FALSE,Initial Stock,Basic Desktop,FALSE,TRUE,1/5/2024 0:00,1/1/2024 0:00,Jane Smith,Admin,FALSE,FALSE
