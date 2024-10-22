@@ -24,111 +24,6 @@
     </span>
 </div>
 
-<style>
-    /* top border styling */
-    .top-border {
-        position: relative;
-        background-color: #970000; /* Dark red background color */
-        color: #ffff00; /* Yellow text color */
-        height: 70px; /* Height of the top banner */
-        display: flex;
-        align-items: center;
-        padding-left: 20px; /* Space for the left side text */
-        border-radius: 10px; /* Rounded corners */
-    }
-
-    /* Styling for the background text "NetTrac" */
-    .background-text {
-        position: absolute;
-        left: 20px; /* Position text near the left */
-        top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Adjust text position */
-        font-size: 50px; /* Size of the background text */
-        font-family: Impact; /* Impact font */
-        z-index: 1; /* Ensure text appears above the background */
-        color: #ffff00; /* Yellow text color */
-    }
-
-    /* Button group to ensure buttons are close together */
-    .button-group {
-        display: flex;
-        justify-content: flex-start; /* Align buttons to the left */
-        gap: 5px; /* Reduce the space between the buttons */
-    }
-
-
-    #circle {
-        background: black;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        position: absolute;
-        left: 10px; /* Position text near the left */
-        top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Adjust circle position */
-    }
-
-    /* Styling for the centered text */
-    .centered-text {
-        margin: 0 auto; /* Center horizontally */
-        font-size: 30px; /* Font size */
-        font-family: Impact; /* Font family */
-        color: #ffffff; /* White text color */
-        z-index: 2; /* Ensure it appears above other elements */
-        position: relative;
-    }
-
-    /* Custom style for orange button */
-    .btn-custom-orange {
-        background-color: #ac3e0b; /* Orange color */
-        color: white;
-        border: none;
-    }
-
-        .btn-custom-orange:hover {
-            background-color: #8a2e0a; /* Darker orange on hover */
-        }
-
-    /* Prevent footer or buttons from being cut off */
-    .container {
-        padding-bottom: 70px; /* Space at the bottom to prevent cutoff */
-    }
-
-    /* Style adjustments for form container to ensure it doesn't cut off */
-    .form-horizontal {
-        padding-bottom: 70px; /* Extra padding at the bottom */
-    }
-
-    /* Adding margin between form fields */
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-        /* Ensure labels and inputs are not mushed together */
-        .form-group label {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-    /* Button group to keep buttons closer together */
-    .button-group {
-        display: flex;
-        gap: 10px; /* Space between buttons */
-
-
-    }
-
-
-    /* Custom style for the red Cancel button */
-.btn-cancel {
-    background-color: #970000; /* Red background */
-    color: white; /* White text */
-    border-color: #970000; /* Match border color */
-}
-
-</style>
-
-
 
 
 <!-- Form to create a new inventory item -->
@@ -249,8 +144,8 @@
         </div>
 
         <div class="form-group button-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-            <a asp-action="ApproveDeletions" asp-controller="Tier3" class="btn btn-cancel">Cancel</a>
+            <input type="submit" value="Create" class="btn btn-custom-orange" />
+            <a asp-action="Tier3Dashboard" asp-controller="Tier3" class="btn btn-delete">Cancel</a>
         </div>
     </div>
 </form>

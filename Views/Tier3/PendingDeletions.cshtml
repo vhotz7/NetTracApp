@@ -1,15 +1,9 @@
 ﻿@model IEnumerable<NetTracApp.Models.InventoryItem>
 
 <div class="top-border" style="background-color: #970000; color: #ffff00; height: 80px; border-radius: 8px; margin: 20px auto; padding-left: 20px; display: flex; align-items: center; position: relative; max-width: 100%; width: 1450px;">
-    <!-- background text "NetTrac" -->
     <span class="background-text" style="font-size: 70px; font-family: Impact;">NetTrac</span>
-
     <span id="circle" style="background: black; border-radius: 50%; width: 75px; height: 75px; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
-
-    <!-- Centered Text "IT Network Tracker" -->
     <span class="centered-text" style="margin: 0 auto; font-size: 45px; font-family: Impact; color: #ffffff;">Pending Deletions</span>
-
-    <!-- Home and Login Icons -->
     <span class="icons" style="display: flex; align-items: center; margin-right: 30px;">
         <a href="@Url.Action("Tier3Dashboard", "Tier3")" style="margin-right: 20px; text-decoration: none; color: white;">
             <i class="bi bi-house-door" style="font-size: 2.5rem;"></i>
@@ -20,9 +14,6 @@
     </span>
 </div>
 
-
-
-
 @if (!Model.Any())
 {
     <p>No pending deletion requests at this time.</p>
@@ -31,9 +22,10 @@ else
 {
     <div class="mb-3">
         <form asp-action="ApproveAllDeletions" method="post" style="display:inline;">
-            <button type="submit" class="btn-custom-orange">Approve All</button>
+            <button type="submit" class="btn btn-custom-orange">Approve All</button>
         </form>
     </div>
+
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
@@ -54,48 +46,17 @@ else
                         <td style="text-align: center;">
                             <form asp-action="ApproveDeletion" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="@item.Id" />
-                                <button type="submit" class="btn-custom-orange">Approve</button>
+                                <button type="submit" class="btn btn-custom-orange">Approve</button>
                             </form>
 
                             <form asp-action="DenyDeletion" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="@item.Id" />
-                                <button type="submit" class="btn-delete ">Deny</button>
+                                <button type="submit" class="btn btn-delete">Deny</button>
                             </form>
-
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-
-   
 }
-<style>
-
-
-  .scroll-button i {
-        font-size: 40px;
-        color: white; /* Set arrow icon color to orange */
-        transition: color 0.3s ease;
-    }
-
-    .scroll-button {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #ac3e0b; /* Orange circular background */
-        border: none;
-        border-radius: 50%; /* Make it circular */
-        width: 60px;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        z-index: 100;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    </style>

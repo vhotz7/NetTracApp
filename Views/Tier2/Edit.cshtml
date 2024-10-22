@@ -24,52 +24,8 @@
     </span>
 </div>
 
-<style>
-    /* Style for the form */
-    .form-group label {
-        font-weight: bold;
-    }
 
-    /* Button styling */
-    .btn-primary {
-        background-color: #ac3e0b; /*orange button*/
-        border-color: #ac3e0b; /* Match border color */
-    }
 
-        .btn-primary:hover {
-            background-color: #e05c1a; /* lighter orange color on hover*/
-            border-color: #e05c1a; /* lighter orange color on hover */
-        }
-
-    .btn-secondary {
-        background-color: #970000; /* Secondary gray color */
-        border-color: #970000; /* Match border color */
-    }
-
-        .btn-secondary:hover {
-            background-color: #b30000; /* lighter red color on hover */
-            border-color: #b30000; /* lighter red color on hover */
-        }
-
-    /* Button group to keep buttons together */
-    .button-group {
-        display: flex;
-        gap: 10px; /* Space between buttons */
-        justify-content: flex-start; /* Align buttons to the left */
-    }
-
-    /* Align checkbox and label to the left */
-    .form-check {
-        display: flex;
-        align-items: center;
-    }
-
-    .form-check-input {
-        margin-left: 10px; /* Add space between checkbox and label */
-    }
-</style>
-
-<h2 style="color: darkred; text-align: center;">Edit Item</h2>
 
 <form asp-action="Edit" method="post">
     <div class="form-horizontal">
@@ -207,8 +163,8 @@
 
         <!-- Button group for Save and Back to List buttons -->
         <div class="form-group button-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
-            <a asp-action="Tier2Dashboard" asp-controller="Tier2" class="btn btn-secondary">Back to List</a>
+            <input type="submit" value="Save" class="btn btn-custom-orange" />
+            <a asp-action="Tier2Dashboard" asp-controller="Tier2" class="btn btn-delete">Cancel</a>
 
         </div>
     </div>

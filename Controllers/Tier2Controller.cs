@@ -74,17 +74,21 @@ namespace NetTracApp.Controllers
                     var inventoryItems = _csvService.ReadCsvFile(reader.BaseStream).ToList();
 
                     foreach (var item in inventoryItems)
-                    {
-                        if (_context.InventoryItems.Any(e => e.SerialNumber == item.SerialNumber))
-                            duplicateRecords.Add(item.SerialNumber);
-                        else
-                        {
-                            _context.InventoryItems.Add(item);
-                            totalNewRecords++;
-                        }
-                    }
 
-                    await _context.SaveChangesAsync();
+                    {
+                        if (item?.SerialNumber != null) // Check if item and SerialNumber are not null
+                        {
+                            if (_context.InventoryItems.Any(e => e.SerialNumber == item.SerialNumber))
+                                duplicateRecords.Add(item.SerialNumber);
+                            else
+                            {
+                                _context.InventoryItems.Add(item);
+                                totalNewRecords++;
+                            }
+                        }
+
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (Exception ex)
                 {

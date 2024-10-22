@@ -73,9 +73,11 @@ namespace NetTracApp.Controllers
                     var inventoryItems = _csvService.ReadCsvFile(reader.BaseStream).ToList();
 
                     foreach (var item in inventoryItems)
+
                     {
-                        // Check for duplicates based on SerialNumber
-                        if (_context.InventoryItems.Any(e => e.SerialNumber == item.SerialNumber))
+                        if (item?.SerialNumber != null)
+                            // Check for duplicates based on SerialNumber
+                            if (_context.InventoryItems.Any(e => e.SerialNumber == item.SerialNumber))
                         {
                             duplicateRecords.Add(item.SerialNumber);
                         }
@@ -321,7 +323,7 @@ namespace NetTracApp.Controllers
                     TempData["SuccessMessage"] = "Item created successfully!";
                     return RedirectToAction(nameof(Tier3Dashboard));
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Optional: Log the exception
                     ModelState.AddModelError(string.Empty, "An error occurred while creating the item. Please try again.");

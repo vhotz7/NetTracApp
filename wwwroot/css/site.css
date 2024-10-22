@@ -31,13 +31,7 @@ table {
     background-color: white;
 }
 
-/* Custom styles for primary and secondary buttons */
-.btn-primary,
-.btn-secondary {
-    background-color: #ac3e0b; /* Set the button background color */
-    border-color: #ac3e0b; /* Match the border color to the background */
-    color: #fff; /* Ensure text color is white for contrast */
-}
+
 
     .btn-primary:hover,
     .btn-primary:focus,

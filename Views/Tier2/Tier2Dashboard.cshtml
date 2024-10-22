@@ -24,6 +24,7 @@
 </div>
 
 <style>
+
     .scroll-button i {
         font-size: 40px;
         color: white; /* Set arrow icon color to orange */
@@ -47,189 +48,8 @@
         z-index: 100;
         transition: background-color 0.3s ease, transform 0.3s ease;
     }
-    .button-container {
-        display: flex;
-        justify-content: center; /* Centers the button horizontally */
-        margin-top: 20px; /* Adds space above the button */
-    }
-
-    .btn-primary {
-        padding: 10px 20px;
-        font-size: 16px;
-    }
-    .print-button-container {
-        position: fixed;
-        bottom: 20px; /* Adjust as needed */
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
-        }
-    .delete-button-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px; /* Optional: Add some spacing from other elements */
-    }
-    .actions-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px; /* Add space between the form and the link */
-    }
-
-    /* Upload form styling */
-    .upload-form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px; /* Add space between label and input */
-    }
-
-    /* Styling for the file input and button alignment */
-    .upload-controls {
-        display: flex;
-        align-items: center;
-        gap: 10px; /* Add space between input and button */
-    }
-
-
-    /* Ensure table uses full width and adapts dynamically */
-    #inventoryTable {
-        width: 100%; /* Use available width */
-        max-width: 1800px; /* Adjust for expanded view */
-        margin: 0 auto; /* Center the table horizontally */
-        font-size: 14px;
-        border-collapse: collapse; /* Prevent double borders */
-        table-layout: auto; /* Allow columns to resize based on content */
-    }
-
-    /* Ensure table headers and data cells align properly */
-    th, td {
-        padding: 12px 8px; /* Add padding for readability */
-        text-align: center;
-        white-space: nowrap; /* Prevent text wrapping */
-    }
-
     
-
-    /* Extra columns are hidden by default */
-    .extra-column {
-        display: none;
-    }
-
-    /* Scrollable table on smaller screens */
-    .table-responsive {
-        overflow-x: auto;
-        margin-bottom: 20px;
-    }
-
-    /* Ensure checkboxes are properly aligned */
-    .checkbox-column {
-        width: 35px; /* Adjust width as needed */
-        text-align: center;
-    }
-
-    .form-check-input {
-        width: 12px;
-        height: 12px;
-        margin: 0 auto;
-        display: block;
-    }
-
-    /* Edit button styling */
-    .btn-edit {
-        background-color: #ac3e0b;
-        color: white;
-        font-weight: bold;
-        padding: 10px 15px;
-        border: none;
-        cursor: pointer;
-    }
-
-        .btn-edit:hover {
-            background-color: #e05c1a;
-        }
-
-    /* Delete button styling */
-    .btn-delete {
-        background-color: #970000;
-        color: white;
-        font-weight: bold;
-        padding: 10px 15px;
-        border: none;
-        cursor: pointer;
-    }
-
-        .btn-delete:hover {
-            background-color: #b30000;
-        }
-
-    /* "Create New Item" button styling */
-    .btn-custom-orange {
-        background-color: #ac3e0b;
-        color: white;
-        font-weight: bold;
-        padding: 10px 15px;
-        border: none;
-        cursor: pointer;
-    }
-
-        .btn-custom-orange:hover {
-            background-color: #e05c1a;
-        }
-
-    .toggle-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    .toggle-button {
-        width: 40px;
-        height: 20px;
-        background-color: #ddd; /* default color when off */
-        border: none;
-        border-radius: 10px;
-        position: relative;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-right: 10px; /* space between button and text */
-    }
-
-        .toggle-button.active {
-            background-color: #ac3e0b; /* orange color when active */
-        }
-
-        .toggle-button::before {
-            content: "";
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 16px;
-            height: 16px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
-
-        .toggle-button.active::before {
-            transform: translateX(20px); /* move toggle circle when active */
-        }
-    /* Ensure content is vertically aligned */
-    .table th, .table td {
-        vertical-align: middle;
-    }
-
-    /* Add spacing at the bottom */
-    .container {
-        padding-bottom: 70px;
-    }
-
-    /* Smooth transition when showing extra columns */
-    .extra-column {
-        display: none;
-        transition: display 0.3s;
-    }
+    
 </style>
 
 <div class="search-border" style="background-color: black; height: 45px; display: flex; align-items: center; justify-content: space-between; padding-left: 10px; padding-right: 10px; border-radius: 8px; margin-top: 20px; margin-bottom: 5px; max-width: 2000px; margin-left: auto; margin-right: auto; box-sizing: border-box;">
@@ -448,7 +268,7 @@
 
 <!-- Print Button -->
 <div class="button-container">
-    <button onclick="printInventoryTable()" class="btn btn-primary">
+    <button onclick="printInventoryTable()" class="btn btn-edit btn-sm">
         Print Inventory
     </button>
 </div>

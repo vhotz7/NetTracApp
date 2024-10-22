@@ -1,4 +1,21 @@
-﻿body {
+﻿.btn {
+    padding: 8px 8px; /* Consistent padding */
+    font-size: 14px; /* Consistent font size */
+    border: none; /* Remove border */
+    cursor: pointer;
+    display: inline-block; /* Keep buttons inline */
+    text-align: center;
+    font-weight: bold; /* Make text bold */
+    border-radius: 4px; 
+    width: auto; /* Default auto width */
+    height: 40px; /* Adjust height based on content */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+
+
+
+    body {
     background-image: url('/images/design2.PNG'); /* Path to your image */
     background-size: cover; /* Ensure the image covers the entire background */
     background-repeat: no-repeat; /* Prevent the image from repeating */
@@ -82,12 +99,6 @@ body, p, span, label, input, button {
 }
 
 
-/* Custom style for buttons */
-.btn-edit {
-    background-color: #ac3e0b; /* Orange color for Edit button */
-    color: white;
-    border: none;
-}
 
     .btn-edit:hover,
     .btn-edit:focus {
@@ -96,17 +107,7 @@ body, p, span, label, input, button {
         border: none;
     }
 
-.btn-delete {
-    background-color: #970000;
-    color: white; /* White text color */
-    border: none;
-    padding: 5px 10px; /* Adjust padding to match other buttons */
-    display: inline-block; /* Keep the button inline */
-    margin: 20px auto; /* Center horizontally with margin */
-    text-align: center; /* Center text */
-    font-weight: bold; /* Make the text bold */
-    font-size: 14px;
-}
+
 
     .btn-delete:hover,
     .btn-delete:focus {
@@ -116,17 +117,7 @@ body, p, span, label, input, button {
     }
 
 /* Custom style for the "Create New Inventory Item" button */
-.btn-custom-orange {
-    background-color: #ac3e0b; /* Orange color for button */
-    color: white; /* White text color */
-    border: none;
-    padding: 5px 10px; /* Adjust padding to match other buttons */
-    display: inline-block; /* Keep the button inline */
-    margin: 20px auto; /* Center horizontally with margin */
-    text-align: center; /* Center text */
-    font-weight: bold; /* Make the text bold */
-    font-size: 14px; /* Font size */
-}
+
 
     .btn-custom-orange:hover {
         background-color: #e05c1a; /* Lighter orange color on hover */
@@ -179,6 +170,174 @@ input[type="submit"] {
     padding: 5px 10px;
 }
 
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    margin-top: 20px; /* Adds space above the button */
+}
+
+.btn-primary {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.centered-button {
+    display: block; /* Make the button behave like a block element */
+    margin: 10px auto 0; /* Center the button horizontally with margin auto */
+    padding: 10px 20px; /* Adjust padding for consistent size */
+    background-color: #970000;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+    .centered-button:hover {
+        background-color: #b30000;
+    }
+
+/* Ensure table uses full width and adapts dynamically */
+#inventoryTable {
+    width: 100%; /* Use available width */
+    max-width: 1800px; /* Adjust for expanded view */
+    margin: 0 auto; /* Center the table horizontally */
+    font-size: 14px;
+    border-collapse: collapse; /* Prevent double borders */
+    table-layout: auto; /* Allow columns to resize based on content */
+}
+
+/* Ensure table headers and data cells align properly */
+th, td {
+    padding: 12px 8px; /* Add padding for readability */
+    text-align: center;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+
+
+/* Extra columns are hidden by default */
+.extra-column {
+    display: none;
+}
+
+/* Scrollable table on smaller screens */
+.table-responsive {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+/* Ensure checkboxes are properly aligned */
+.checkbox-column {
+    width: 35px; /* Adjust width as needed */
+    text-align: center;
+}
+
+.form-check-input {
+    width: 12px;
+    height: 12px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Edit button styling */
+.btn-edit {
+    background-color: #ac3e0b;
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+
+    .btn-edit:hover {
+        background-color: #e05c1a;
+    }
+
+/* Delete button styling */
+.btn-delete {
+    background-color: #970000;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+    .btn-delete:hover {
+        background-color: #b30000;
+    }
+
+/* "Create New Item" button styling */
+.btn-custom-orange {
+    background-color: #ac3e0b;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+    .btn-custom-orange:hover {
+        background-color: #e05c1a;
+    }
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.toggle-button {
+    width: 40px;
+    height: 20px;
+    background-color: #ddd; /* default color when off */
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px; /* space between button and text */
+}
+
+    .toggle-button.active {
+        background-color: #ac3e0b; /* orange color when active */
+    }
+
+    .toggle-button::before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        background-color: white;
+        border-radius: 50%;
+        transition: transform 0.3s;
+    }
+
+    .toggle-button.active::before {
+        transform: translateX(20px); /* move toggle circle when active */
+    }
+/* Ensure content is vertically aligned */
+.table th, .table td {
+    vertical-align: middle;
+}
+
+/* Add spacing at the bottom */
+.container {
+    padding-bottom: 70px;
+}
+
+/* Smooth transition when showing extra columns */
+.extra-column {
+    display: none;
+    transition: display 0.3s;
+
+
+
+
+
+
+}
 
 
 
