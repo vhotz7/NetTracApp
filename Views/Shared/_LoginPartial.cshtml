@@ -1,6 +1,11 @@
-﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+
+<head>
+    <!-- Site-wide custom styles (site.css) -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
