@@ -394,3 +394,54 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+    window.onload = function() {
+        let messages = [];
+
+    @* Check for different types of TempData messages *@
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>messages.push("@TempData["SuccessMessage"]");</text>
+    }
+    @if (TempData["InfoMessage"] != null)
+    {
+        <text>messages.push("@TempData["InfoMessage"]");</text>
+    }
+    @if (TempData["DuplicateMessage"] != null)
+    {
+        <text>messages.push("@TempData["DuplicateMessage"]");</text>
+    }
+
+        // Display each message as an alert
+        if (messages.length > 0) {
+        alert(messages.join('\n'));
+        }
+    };
+</script>
+
+
+<script type="text/javascript">
+    window.onload = function() {
+        let messages = [];
+
+    @* Check for different types of TempData messages *@
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>messages.push("@TempData["SuccessMessage"]");</text>
+    }
+    @if (TempData["InfoMessage"] != null)
+    {
+        <text>messages.push("@TempData["InfoMessage"]");</text>
+    }
+    @if (TempData["DuplicateMessage"] != null)
+    {
+        <text>messages.push("@TempData["DuplicateMessage"]");</text>
+    }
+
+        // Display the messages if any exist
+        if (messages.length > 0) {
+        alert(messages.join('\n'));
+        }
+    };
+</script>
