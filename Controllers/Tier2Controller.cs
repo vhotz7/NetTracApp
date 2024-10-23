@@ -42,7 +42,6 @@ namespace NetTracApp.Controllers
             return View(itemList);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadFile(List<IFormFile> files)
@@ -58,8 +57,8 @@ namespace NetTracApp.Controllers
 
             int totalNewRecords = 0;
             int skippedRecords = 0;
-            var duplicateRecords = new List<string>();
-            var invalidDateRecords = new List<string>();
+            var duplicateSerialNumbers = new List<string>();
+            var uniqueItems = new HashSet<string>(); // Track unique rows to prevent duplicates within the CSV
 
             foreach (var file in files)
             {
@@ -90,37 +89,46 @@ namespace NetTracApp.Controllers
 
                     foreach (var item in inventoryItems)
                     {
-                        // Check if SerialNumber and Vendor are present
+                        // Check for duplicate entries within the same CSV based on SerialNumber
+                        if (!uniqueItems.Add(item.SerialNumber))
+                        {
+                            skippedRecords++; // Skip duplicate rows in the CSV itself
+                            continue;
+                        }
+
+                        // Validate required fields
                         if (string.IsNullOrWhiteSpace(item.SerialNumber) || string.IsNullOrWhiteSpace(item.Vendor))
                         {
-                            skippedRecords++;
+                            skippedRecords++; // Skip rows with missing fields
                             continue;
                         }
 
-                        // Check if the date is valid
-                        if (item.DateReceived == default || item.Modified == default || item.Created == default)
-                        {
-                            invalidDateRecords.Add(item.SerialNumber);
-                            skippedRecords++;
-                            continue;
-                        }
+                        // Validate dates; leave blank if invalid
+                        if (!DateTime.TryParse(item.DateReceived.ToString(), out DateTime dateReceived))
+                            item.DateReceived = null;
 
-                        // Check for duplicate SerialNumber
-                        bool isDuplicate = await _context.InventoryItems
+                        if (!DateTime.TryParse(item.Created.ToString(), out DateTime created))
+                            item.Created = DateTime.Now;
+
+                        if (!DateTime.TryParse(item.Modified.ToString(), out DateTime modified))
+                            item.Modified = DateTime.Now;
+
+                        // Check for duplicates in the database
+                        bool isDuplicateInDb = await _context.InventoryItems
                             .AnyAsync(e => e.SerialNumber == item.SerialNumber);
 
-                        if (isDuplicate)
+                        if (isDuplicateInDb)
                         {
-                            duplicateRecords.Add(item.SerialNumber); // Track duplicate SNs
+                            duplicateSerialNumbers.Add(item.SerialNumber);
                             continue;
                         }
 
-                        // Add the valid item to the database
+                        // Add valid item to the database
                         _context.InventoryItems.Add(item);
                         totalNewRecords++;
                     }
 
-                    await _context.SaveChangesAsync(); // Save all new items at once
+                    await _context.SaveChangesAsync(); // Save all new items
                 }
                 catch (Exception ex)
                 {
@@ -128,17 +136,16 @@ namespace NetTracApp.Controllers
                 }
             }
 
-            // Display messages for skipped and duplicate records
+            // Display results
             TempData["SuccessMessage"] = $"{totalNewRecords} new items uploaded successfully.";
             if (skippedRecords > 0)
-                TempData["InfoMessage"] = $"{skippedRecords} rows were skipped due to missing fields or invalid data.";
-            if (duplicateRecords.Any())
-                TempData["DuplicateMessage"] = $"Duplicate Serial Numbers: {string.Join(", ", duplicateRecords)}";
-            if (invalidDateRecords.Any())
-                TempData["DateErrorMessage"] = $"Invalid Dates found for: {string.Join(", ", invalidDateRecords)}";
+                TempData["InfoMessage"] = $"{skippedRecords} rows were skipped due to duplicates or missing data.";
+            if (duplicateSerialNumbers.Any())
+                TempData["DuplicateMessage"] = $"Duplicate Serial Numbers: {string.Join(", ", duplicateSerialNumbers)}";
 
             return RedirectToAction(nameof(Tier2Dashboard));
         }
+
 
 
 

@@ -1,65 +1,54 @@
-﻿using System.Collections.Generic;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using NetTracApp.Models;
 using System.Globalization;
 using System.IO;
+using System.Collections.Generic;
 using System.Linq;
-using CsvHelper;
-using CsvHelper.Configuration;
-using CsvHelper.TypeConversion;
-using Microsoft.Extensions.Logging;
-using NetTracApp.Models;
 
 namespace NetTracApp.Services
 {
     public class CsvService
     {
-        private readonly ILogger<CsvService> _logger;
-
-        // constructor to inject a logger
-        public CsvService(ILogger<CsvService> logger)
+        public IEnumerable<InventoryItem> ReadCsvFile(Stream csvStream)
         {
-            _logger = logger;
-        }
+            using var reader = new StreamReader(csvStream);
+            using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                TrimOptions = TrimOptions.Trim,
+                HeaderValidated = null,
+                MissingFieldFound = null
+            });
 
-        // method to read inventory items from a CSV file
-        public IEnumerable<InventoryItem> ReadCsvFile(Stream fileStream)
-        {
             var records = new List<InventoryItem>();
 
-            try
+            while (csv.Read())
             {
-                using (var reader = new StreamReader(fileStream)) // open the file stream for reading
-                using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+                try
                 {
-                    MissingFieldFound = null, // ignore missing fields
-                    HeaderValidated = null,   // do not validate header
-                    BadDataFound = context =>
-                    {
-                        // log a warning if bad data is found in the CSV file
-                        _logger.LogWarning($"Bad data found: {context.RawRecord}");
-                    }
-                }))
+                    var item = csv.GetRecord<InventoryItem>();
+
+                    // Handle incorrect date formats gracefully
+                    if (!DateTime.TryParse(csv.GetField("DateReceived"), out DateTime dateReceived))
+                        item.DateReceived = null;  // Leave date blank if invalid
+                    else
+                        item.DateReceived = dateReceived;
+
+                    if (!DateTime.TryParse(csv.GetField("Created"), out DateTime created))
+                        item.Created = null;
+                    else
+                        item.Created = created;
+
+                    records.Add(item);
+                }
+                catch
                 {
-                    // read all records and convert them to a list of InventoryItem objects
-                    records = csv.GetRecords<InventoryItem>().ToList();
+                    // Skip rows with invalid data
+                    continue;
                 }
             }
-            // handle exceptions during CSV data conversion
-            catch (TypeConverterException ex)
-            {
-                _logger.LogError($"Data conversion error: {ex.Message}");
-            }
-            // handle general CSV parsing errors
-            catch (CsvHelperException ex)
-            {
-                _logger.LogError($"CSV parsing error: {ex.Message}");
-            }
-            // handle any other unexpected errors
-            catch (Exception ex)
-            {
-                _logger.LogError($"Unexpected error: {ex.Message}");
-            }
 
-            return records; // return the list of inventory items
+            return records;
         }
     }
 }

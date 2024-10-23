@@ -187,7 +187,7 @@
                         <td>@item.CurrentLocation</td>
                         <td>@item.FutureLocation</td>
                         <td>@item.Status</td>
-                        <td>@item.DateReceived.ToString("MM/dd/yyyy")</td>
+                        <td>@(item.DateReceived.HasValue ? item.DateReceived.Value.ToString("MM/dd/yyyy") : "N/A")</td>
                         <td>@item.PartID</td>
                         <td class="extra-column">@item.BackOrdered</td>
                         <td class="extra-column">@item.Notes</td>

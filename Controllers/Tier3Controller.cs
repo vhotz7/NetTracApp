@@ -8,6 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using CsvHelper.Configuration;
+using CsvHelper;
+using System.Globalization;
 
 namespace NetTracApp.Controllers
 {
@@ -35,38 +38,32 @@ namespace NetTracApp.Controllers
         }
 
 
-
-        // POST: Upload CSV File
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadFile(List<IFormFile> files)
         {
-            if (files == null || files.Count == 0)
+            if (files == null || !files.Any())
             {
-                TempData["ErrorMessage"] = "Please select at least one CSV file.";
+                TempData["ErrorMessage"] = "Please select one or more CSV files.";
                 return RedirectToAction(nameof(Tier3Dashboard));
             }
 
             var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-
-            // Ensure the upload folder exists
-            if (!Directory.Exists(uploadFolder))
-            {
-                Directory.CreateDirectory(uploadFolder);
-            }
+            if (!Directory.Exists(uploadFolder)) Directory.CreateDirectory(uploadFolder);
 
             int totalNewRecords = 0;
-            var duplicateRecords = new List<string>();
+            int skippedRecords = 0;
+            var duplicateSerialNumbers = new List<string>();
+            var uniqueItems = new HashSet<string>(); // Track unique rows to prevent duplicates within the CSV
 
             foreach (var file in files)
             {
-                if (Path.GetExtension(file.FileName).ToLower() != ".csv")
+                if (!Path.GetExtension(file.FileName).Equals(".csv", StringComparison.OrdinalIgnoreCase))
                 {
                     TempData["ErrorMessage"] = "Only CSV files are allowed.";
                     continue;
                 }
 
-                // Save the uploaded file
                 var savedFilePath = Path.Combine(uploadFolder, file.FileName);
                 using (var stream = new FileStream(savedFilePath, FileMode.Create))
                 {
@@ -75,28 +72,59 @@ namespace NetTracApp.Controllers
 
                 try
                 {
-                    // Process the CSV file
                     using var reader = new StreamReader(savedFilePath);
-                    var inventoryItems = _csvService.ReadCsvFile(reader.BaseStream).ToList();
+                    var csvConfig = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture)
+                    {
+                        TrimOptions = CsvHelper.Configuration.TrimOptions.Trim,
+                        HeaderValidated = null,
+                        MissingFieldFound = null
+                    };
+
+                    using var csv = new CsvHelper.CsvReader(reader, csvConfig);
+                    var inventoryItems = csv.GetRecords<InventoryItem>().ToList();
 
                     foreach (var item in inventoryItems)
-
                     {
-                        if (item?.SerialNumber != null)
-                            // Check for duplicates based on SerialNumber
-                            if (_context.InventoryItems.Any(e => e.SerialNumber == item.SerialNumber))
-                            {
-                                duplicateRecords.Add(item.SerialNumber);
-                            }
-                            else
-                            {
-                                _context.InventoryItems.Add(item);
-                                totalNewRecords++;
-                            }
+                        // Check for duplicate entries within the same CSV based on SerialNumber
+                        if (!uniqueItems.Add(item.SerialNumber))
+                        {
+                            skippedRecords++; // Skip duplicate rows in the CSV itself
+                            continue;
+                        }
+
+                        // Validate required fields
+                        if (string.IsNullOrWhiteSpace(item.SerialNumber) || string.IsNullOrWhiteSpace(item.Vendor))
+                        {
+                            skippedRecords++; // Skip rows with missing fields
+                            continue;
+                        }
+
+                        // Validate dates; leave blank if invalid
+                        if (!DateTime.TryParse(item.DateReceived.ToString(), out DateTime dateReceived))
+                            item.DateReceived = null;
+
+                        if (!DateTime.TryParse(item.Created.ToString(), out DateTime created))
+                            item.Created = DateTime.Now;
+
+                        if (!DateTime.TryParse(item.Modified.ToString(), out DateTime modified))
+                            item.Modified = DateTime.Now;
+
+                        // Check for duplicates in the database
+                        bool isDuplicateInDb = await _context.InventoryItems
+                            .AnyAsync(e => e.SerialNumber == item.SerialNumber);
+
+                        if (isDuplicateInDb)
+                        {
+                            duplicateSerialNumbers.Add(item.SerialNumber);
+                            continue;
+                        }
+
+                        // Add valid item to the database
+                        _context.InventoryItems.Add(item);
+                        totalNewRecords++;
                     }
 
-                    // Save changes to the database
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(); // Save all new items
                 }
                 catch (Exception ex)
                 {
@@ -104,15 +132,20 @@ namespace NetTracApp.Controllers
                 }
             }
 
-            // Display feedback to the user
+            // Display results
             TempData["SuccessMessage"] = $"{totalNewRecords} new items uploaded successfully.";
-            if (duplicateRecords.Any())
-            {
-                TempData["DuplicateMessage"] = $"Duplicate items: {string.Join(", ", duplicateRecords)}";
-            }
+            if (skippedRecords > 0)
+                TempData["InfoMessage"] = $"{skippedRecords} rows were skipped due to duplicates or missing data.";
+            if (duplicateSerialNumbers.Any())
+                TempData["DuplicateMessage"] = $"Duplicate Serial Numbers: {string.Join(", ", duplicateSerialNumbers)}";
 
             return RedirectToAction(nameof(Tier3Dashboard));
         }
+
+
+
+
+
         public async Task<IActionResult> Tier3Dashboard(string? searchString)
         {
             // Get pending deletions count

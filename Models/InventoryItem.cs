@@ -6,7 +6,7 @@ namespace NetTracApp.Models
 {
     public class InventoryItem
     {
-        [Key]  // Set SerialNumber as the primary key
+        [Key]
         [Required(ErrorMessage = "Serial Number is required.")]
         [StringLength(255)]
         public string SerialNumber { get; set; } = string.Empty;
@@ -30,8 +30,7 @@ namespace NetTracApp.Models
         [StringLength(255)]
         public string? FutureLocation { get; set; }
 
-        [Required]
-        public DateTime DateReceived { get; set; } = DateTime.Now;
+        public DateTime? DateReceived { get; set; }  // Nullable
 
         [StringLength(255)]
         public string? CurrentLocation { get; set; }
@@ -49,11 +48,8 @@ namespace NetTracApp.Models
 
         public bool LegacyDevice { get; set; } = false;
 
-        [Required]
-        public DateTime Modified { get; set; } = DateTime.Now;
-
-        [Required]
-        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTime? Modified { get; set; }  // Nullable
+        public DateTime? Created { get; set; }   // Nullable
 
         [StringLength(255)]
         public string? CreatedBy { get; set; }
@@ -65,4 +61,5 @@ namespace NetTracApp.Models
 
         public bool DeletionApproved { get; set; } = false;
     }
+
 }
