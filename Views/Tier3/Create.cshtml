@@ -4,14 +4,20 @@
     ViewData["Title"] = "Create Inventory Item";
 }
 
-<div class="top-border" style="background-color: #970000; color: #ffff00; height: 80px; border-radius: 8px; margin: 20px auto; padding-left: 20px; display: flex; align-items: center; position: relative; max-width: 100%; width: 1450px;">
-    <!-- background text "NetTrac" -->
-    <span class="background-text" style="font-size: 70px; font-family: Impact;">NetTrac</span>
+<head>
+    <!-- Site-wide custom styles (site.css) -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
 
-    <span id="circle" style="background: black; border-radius: 50%; width: 75px; height: 75px; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+
+<div class="top-border">
+    <!-- background text "NetTrac" -->
+    <span class="background-text">NetTrac</span>
+
+    <span id="circle"></span>
 
     <!-- Centered Text "IT Network Tracker" -->
-    <span class="centered-text" style="margin: 0 auto; font-size: 45px; font-family: Impact; color: #ffffff;">Create New Item</span>
+    <span class="centered-text">Create New Item</span>
 
     <!-- Home and Login Icons -->
     <span class="icons" style="display: flex; align-items: center; margin-right: 30px;">
@@ -153,6 +159,6 @@
 
 <div style="margin-top: 15px; text-align: right;">
     <p style="font-weight: bold; color: #333;">
-        Signed in as:T3 <span style="color: #8B0000;">@ViewBag.UserType </span>
+        Signed in as: T3 <span style="color: #8B0000;">@ViewBag.UserType </span>
     </p>
 </div>
