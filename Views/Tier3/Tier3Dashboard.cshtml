@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NetTracApp.Models.InventoryItem>
+@model IEnumerable<NetTracApp.Models.InventoryItem>
 
 @{
     ViewData["Title"] = "Approve Deletion Requests and Manage Inventory";
@@ -8,14 +8,20 @@
    
 }
 
-<div class="top-border" style="background-color: #970000; color: #ffff00; height: 80px; border-radius: 8px; margin: 20px auto; padding-left: 20px; display: flex; align-items: center; position: relative; max-width: 100%; width: 1450px;">
-    <!-- background text "NetTrac" -->
-    <span class="background-text" style="font-size: 70px; font-family: Impact;">NetTrac</span>
+<head>
+    <!-- Site-wide custom styles (site.css) -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
 
-    <span id="circle" style="background: black; border-radius: 50%; width: 75px; height: 75px; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+
+<div class="top-border">
+    <!-- background text "NetTrac" -->
+    <span class="background-text">NetTrac</span>
+
+    <span id="circle"></span>
 
     <!-- Centered Text "IT Network Tracker" -->
-    <span class="centered-text" style="margin: 0 auto; font-size: 45px; font-family: Impact; color: #ffffff;">IT Network Tracker</span>
+    <span class="centered-text">IT Network Tracker</span>
 
     <!-- Home and Login Icons -->
     <span class="icons" style="display: flex; align-items: center; margin-right: 30px;">
@@ -29,34 +35,6 @@
 </div>
 
 
-<style>
-    .scroll-button i {
-        font-size: 40px;
-        color: white; /* Set arrow icon color to orange */
-        transition: color 0.3s ease;
-    }
-
-    .scroll-button {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #ac3e0b; /* Orange circular background */
-        border: none;
-        border-radius: 50%; 
-        width: 60px;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        z-index: 100;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-    
-    
-</style>
-
 <div class="alert alert-warning">
     <strong>
         You have
@@ -68,8 +46,8 @@
 </div>
 
 
-<div class="search-border" style="background-color: black; height: 45px; display: flex; align-items: center; justify-content: space-between; padding-left: 10px; padding-right: 10px; border-radius: 8px; margin-top: 20px; margin-bottom: 5px; max-width: 2000px; margin-left: auto; margin-right: auto; box-sizing: border-box;">
-    <div class="search-text" style="color: orange; font-size: 15px; display: flex; align-items: center;">
+<div class="search-border">
+    <div class="search-text">
         Search Inventory
     </div>
 
