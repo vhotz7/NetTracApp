@@ -73,18 +73,31 @@
         Search Inventory
     </div>
 
-  
 
     <div class="search-length" style="flex-grow: 1; max-width: 800px; padding-left: 10px;">
         <!-- Search Form -->
         <div class="search-form" style="width: 100%;">
-            <form asp-action="Tier3Dashboard" method="get" style="width: 100%; display: flex; align-items: center;">
+            <form asp-action="Tier2Dashboard" method="get" style="width: 100%; display: flex; align-items: center;">
                 <div class="form-group" style="margin-bottom: 0; width: 100%; display: flex; align-items: center;">
-                    <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" style="height: 35px; width: 100%; box-sizing: border-box;" />
+                    <input type="text"
+                           name="searchString"
+                           class="form-control"
+                           placeholder="Search by Vendor or Serial Number"
+                           style="height: 35px; width: 100%; box-sizing: border-box;"
+                           maxlength="20"
+                           oninput="checkLength(this)" />
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        function checkLength(input) {
+            if (input.value.length > 20) {
+                input.value = input.value.substring(0, 20); // Trim to 20 characters
+            }
+        }
+    </script>
 
     <div class="toggle-container" style="display: flex; align-items: center; justify-content: center;">
         <span class="toggle-text" style="color: white; font-weight: bold; margin-right: 10px;">

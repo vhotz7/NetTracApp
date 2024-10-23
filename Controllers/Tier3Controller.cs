@@ -299,7 +299,24 @@ namespace NetTracApp.Controllers
 
 
 
-       
+        // GET: Create new inventory item
+        public IActionResult Create() => View();
+
+        // POST: Create a new inventory item
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Vendor,DeviceType,SerialNumber,HostName,AssetTag,PartID,FutureLocation,DateReceived,CurrentLocation,Status,BackOrdered,Notes,ProductDescription,Ready,LegacyDevice")] InventoryItem inventoryItem)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(inventoryItem);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Item created successfully!";
+                return RedirectToAction(nameof(Tier3Dashboard));
+            }
+            return View(inventoryItem);
+        }
+
 
         // GET: Edit an item in Tier3Dashboard
         public async Task<IActionResult> Edit(string serialNumber)
