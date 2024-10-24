@@ -267,6 +267,37 @@ namespace NetTracApp.Controllers
             return RedirectToAction(nameof(Tier3Dashboard));
         }
 
+        [HttpPost]
+        public IActionResult DenyAllDeletions()
+        {
+            // Retrieve all items marked for pending deletion
+            var pendingItems = _context.InventoryItems
+                                       .Where(item => item.PendingDeletion)
+                                       .ToList();
+
+            if (pendingItems.Any())
+            {
+                // Mark all pending items as not pending deletion
+                foreach (var item in pendingItems)
+                {
+                    item.PendingDeletion = false; // Reset the pending deletion status
+                }
+
+                // Save the changes to the database
+                _context.SaveChanges();
+
+                // Set success message for the user
+                TempData["SuccessMessage"] = "All pending deletion requests have been denied and added back into the Inventory.";
+            }
+            else
+            {
+                // Inform the user that there are no items to deny
+                TempData["InfoMessage"] = "No items are pending for deletion.";
+            }
+
+            // Redirect to the Tier 3 Dashboard
+            return RedirectToAction("Tier3Dashboard");
+        }
 
 
 
@@ -320,7 +351,7 @@ namespace NetTracApp.Controllers
                 _context.SaveChanges();
 
                 // Set success message for the user
-                TempData["SuccessMessage"] = "All pending deletion requests have been approved and items removed.";
+                TempData["SuccessMessage"] = "All pending deletion requests have been approved and items are removed from the inventory.";
             }
             else
             {

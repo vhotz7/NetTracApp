@@ -22,9 +22,14 @@
 }
 else
 {
-    <div class="mb-3">
-        <form asp-action="ApproveAllDeletions" method="post" style="display:inline;">
+    <!-- Buttons Container -->
+    <div class="action-buttons-container">
+        <form asp-action="ApproveAllDeletions" method="post" class="inline-form">
             <button type="submit" class="btn btn-custom-orange">Approve All</button>
+        </form>
+
+        <form asp-controller="Tier3" asp-action="DenyAllDeletions" method="post" class="inline-form">
+            <button type="submit" class="btn btn-delete">Deny All</button>
         </form>
     </div>
 
@@ -69,3 +74,6 @@ else
         Signed in as: T3 <span style="color: #8B0000;">@ViewBag.UserType </span>
     </p>
 </div>
+
+
+

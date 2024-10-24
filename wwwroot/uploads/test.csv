@@ -1,11 +1,103 @@
 AssetTag,BackOrdered,Created,CreatedBy,CurrentLocation,DateReceived,DeviceType,FutureLocation,HostName,LegacyDevice,Modified,ModifiedBy,Notes,PartID,ProductDescription,Ready,SerialNumber,Status,Vendor
-AT-021,FALSE,1/1/2024,John Doe,Warehouse A,1/2/2024,Laptop,Store B,HOST-021,FALSE,1/5/2024,Admin,Initial stock,P021,High-end Laptop,TRUE,SN021,Active,Vendor A
-AT-022,TRUE,1/3/2024,Jane Smith,Warehouse B,1/4/2024,Desktop,Store C,HOST-022,TRUE,1/6/2024,Admin,Pending,P022,Basic Desktop,FALSE,SN022,Inactive,Vendor B
-AT-023,FALSE,1/1/2024,John Doe,Warehouse A,1/2/2024,Laptop,Store B,HOST-023,FALSE,1/5/2024,Admin,Initial stock,P023,High-end Laptop,TRUE,SN023,Active,Vendor A
-AT-024,TRUE,1/3/2024,Jane Smith,Warehouse B,1/4/2024,Desktop,Store C,HOST-024,TRUE,1/6/2024,Admin,Pending,P024,Basic Desktop,FALSE,SN024,Inactive,Vendor B
-AT-025,FALSE,1/1/2024,John Doe,Warehouse A,1/2/2024,Laptop,Store B,HOST-025,FALSE,1/5/2024,Admin,Initial stock,P025,High-end Laptop,TRUE,SN025,Active,Vendor A
-AT-026,TRUE,1/3/2024,Jane Smith,Warehouse B,1/4/2024,Desktop,Store C,HOST-026,TRUE,1/6/2024,Admin,Pending,P026,Basic Desktop,FALSE,SN026,Inactive,Vendor B
-AT-027,FALSE,1/1/2024,John Doe,Warehouse A,1/2/2024,Laptop,Store B,HOST-027,FALSE,1/5/2024,Admin,Initial stock,P027,High-end Laptop,TRUE,SN027,Active,Vendor A
-AT-028,TRUE,1/3/2024,Jane Smith,Warehouse B,1/4/2024,Desktop,Store C,HOST-028,TRUE,1/6/2024,Admin,Pending,P028,Basic Desktop,FALSE,SN028,Inactive,Vendor B
-AT-029,FALSE,1/1/2024,John Doe,Warehouse A,1/2/2024,Laptop,Store B,HOST-029,FALSE,1/5/2024,Admin,Initial stock,P029,High-end Laptop,TRUE,SN029,Active,Vendor A
-AT-030,TRUE,,John Doe,Warehouse A,1/2/2024,Laptop,Store D,HOST-029,TRUE,,admin,Pending,P030,High-end Laptop,TRUE,SN030,Active,Vendor B
+AT-021,FALSE,1/1/2024,John Doe,Warehouse A,1/2/2024 0:00,Laptop,Store B,HOST-021,FALSE,1/5/2024,Admin,Initial stock,P021,High-end Laptop,TRUE,SN021,Active,Vendor A
+AT-022,TRUE,1/3/2024,Jane Smith,Warehouse B,1/4/2024 0:00,Desktop,Store C,HOST-022,TRUE,1/6/2024,Admin,Pending,P022,Basic Desktop,FALSE,SN022,Inactive,Vendor B
+AT-023,FALSE,1/1/2024,John Doe,Warehouse A,1/2/2024 0:00,Laptop,Store B,HOST-023,FALSE,1/5/2024 0,Admin,Initial stock,P023,High-end Laptop,TRUE,SN023,Active,Vendor A
+AT-024,TRUE,1/3/2024,Jane Smith,Warehouse B,1/2/2024 0:00,Desktop,Store C,HOST-024,TRUE,1/6/2024,Admin,Pending,P024,Basic Desktop,FALSE,SN024,Inactive,Vendor B
+AT-025,FALSE,1/1/2024,John Doe,Warehouse A,1/2/2024 0:00,Laptop,Store B,HOST-025,FALSE,1/5/2024,Admin,Initial stock,P025,High-end Laptop,TRUE,SN025,Active,Vendor A
+AT-026,TRUE,1/3/2024,Jane Smith,Warehouse B,1/4/2024 0:00,Desktop,Store C,HOST-026,TRUE,1/6/2024,Admin,Pending,P026,Basic Desktop,FALSE,SN026,Inactive,Vendor B
+AT-027,FALSE,1/1/2024,John Doe,Warehouse A,1/2/2024 0:00,Laptop,Store B,HOST-027,FALSE,1/5/2024,Admin,Initial stock,P027,High-end Laptop,TRUE,SN027,Active,Vendor A
+AT-028,TRUE,1/3/2024,Jane Smith,Warehouse B,1/4/2024 0:00,Desktop,Store C,HOST-028,TRUE,1/6/2024,Admin,Pending,P028,Basic Desktop,FALSE,SN028,Inactive,Vendor B
+AT-029,FALSE,1/1/2024,John Doe,Warehouse A,1/2/2024 0:00,Laptop,Store B,HOST-029,FALSE,1/5/2024,Admin,Initial stock,P029,High-end Laptop,TRUE,SN029,Active,Vendor A
+AT-030,TRUE,,John Doe,Warehouse A,1/4/2024 0:00,Laptop,Store D,HOST-029,TRUE,,admin,Pending,P030,High-end Laptop,TRUE,SN030,Active,Vendor B
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,
+,,,,,1/2/2024 0:00,,,,,,,,,,,,,
+,,,,,1/4/2024 0:00,,,,,,,,,,,,,

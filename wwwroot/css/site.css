@@ -314,3 +314,15 @@ table {
     z-index: 100;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+
+.action-buttons-container {
+        display: flex;
+        justify-content: center; /* Centers the buttons horizontally */
+        align-items: center; /* Aligns the buttons vertically */
+        gap: 10px; /* Adds space between the buttons */
+        margin: 20px 0; /* Adds spacing above and below the container */
+
+
+
+}

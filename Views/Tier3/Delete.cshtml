@@ -57,3 +57,58 @@
         Signed in as: T3 <span style="color: #8B0000;">@ViewBag.UserType </span>
     </p>
 </div>
+
+
+<style>
+    /* Ensure the table and button container align properly */
+    .table-bordered {
+        width: 50%;
+        margin: 20px auto; /* Center the table horizontally */
+        border-collapse: collapse;
+    }
+
+        .table-bordered th, .table-bordered td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+    .delete-warning {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    /* Button container styles to align below the table */
+    .button-container {
+        width: 50%; /* Match the width of the table */
+        margin: 20px auto; /* Center the button container horizontally */
+        display: flex;
+        justify-content: center; /* Center buttons horizontally */
+        align-items: center; /* Align items vertically */
+        gap: 5px; /* Ensure minimal space between buttons */
+    }
+
+    /* Ensure buttons do not have extra space around them */
+    .inline-form,
+    .btn-custom-orange {
+        display: inline-block;
+        margin: 0; /* Remove extra margins */
+    }
+
+    /* Button styling */
+    .btn {
+        padding: 10px 15px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-delete {
+        border-radius: 5px;
+    }
+
+    .btn-custom-orange {
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+    }
+</style>

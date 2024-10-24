@@ -6,16 +6,12 @@
     var pendingDeletionsCount = (int)(ViewData["PendingDeletionsCount"] ?? 0);
     ViewData["CenteredText"] = "IT Network Tracker";
     ViewData["HomeLink"] = Url.Action("Tier3Dashboard", "Tier3");
-
 }
 
 <head>
     <!-- Site-wide custom styles (site.css) -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-
-
-
 
 <div class="alert alert-warning">
     <strong>
@@ -27,34 +23,21 @@
     </strong>
 </div>
 
-
-
 <div class="search-border">
     <div class="search-text">
         Search Inventory
     </div>
 
-    <div class="search-length"
-         style="display: flex; justify-content: center; align-items: center; height: 100vh; max-width: 800px; margin: 0 auto; padding: 0 10px;">
+    <div class="search-length" style="display: flex; justify-content: center; align-items: center; height: 100vh; max-width: 800px; margin: 0 auto; padding: 0 10px;">
         <!-- Search Form -->
         <div class="search-form" style="width: 100%;">
-            <form asp-action="Tier3Dashboard" method="get"
-                  style="width: 100%; display: flex; justify-content: center;">
-                <div class="form-group"
-                     style="width: 100%; max-width: 600px; display: flex; align-items: center;">
-                    <input type="text"
-                           name="searchString"
-                           class="form-control"
-                           placeholder="Search by Vendor or Serial Number"
-                           style="height: 35px; width: 100%; padding: 5px 10px; box-sizing: border-box;"
-                           maxlength="20"
-                           oninput="checkLength(this)" />
+            <form asp-action="Tier3Dashboard" method="get" style="width: 100%; display: flex; justify-content: center;">
+                <div class="form-group" style="width: 100%; max-width: 600px; display: flex; align-items: center;">
+                    <input type="text" name="searchString" class="form-control" placeholder="Search by Vendor or Serial Number" style="height: 35px; width: 100%; padding: 5px 10px; box-sizing: border-box;" maxlength="20" oninput="checkLength(this)" />
                 </div>
             </form>
         </div>
     </div>
-
-
 
     <script>
         function checkLength(input) {
@@ -63,7 +46,6 @@
             }
         }
     </script>
-
 
     <div class="toggle-container" style="display: flex; align-items: center; justify-content: center;">
         <span class="toggle-text" style="color: white; font-weight: bold; margin-right: 10px;">
@@ -77,23 +59,15 @@
     <i class="bi bi-arrow-down-circle"></i>
 </button>
 
+<form asp-action="UploadFile" method="post" enctype="multipart/form-data" novalidate>
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="file">Upload CSV File(s):</label>
+        <input type="file" name="files" class="form-control-file" multiple />
+    </div>
 
-
-<!-- CSV Upload Form -->
-<!-- CSV Upload Form -->
-<div class="mb-4">
-    <form asp-action="UploadFile" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <!-- Label correctly associated with input field -->
-            <label for="file">Upload CSV File(s):</label>
-            <div style="display: flex; align-items: center;">
-                <!-- Input field with matching id -->
-                <input type="file" id="file" name="files" class="form-control-file" multiple style="margin-right: 10px;" />
-                <button type="submit" class="btn btn-custom-orange" style="height: auto;">Upload</button>
-            </div>
-        </div>
-    </form>
-</div>
+    <button type="submit" class="btn btn-primary mt-2">Upload</button>
+</form>
 
 <div style="text-align: right; margin-bottom: 10px;">
     <a asp-controller="Tier3" asp-action="Create" style="color: #ac3e0b; font-weight: bold; text-decoration: none;">
@@ -101,11 +75,9 @@
     </a>
 </div>
 
-
 <div style="margin-bottom: 15px;">
     <h4 style="color: #970000; font-size: 1.2rem;">Total Inventory Items: @ViewBag.TotalItems</h4>
 </div>
-
 
 <!-- Inventory Table -->
 <form asp-action="DeleteSelected" method="post" id="deleteForm">
@@ -168,7 +140,6 @@
                         <td>
                             <a asp-controller="Tier3" asp-action="Edit" asp-route-serialNumber="@item.SerialNumber" class="btn btn-edit">Edit</a>
                             <a asp-controller="Tier3" asp-action="Delete" asp-route-serialNumber="@item.SerialNumber" class="btn btn-delete">Delete</a>
-
                         </td>
                     </tr>
                 }
@@ -184,13 +155,11 @@
     <button type="button" class="btn btn-delete btn-sm centered-button" onclick="confirmDelete()">
         Delete Selected Items
     </button>
-
 </form>
-
 
 <div style="margin-top: 15px; text-align: right;">
     <p style="font-weight: bold; color: #333;">
-       Signed in as: <span style="color: #8B0000;">@ViewBag.UserType </span>
+        Signed in as: <span style="color: #8B0000;">@ViewBag.UserType </span>
     </p>
 </div>
 
@@ -202,44 +171,22 @@
         checkboxes.forEach(checkbox => checkbox.checked = isChecked);
     }
 
-    // Single item delete with confirmation
-    function deleteItem(url, id) {
-        if (confirm('Are you sure you want to delete this item?')) {
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = `${url}/${id}`;
-            document.body.appendChild(form);
-            form.submit();
+    // Confirm Delete Functionality
+    function confirmDelete() {
+        const selectedItems = document.querySelectorAll('.item-checkbox:checked');
+        if (selectedItems.length === 0) {
+            alert('Please select at least one item to delete.');
+            return;
+        }
+
+        const confirmMessage = `Are you sure you want to delete ${selectedItems.length} items?`;
+        if (confirm(confirmMessage)) {
+            document.getElementById('deleteForm').submit();
         }
     }
-
-
-
-
-
-
-
-
-
-<script>
-    // Select all checkboxes when the header checkbox is clicked
-    document.getElementById('select-all').addEventListener('change', function (e) {
-        const checkboxes = document.querySelectorAll('.row-checkbox');
-        checkboxes.forEach(checkbox => checkbox.checked = e.target.checked);
-    });
-
-    // Toggle the checkbox when clicking anywhere in a row
-    document.querySelectorAll('.selectable-row').forEach(row => {
-        row.addEventListener('click', function (e) {
-            // Prevent toggling if the user clicked directly on a checkbox
-            if (e.target.tagName !== 'INPUT') {
-                const checkbox = row.querySelector('.row-checkbox');
-                checkbox.checked = !checkbox.checked;
-            }
-        });
-    });
 </script>
 
+<!-- Additional Functions -->
 <script>
     // JavaScript function to toggle the display of extra columns
     function toggleColumns() {
@@ -254,50 +201,26 @@
     }
 </script>
 
-
-
-
-<script>
-    // Select/Deselect all checkboxes when the header checkbox is clicked
-    document.getElementById('selectAll').addEventListener('change', function (e) {
-        const checkboxes = document.querySelectorAll('.item-checkbox');
-        checkboxes.forEach(checkbox => checkbox.checked = e.target.checked);
-    });
-
-    // Toggle checkbox selection when clicking on a row, except when clicking on a checkbox directly
-    document.querySelectorAll('.selectable-row').forEach(row => {
-        row.addEventListener('click', function (e) {
-            if (e.target.tagName !== 'INPUT') {
-                const checkbox = row.querySelector('.item-checkbox');
-                checkbox.checked = !checkbox.checked;
-            }
-        });
-    });
-
-</script>
-
-
 <!-- Print Button -->
 <div class="button-container">
     <button onclick="printInventoryTable()" class="btn btn-edit btn-sm">
         Print Inventory
     </button>
 </div>
-
 <script>
     function printInventoryTable() {
         var printContents = document.getElementById("inventoryTable").outerHTML;
-    var originalContents = document.body.innerHTML;
+        var originalContents = document.body.innerHTML;
 
-    // Set the table contents in the body for printing
-    document.body.innerHTML = printContents;
+        // Set the table contents in the body for printing
+        document.body.innerHTML = printContents;
 
-    // Trigger the print dialog
-    window.print();
+        // Trigger the print dialog
+        window.print();
 
-    // Restore the original contents after printing
-    document.body.innerHTML = originalContents;
-    window.location.reload(); // Reload to ensure scripts and layout restore
+        // Restore the original contents after printing
+        document.body.innerHTML = originalContents;
+        window.location.reload(); // Reload to ensure scripts and layout restore
     }
 </script>
 
@@ -320,36 +243,7 @@
     }
 </style>
 
-
-
-<!-- JavaScript for Confirmation -->
-<script>
-    function confirmDelete() {
-        const selectedItems = document.querySelectorAll('.item-checkbox:checked');
-
-    // Check if any items are selected
-    if (selectedItems.length === 0) {
-        alert('Please select at least one item to delete.');
-    return;
-        }
-
-    // Show confirmation popup
-    const confirmDelete = window.confirm(`Are you sure you want to delete ${selectedItems.length} items?`);
-
-    // If confirmed, submit the form
-    if (confirmDelete) {
-        document.getElementById('deleteForm').submit();
-        }
-    }
-
-    // Select All Checkbox Logic
-    document.getElementById('selectAll').addEventListener('change', function () {
-        const checkboxes = document.querySelectorAll('.item-checkbox');
-        checkboxes.forEach(checkbox => checkbox.checked = this.checked);
-    });
-</script>
-
-
+<!-- JavaScript to Scroll to Bottom -->
 <script>
     const scrollToBottomButton = document.getElementById('scrollToBottomButton');
 
@@ -362,53 +256,54 @@
     });
 </script>
 
+
+
 <script type="text/javascript">
-    window.onload = function() {
+    window.onload = function () {
         let messages = [];
 
-    @* Check for different types of TempData messages *@
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <text>messages.push("@TempData["SuccessMessage"]");</text>
-    }
-    @if (TempData["InfoMessage"] != null)
-    {
-        <text>messages.push("@TempData["InfoMessage"]");</text>
-    }
-    @if (TempData["DuplicateMessage"] != null)
-    {
-        <text>messages.push("@TempData["DuplicateMessage"]");</text>
-    }
+        // Check for different types of TempData messages
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>messages.push("@TempData["SuccessMessage"]");</text>
+        }
+        @if (TempData["InfoMessage"] != null)
+        {
+            <text>messages.push("@TempData["InfoMessage"]");</text>
+        }
+        @if (TempData["DuplicateMessage"] != null)
+        {
+            <text>messages.push("@TempData["DuplicateMessage"]");</text>
+        }
 
         // Display each message as an alert
         if (messages.length > 0) {
-        alert(messages.join('\n'));
+            alert(messages.join('\n'));
         }
     };
 </script>
 
-
 <script type="text/javascript">
-    window.onload = function() {
+    window.onload = function () {
         let messages = [];
 
-    @* Check for different types of TempData messages *@
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <text>messages.push("@TempData["SuccessMessage"]");</text>
-    }
-    @if (TempData["InfoMessage"] != null)
-    {
-        <text>messages.push("@TempData["InfoMessage"]");</text>
-    }
-    @if (TempData["DuplicateMessage"] != null)
-    {
-        <text>messages.push("@TempData["DuplicateMessage"]");</text>
-    }
+        // Check for different types of TempData messages
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>messages.push("@TempData["SuccessMessage"]");</text>
+        }
+        @if (TempData["InfoMessage"] != null)
+        {
+            <text>messages.push("@TempData["InfoMessage"]");</text>
+        }
+        @if (TempData["DuplicateMessage"] != null)
+        {
+            <text>messages.push("@TempData["DuplicateMessage"]");</text>
+        }
 
         // Display the messages if any exist
         if (messages.length > 0) {
-        alert(messages.join('\n'));
+            alert(messages.join('\n'));
         }
     };
 </script>

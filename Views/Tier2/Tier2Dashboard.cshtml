@@ -62,22 +62,17 @@
     <i class="bi bi-arrow-down-circle"></i>
 </button>
 
+<form asp-action="UploadFile" method="post" enctype="multipart/form-data" novalidate>
+    @Html.AntiForgeryToken()
 
-<!-- CSV Upload Form -->
-<div class="mb-4">
-    <form asp-action="UploadFile" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <!-- Wrap file input and upload button in a flexbox container -->
-            <label for="file">Upload CSV File(s):</label>
-            <div style="display: flex; align-items: center;">
-                <!-- File input field allowing multiple file uploads -->
-                <input type="file" name="files" class="form-control-file" multiple style="margin-right: 10px;" />
-                <!-- Button placed directly next to the file input field -->
-                <button type="submit" class="btn btn-custom-orange" style="height: auto;">Upload</button>
-            </div>
-        </div>
-    </form>
-</div>
+    <div class="form-group">
+        <label for="file">Upload CSV File(s):</label>
+        <input type="file" name="files" class="form-control-file" multiple />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Upload</button>
+</form>
+
 
 <div style="text-align: right; margin-bottom: 10px;">
     <a asp-controller="Tier2" asp-action="Create" style="color: #ac3e0b; font-weight: bold; text-decoration: none;">
@@ -307,6 +302,11 @@
 </style>
 
 <!-- JavaScript to Scroll to Bottom -->
+<button id="scrollToBottomButton" class="scroll-button" style="position: fixed; bottom: 20px; right: 20px;">
+    <i class="bi bi-arrow-down-circle"></i>
+</button>
+
+<!-- JavaScript to Scroll to Bottom -->
 <script>
     const scrollToBottomButton = document.getElementById('scrollToBottomButton');
 
@@ -318,7 +318,6 @@
         });
     });
 </script>
-
 
 <script type="text/javascript">
     window.onload = function () {
@@ -370,3 +369,5 @@
         }
     };
 </script>
+
+

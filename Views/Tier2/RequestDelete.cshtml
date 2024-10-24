@@ -24,7 +24,6 @@
     Are you sure you want to send a Request to delete this Inventory Item?
 </div>
 
-
 <!-- Inventory Item Details -->
 <table class="table-bordered">
     <tr>
@@ -42,58 +41,67 @@
 </table>
 
 <!-- Button Container -->
-<div class="button-container" style="margin-top: 20px;">
-    <form asp-action="SubmitDeleteRequest" method="post" style="display: inline;">
+<div class="button-container">
+    <form asp-action="SubmitDeleteRequest" method="post" class="inline-form">
         @Html.AntiForgeryToken()
         <input type="hidden" name="serialNumber" value="@Model.SerialNumber" />
         <button type="submit" class="btn btn-delete">Send Delete Request</button>
     </form>
-    <a asp-action="Tier2Dashboard" class="btn btn-custom-orange" style="margin-left: 10px;">No</a>
+    <a asp-action="Tier2Dashboard" class="btn btn-custom-orange">No</a>
 </div>
 
 <style>
+    /* Ensure the table and button container align properly */
     .table-bordered {
         width: 50%;
-        margin: 20px auto;
+        margin: 20px auto; /* Center the table horizontally */
         border-collapse: collapse;
     }
 
-    .table-bordered th, .table-bordered td {
-        padding: 10px;
-        border: 1px solid #ddd;
-    }
+        .table-bordered th, .table-bordered td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
 
-    .button-container {
+    .delete-warning {
         text-align: center;
+        margin-bottom: 10px;
     }
 
+    /* Button container styles to align below the table */
+    .button-container {
+        width: 50%; /* Match the width of the table */
+        margin: 20px auto; /* Center the button container horizontally */
+        display: flex;
+        justify-content: center; /* Center buttons horizontally */
+        align-items: center; /* Align items vertically */
+        gap: 5px; /* Ensure minimal space between buttons */
+    }
+
+    /* Ensure buttons do not have extra space around them */
+    .inline-form,
+    .btn-custom-orange {
+        display: inline-block;
+        margin: 0; /* Remove extra margins */
+    }
+
+    /* Button styling */
     .btn {
-        padding: 10px 20px;
-        font-size: 18px;
+        padding: 10px 15px;
+        font-size: 16px;
         border: none;
         cursor: pointer;
     }
 
-    .btn-warning {
-        background-color: #f0ad4e;
-        color: white;
+    .btn-delete {
+  
+        border-radius: 5px;
     }
 
-    .btn-secondary {
-        background-color: #6c757d;
-        color: white;
-    }
-
-    .delete-warning {
-        color: red; /* Red text color */
-        font-weight: bold; /* Bold for emphasis */
-        font-size: 24px; /* Larger font size */
-        text-align: center; /* Center the message */
-        margin-top: 20px; /* Space above the message */
-        margin-bottom: 20px; /* Space below the message */
-    }
+    .btn-custom-orange {
        
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+    }
 </style>
-
-
-
