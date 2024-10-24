@@ -21,7 +21,7 @@
     background-repeat: no-repeat; /* Prevent the image from repeating */
     background-attachment: fixed; /* Make the image fixed when scrolling */
     background-position: center; /* Center the image */
-    color: #fff; /* Optional: Set the text color to contrast with the background */
+    color: #ffffff; /* Optional: Set the text color to contrast with the background */
 }
 
 body, p, span, label, input, button {

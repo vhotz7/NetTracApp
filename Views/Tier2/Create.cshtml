@@ -98,8 +98,11 @@
 
         <!-- Input for back ordered -->
         <div class="form-group">
-            <label asp-for="BackOrdered" class="control-label">Back Ordered</label>
-            <input asp-for="BackOrdered" class="form-control" />
+            <label asp-for="BackOrdered" class="control-label custom-label">Back Ordered:</label>
+            <select asp-for="BackOrdered" class="form-control">
+                <option value="true">true</option>
+                <option value="false">false</option>
+            </select>
             <span asp-validation-for="BackOrdered" class="text-danger"></span>
         </div>
 
@@ -128,9 +131,9 @@
         </div>
 
         <!-- Checkbox for legacy device -->
-        <div class="form-group">
-            <label asp-for="LegacyDevice" class="control-label">Legacy Device</label>
-            <input asp-for="LegacyDevice" class="form-check-input" type="checkbox" />
+        <div class="form-group d-flex align-items-left">
+            <label asp-for="LegacyDevice" class="control-label mr-2">Legacy Device</label>
+            <input asp-for="LegacyDevice" class="form-check-input legacy-checkbox" type="checkbox" />
             <span asp-validation-for="LegacyDevice" class="text-danger"></span>
         </div>
 

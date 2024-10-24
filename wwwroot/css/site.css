@@ -317,12 +317,33 @@ table {
 
 
 .action-buttons-container {
-        display: flex;
-        justify-content: center; /* Centers the buttons horizontally */
-        align-items: center; /* Aligns the buttons vertically */
-        gap: 10px; /* Adds space between the buttons */
-        margin: 20px 0; /* Adds spacing above and below the container */
+    display: flex;
+    justify-content: center; /* Centers the buttons horizontally */
+    align-items: center; /* Aligns the buttons vertically */
+    gap: 10px; /* Adds space between the buttons */
+    margin: 20px 0; /* Adds spacing above and below the container */
+}
+.legacy-checkbox {
+    margin-left: 5px; /* Adjust as needed */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Center-align text within */
 
 
+}
 
+.delete-button-container {
+    margin-top: 20px;
+}
+
+.btn-delete {
+    padding: 10px 20px;
 }
