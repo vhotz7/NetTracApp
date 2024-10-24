@@ -19,6 +19,7 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(string username, string password)
     {
+        // Simulate login logic; replace with your authentication logic
         if (password == "pw")
         {
             var claims = new List<Claim> { new Claim(ClaimTypes.Name, username) };
@@ -37,9 +38,9 @@ public class LoginController : Controller
             }
         }
 
-        // If login fails, show error message and reload the login page
+        // If login fails, show the error message without redirecting
         ViewBag.Message = "Invalid username or password.";
-        return RedirectToAction("Index", "Login");
+        return View("~/Views/Home/Login.cshtml");
     }
 
     // Helper method to sign in the user
@@ -65,7 +66,7 @@ public class LoginController : Controller
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToAction("Index", "Login"); // Redirect to login page
+        return RedirectToAction("Index", "Login");
     }
 
     // Optional: GET version of Logout for use with anchor tags

@@ -46,7 +46,7 @@ namespace NetTracApp.Controllers
                 else
                 {
                     // If the user exists but doesn't belong to any role, redirect to AccessDenied
-                    return RedirectToAction("AccessDenied", "Login");
+                    return RedirectToAction("Login", "Index");
                 }
             }
 

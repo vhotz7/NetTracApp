@@ -287,7 +287,7 @@ th, td {
 }
 
 .toggle-button {
-    width: 40px;
+    width: 50px;
     height: 20px;
     background-color: #ddd; /* default color when off */
     border: none;
