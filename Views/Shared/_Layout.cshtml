@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,19 +11,43 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" />
-
-    <!-- Site-wide custom styles (site.css) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
-    <!-- Custom styles for NetTracApp -->
     <link rel="stylesheet" href="~/css/NetTracApp.styles.css" asp-append-version="true" />
 </head>
-<body>
 
-    
+
+<body>
+    <div class="top-border" style="background-color: #970000; color: #ffff00; height: 80px; border-radius: 8px; margin: 20px auto; padding-left: 20px; display: flex; align-items: center; position: relative; max-width: 100%; width: 1320px;">
+        <!-- Left Side: Static Circle and Background Text -->
+        <span class="background-text" style="font-size: 70px; font-family: Impact;">NetTrac</span>
+
+        <span id="circle" style="background: black; border-radius: 50%; width: 75px; height: 75px; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"></span>
+
+        <!-- Centered Text: Changes Based on View -->
+        <span class="centered-text" style="margin: 0 auto; font-size: 45px; font-family: Impact; color: #ffffff;">
+            @ViewData["CenteredText"]
+        </span>
+
+        <!-- Right Side: Home and Logout Buttons -->
+        <div class="icons"
+             style="display: flex; align-items: center; gap: 15px; margin-right: 30px;">
+
+            <!-- Home Button -->
+            <a href="@ViewData["HomeLink"]"
+               style="text-decoration: none; color: white; display: flex; align-items: center;">
+                <i class="bi bi-house-door" style="font-size: 2rem;"></i>
+            </a>
+
+            <!-- Logout Button -->
+            <a href="@Url.Action("LogoutViaLink", "Login")"
+               style="display: flex; align-items: center; text-decoration: none; color: white;">
+                <i class="bi bi-box-arrow-right" style="font-size: 2rem;"></i>
+            </a>
+
+        </div>
+    </div>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -28,10 +56,9 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            2024 - NetTracApp - <a asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+            &copy; 2024 - NetTracApp - <a asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
         </div>
     </footer>
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -39,4 +66,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-

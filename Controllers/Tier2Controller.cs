@@ -9,9 +9,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NetTracApp.Controllers
 {
+    [Authorize(Roles = "Tier2")]
     public class Tier2Controller : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -36,11 +38,12 @@ namespace NetTracApp.Controllers
 
             var itemList = await items.ToListAsync();
 
-            ViewBag.TotalItems = itemList.Count; // Pass the total item count to the view
-            ViewBag.UserType = "T2"; // Assuming the logged-in user is T2. Adjust as needed.
+            ViewBag.TotalItems = itemList.Count; // Pass the total count to the view
+            ViewBag.UserType = "T2";
 
             return View(itemList);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -57,8 +60,8 @@ namespace NetTracApp.Controllers
 
             int totalNewRecords = 0;
             int skippedRecords = 0;
-            var duplicateSerialNumbers = new List<string>();
-            var uniqueItems = new HashSet<string>(); // Track unique rows to prevent duplicates within the CSV
+            var duplicateRecords = new List<string>();
+            var invalidDateRecords = new List<string>();
 
             foreach (var file in files)
             {
@@ -89,46 +92,37 @@ namespace NetTracApp.Controllers
 
                     foreach (var item in inventoryItems)
                     {
-                        // Check for duplicate entries within the same CSV based on SerialNumber
-                        if (!uniqueItems.Add(item.SerialNumber))
-                        {
-                            skippedRecords++; // Skip duplicate rows in the CSV itself
-                            continue;
-                        }
-
-                        // Validate required fields
+                        // Check if SerialNumber and Vendor are present
                         if (string.IsNullOrWhiteSpace(item.SerialNumber) || string.IsNullOrWhiteSpace(item.Vendor))
                         {
-                            skippedRecords++; // Skip rows with missing fields
+                            skippedRecords++;
                             continue;
                         }
 
-                        // Validate dates; leave blank if invalid
-                        if (!DateTime.TryParse(item.DateReceived.ToString(), out DateTime dateReceived))
-                            item.DateReceived = null;
+                        // Check if the date is valid
+                        if (item.DateReceived == default || item.Modified == default || item.Created == default)
+                        {
+                            invalidDateRecords.Add(item.SerialNumber);
+                            skippedRecords++;
+                            continue;
+                        }
 
-                        if (!DateTime.TryParse(item.Created.ToString(), out DateTime created))
-                            item.Created = DateTime.Now;
-
-                        if (!DateTime.TryParse(item.Modified.ToString(), out DateTime modified))
-                            item.Modified = DateTime.Now;
-
-                        // Check for duplicates in the database
-                        bool isDuplicateInDb = await _context.InventoryItems
+                        // Check for duplicate SerialNumber
+                        bool isDuplicate = await _context.InventoryItems
                             .AnyAsync(e => e.SerialNumber == item.SerialNumber);
 
-                        if (isDuplicateInDb)
+                        if (isDuplicate)
                         {
-                            duplicateSerialNumbers.Add(item.SerialNumber);
+                            duplicateRecords.Add(item.SerialNumber); // Track duplicate SNs
                             continue;
                         }
 
-                        // Add valid item to the database
+                        // Add the valid item to the database
                         _context.InventoryItems.Add(item);
                         totalNewRecords++;
                     }
 
-                    await _context.SaveChangesAsync(); // Save all new items
+                    await _context.SaveChangesAsync(); // Save all new items at once
                 }
                 catch (Exception ex)
                 {
@@ -136,16 +130,17 @@ namespace NetTracApp.Controllers
                 }
             }
 
-            // Display results
+            // Display messages for skipped and duplicate records
             TempData["SuccessMessage"] = $"{totalNewRecords} new items uploaded successfully.";
             if (skippedRecords > 0)
-                TempData["InfoMessage"] = $"{skippedRecords} rows were skipped due to duplicates or missing data.";
-            if (duplicateSerialNumbers.Any())
-                TempData["DuplicateMessage"] = $"Duplicate Serial Numbers: {string.Join(", ", duplicateSerialNumbers)}";
+                TempData["InfoMessage"] = $"{skippedRecords} rows were skipped due to missing fields or invalid data.";
+            if (duplicateRecords.Any())
+                TempData["DuplicateMessage"] = $"Duplicate Serial Numbers: {string.Join(", ", duplicateRecords)}";
+            if (invalidDateRecords.Any())
+                TempData["DateErrorMessage"] = $"Invalid Dates found for: {string.Join(", ", invalidDateRecords)}";
 
             return RedirectToAction(nameof(Tier2Dashboard));
         }
-
 
 
 
@@ -190,16 +185,16 @@ namespace NetTracApp.Controllers
         // GET: Display the Request Delete page
         [HttpGet]
         public IActionResult RequestDelete(string serialNumber)
-{
-    var inventoryItem = _context.InventoryItems.FirstOrDefault(i => i.SerialNumber == serialNumber);
-    if (inventoryItem == null)
-    {
-        TempData["ErrorMessage"] = "Item not found.";
-        return RedirectToAction(nameof(Tier2Dashboard));
-    }
+        {
+            var inventoryItem = _context.InventoryItems.FirstOrDefault(i => i.SerialNumber == serialNumber);
+            if (inventoryItem == null)
+            {
+                TempData["ErrorMessage"] = "Item not found.";
+                return RedirectToAction(nameof(Tier2Dashboard));
+            }
 
-    return View(inventoryItem);
-}
+            return View(inventoryItem);
+        }
 
 
         [HttpPost]

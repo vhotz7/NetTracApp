@@ -1,47 +1,78 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace NetTracApp.Controllers
+public class LoginController : Controller
 {
-    public class LoginController : Controller
+    // GET: /Login/Index
+    [HttpGet]
+    public IActionResult Index()
     {
-        [HttpGet]
-        public IActionResult Index()
+        // Render the Login view from /Views/Home/Login.cshtml
+        return View("~/Views/Home/Login.cshtml");
+    }
+
+    // POST: /Login/Login
+    [HttpPost]
+    public async Task<IActionResult> Login(string username, string password)
+    {
+        if (password == "pw")
         {
-            // Specify the path to the Login.cshtml view in the Home folder
-            return View("~/Views/Home/Login.cshtml");
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, username) };
+
+            if (username == "t2")
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "Tier2"));
+                await SignInUser(claims);
+                return RedirectToAction("Tier2Dashboard", "Tier2");
+            }
+            else if (username == "t3")
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "Tier3"));
+                await SignInUser(claims);
+                return RedirectToAction("Tier3Dashboard", "Tier3");
+            }
         }
 
-        [HttpPost]
-        public IActionResult Login(string username, string password)
+        // If login fails, show error message and reload the login page
+        ViewBag.Message = "Invalid username or password.";
+        return RedirectToAction("Index", "Login");
+    }
+
+    // Helper method to sign in the user
+    private async Task SignInUser(List<Claim> claims)
+    {
+        var claimsIdentity = new ClaimsIdentity(
+            claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        var authProperties = new AuthenticationProperties
         {
-            // Check if the password is correct
-            if (password == "pw")
-            {
-                // Check if the username is "tier2"
-                if (username == "t2")
-                {
-                    // Redirect to Tier 2 dashboard or operations
-                    return RedirectToAction("Tier2Dashboard", "Tier2");
-                }
-                // Check if the username is "t3" for Tier 3
-                else if (username == "t3")
-                {
-                    // Redirect to Tier 3 operations - Approve Deletions
-                    return RedirectToAction("Tier3Dashboard", "Tier3");
-                }
-                else
-                {
-                    // Invalid username
-                    ViewBag.Message = "Invalid username.";
-                    return View("~/Views/Home/Login.cshtml");
-                }
-            }
-            else
-            {
-                // Invalid password
-                ViewBag.Message = "Invalid password.";
-                return View("~/Views/Home/Login.cshtml");
-            }
-        }
+            IsPersistent = true, // Keeps the user signed in
+            ExpiresUtc = DateTimeOffset.UtcNow.AddDays(30) // Cookie expiration
+        };
+
+        await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity),
+            authProperties);
+    }
+
+    // POST: /Login/Logout
+    [HttpPost]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Index", "Login"); // Redirect to login page
+    }
+
+    // Optional: GET version of Logout for use with anchor tags
+    [HttpGet]
+    public async Task<IActionResult> LogoutViaLink()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Index", "Login");
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using NetTracApp.Data;
 using NetTracApp.Models;
-using NetTracApp.Services;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -26,14 +25,15 @@ namespace NetTracApp.Controllers
             _userManager = userManager;
         }
 
-        [Authorize] // Ensure only authenticated users access this action
+        // Ensure only authenticated users can access this action
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
 
             if (user != null)
             {
-                // Check the user role and redirect accordingly
+                // Check the user's role and redirect accordingly
                 if (await _userManager.IsInRoleAsync(user, "Tier2"))
                 {
                     return RedirectToAction("Tier2Dashboard", "Tier2");
@@ -42,18 +42,32 @@ namespace NetTracApp.Controllers
                 {
                     return RedirectToAction("ApproveDeletions", "Tier3");
                 }
+
+                else
+                {
+                    // If the user exists but doesn't belong to any role, redirect to AccessDenied
+                    return RedirectToAction("AccessDenied", "Login");
+                }
             }
 
-            // Redirect to login if no user is found
-            return RedirectToAction("Index", "Login");
+            // Redirect to the Login page if no user is authenticated
+            return RedirectToAction("Login");
         }
 
+        // Render the Login view from /Views/Home/Login.cshtml
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View("Login"); // Render the Login view directly
+        }
 
+        // About Us page
         public IActionResult AboutUs()
         {
             return View();
         }
 
+        // Error page
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -11,9 +11,11 @@ using Microsoft.AspNetCore.Http;
 using CsvHelper.Configuration;
 using CsvHelper;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NetTracApp.Controllers
 {
+    [Authorize(Roles = "Tier3")]
     public class Tier3Controller : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -163,7 +165,7 @@ namespace NetTracApp.Controllers
 
             var items = await itemsQuery.ToListAsync(); // Execute query and get the items
             ViewBag.TotalItems = items.Count; // Pass total item count to the view
-            ViewBag.UserType = "T3"; // Assume T3 user for this dashboard
+            ViewBag.UserType = "T3";
 
             // Use ViewData to pass additional data to the view
             ViewData["PendingDeletionsCount"] = pendingDeletionsCount;

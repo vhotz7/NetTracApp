@@ -1,29 +1,21 @@
 @model NetTracApp.Models.InventoryItem
 
+
+
+
+@{
+    ViewData["Title"] = "RequestDelete";
+    ViewData["CenteredText"] = "Request Deletion";
+    ViewData["HomeLink"] = Url.Action("Tier2Dashboard", "Tier2");
+}
+
+
 <head>
     <!-- Site-wide custom styles (site.css) -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 
-<!-- Header -->
-<div class="top-border">
-    <span class="background-text">NetTrac</span>
 
-    <span id="circle"></span>
-
-    <span class="centered-text">Request Deletion</span>
-
-    <span class="icons" style="display: flex; align-items: center; margin-right: 30px;">
-        <a href="@Url.Action("Tier2Dashboard", "Tier2")"
-           style="margin-right: 20px; text-decoration: none; color: white;">
-            <i class="bi bi-house-door" style="font-size: 2.5rem;"></i>
-        </a>
-        <a href="@Url.Action("Index", "Login")"
-           style="text-decoration: none; color: white;">
-            <i class="bi bi-box-arrow-right" style="font-size: 2.5rem;"></i>
-        </a>
-    </span>
-</div>
 
 
 

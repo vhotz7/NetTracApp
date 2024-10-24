@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Create Inventory Item";
+    ViewData["CenteredText"] = "Create Inventory Item";
+    ViewData["HomeLink"] = Url.Action("Tier3Dashboard", "Tier3");
 }
 
 <head>
@@ -10,25 +12,6 @@
 </head>
 
 
-<div class="top-border">
-    <!-- background text "NetTrac" -->
-    <span class="background-text">NetTrac</span>
-
-    <span id="circle"></span>
-
-    <!-- Centered Text "IT Network Tracker" -->
-    <span class="centered-text">Create New Item</span>
-
-    <!-- Home and Login Icons -->
-    <span class="icons" style="display: flex; align-items: center; margin-right: 30px;">
-        <a href="@Url.Action("Tier3Dashboard", "Tier3")" style="margin-right: 20px; text-decoration: none; color: white;">
-            <i class="bi bi-house-door" style="font-size: 2.5rem;"></i>
-        </a>
-        <a href="@Url.Action("Index", "Login")" style="text-decoration: none; color: white;">
-            <i class="bi bi-box-arrow-right" style="font-size: 2.5rem;"></i>
-        </a>
-    </span>
-</div>
 
 
 

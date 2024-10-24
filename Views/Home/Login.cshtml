@@ -1,29 +1,15 @@
-@{
+
+    @{
     ViewData["Title"] = "Login Page";
-}
+    ViewData["CenteredText"] = "Login";
+    ViewData["HomeLink"] = Url.Action("Login", "Home");
+    }
+
 
 <head>
     <!-- Site-wide custom styles (site.css) -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-
-<div class="top-border">
-    <!-- background text "NetTrac" -->
-    <span class="background-text">NetTrac</span>
-
-    <span id="circle"></span>
-
-    <!-- Centered Text "IT Network Tracker" -->
-    <span class="centered-text">Login</span>
-
-    <!-- Home and Login Icons -->
-    <span class="icons" style="display: flex; align-items: center; margin-right: 30px;">
-       
-        <a href="@Url.Action("Index", "Login")" style="text-decoration: none; color: white;">
-            <i class="bi bi-person" style="font-size: 2.5rem;"></i>
-        </a>
-    </span>
-</div>
 
 
 <form method="post" action="/Login/Login" class="login-form">
@@ -45,6 +31,6 @@
 
 @if (ViewBag.Message != null)
 {
-    <p style="color:red;">@ViewBag.Message</p>
+<p style="color:red;">@ViewBag.Message</p>
 }
 

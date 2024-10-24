@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Tier2Dashboard";
+    ViewData["CenteredText"] = "IT Network Tracker";
+    ViewData["HomeLink"] = Url.Action("Tier2Dashboard", "Tier2");
 }
 
 <head>
@@ -9,25 +11,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 
-<div class="top-border">
-    <!-- background text "NetTrac" -->
-    <span class="background-text">NetTrac</span>
 
-    <span id="circle"></span>
-
-    <!-- Centered Text "IT Network Tracker" -->
-    <span class="centered-text">IT Network Tracker</span>
-
-    <!-- Home and Login Icons -->
-    <span class="icons" style="display: flex; align-items: center; margin-right: 30px;">
-        <a href="@Url.Action("Tier2Dashboard", "Tier2")" style="margin-right: 20px; text-decoration: none; color: white;">
-            <i class="bi bi-house-door" style="font-size: 2.5rem;"></i>
-        </a>
-        <a href="@Url.Action("Index", "Login")" style="text-decoration: none; color: white;">
-            <i class="bi bi-box-arrow-right" style="font-size: 2.5rem;"></i>
-        </a>
-    </span>
-</div>
 
 
 <div class="search-border">
